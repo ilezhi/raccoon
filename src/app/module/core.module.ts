@@ -1,6 +1,7 @@
 import { NgModule }     from '@angular/core';
 import { FormsModule }  from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 
 // 第三方模块
 import { NgZorroAntdModule, NzMessageService } from 'ng-zorro-antd';
@@ -14,6 +15,7 @@ import { HeaderComponent } from 'src/app/layout/header/header.component';
   imports: [
     FormsModule,
     BrowserAnimationsModule,
+    RouterModule,
     NgZorroAntdModule
   ],
   declarations: [
