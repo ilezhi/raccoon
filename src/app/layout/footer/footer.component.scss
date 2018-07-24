@@ -1,0 +1,17 @@
+@import 'src/assets/sass/variable';
+
+footer {
+  border-top: 1px solid #eee;
+  height: $footer-height;
+  overflow: hidden;
+}
+
+.inner {
+  width: 1000px;
+  margin: 0 auto;
+  padding: 8px 0;
+}
+
+p {
+  font-size: 12px;
+}

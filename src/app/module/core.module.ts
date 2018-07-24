@@ -1,19 +1,32 @@
 import { NgModule }     from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule }  from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// 第三方模块
 import { NgZorroAntdModule, NzMessageService } from 'ng-zorro-antd';
+
+// 自定义组件
+import { BodyComponent }   from 'src/app/layout/body/body.component';
+import { FooterComponent } from 'src/app/layout/footer/footer.component';
+import { HeaderComponent } from 'src/app/layout/header/header.component';
 
 @NgModule({
   imports: [
-    CommonModule,
     FormsModule,
+    BrowserAnimationsModule,
     NgZorroAntdModule
   ],
+  declarations: [
+    HeaderComponent,
+    BodyComponent,
+    FooterComponent
+  ],
   exports: [
-    CommonModule,
     FormsModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    HeaderComponent,
+    BodyComponent,
+    FooterComponent
   ],
   providers: [
     NzMessageService
