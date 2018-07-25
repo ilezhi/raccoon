@@ -7,9 +7,9 @@ import { RouterModule } from '@angular/router';
 import { NgZorroAntdModule, NzMessageService } from 'ng-zorro-antd';
 
 // 自定义组件
-import { BodyComponent }   from 'src/app/layout/body/body.component';
-import { FooterComponent } from 'src/app/layout/footer/footer.component';
-import { HeaderComponent } from 'src/app/layout/header/header.component';
+import { BodyComponent }   from '../layout/body/body.component';
+import { FooterComponent } from '../layout/footer/footer.component';
+import { HeaderComponent } from '../layout/header/header.component';
 
 @NgModule({
   imports: [

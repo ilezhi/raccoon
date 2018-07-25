@@ -1,0 +1,30 @@
+.toolbar {
+  display: flex;
+
+  li {
+    padding: 0 2px;
+  
+    &.divider:before {
+      content: "";
+      width: 1px;
+      height: 20px;
+      display: inline-block;
+      background: #ccc;
+      margin: 0 4px;
+    }
+  }
+  
+  button {
+    width: 26px;
+    height: 26px;
+    border: none;
+    outline: none;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+  
+    &:hover {
+      background: #eee;
+    }
+  }
+}
