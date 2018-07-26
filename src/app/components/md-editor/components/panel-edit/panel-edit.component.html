@@ -1,4 +1,4 @@
-<div class="editor-wrapper">
-  <textarea #md class="textarea" [(ngModel)]="data">
+<div class="markdown-text">
+  <textarea #md class="textarea" [(ngModel)]="data" (ngModelChange)="onTextChange()">
   </textarea>
 </div>

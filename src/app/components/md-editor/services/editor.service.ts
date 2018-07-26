@@ -16,6 +16,10 @@ export class EditorService {
     this.toolbar.next(item);
   }
 
+  updateText(value: string) {
+    this.data.next({value});
+  }
+
   // 生成插入后的内容, 并广播.
   insertText(selection: SelectedText, item: ToolbarItem, value: string) {
     const { prefix, subfix, text } = item;

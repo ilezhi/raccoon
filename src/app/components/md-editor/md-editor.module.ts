@@ -6,6 +6,7 @@ import { PanelViewComponent }     from './components/panel-view/panel-view.compo
 import { ToolbarLeftComponent }   from './components/toolbar-left/toolbar-left.component';
 import { ToolbarRightComponent }  from './components/toolbar-right/toolbar-right.component';
 import { MdEditorComponent }      from './md-editor.component';
+import { Pretty }                 from './pipes/pretty.pipe';
 import { EditorService }          from './services/editor.service';
 
 @NgModule({
@@ -17,7 +18,8 @@ import { EditorService }          from './services/editor.service';
     ToolbarLeftComponent,
     ToolbarRightComponent,
     PanelEditComponent,
-    PanelViewComponent
+    PanelViewComponent,
+    Pretty
   ],
   exports: [
     MdEditorComponent

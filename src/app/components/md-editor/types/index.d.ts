@@ -12,3 +12,5 @@ declare class SelectedText {
   start: number;
   end: number;
 }
+
+declare var prettyPrint;

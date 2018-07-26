@@ -1,7 +1,7 @@
 import { NgModule }     from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MdEditorModule  } from 'src/app/components/md-editor/md-editor.module';
+import { MdEditorModule  } from '../../components/md-editor/md-editor.module';
 import { TopicRoutingModule } from './topic-routing.module';
 import { TopicComponent } from './topic.component';
 

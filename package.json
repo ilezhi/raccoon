@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "code-prettify": "^0.1.0",
     "core-js": "^2.5.4",
     "markdown-it": "^8.4.2",
     "material-design-icons": "^3.0.1",
