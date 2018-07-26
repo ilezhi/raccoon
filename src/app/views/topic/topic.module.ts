@@ -1,14 +1,14 @@
 import { NgModule }     from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SharedModule } from '../../module/shared.module';
+import { MdEditorModule  } from 'src/app/components/md-editor/md-editor.module';
 import { TopicRoutingModule } from './topic-routing.module';
 import { TopicComponent } from './topic.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
+    MdEditorModule,
     TopicRoutingModule
   ],
   declarations: [TopicComponent]

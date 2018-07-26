@@ -1,0 +1,26 @@
+@import "../../assets/sass/style";
+
+.toolbar > li:hover .dropdown {
+  display: block;
+}
+
+.dropdown {
+  display: none;
+  width: 90px;
+  position: absolute;
+  margin: 0 0 0 -30px;
+  background: #fff;
+  box-shadow: 0 0px 4px rgba(0,0,0,0.157), 0 0px 4px rgba(0,0,0,0.227);
+  transition: all 0.2s linear 0s;
+
+  li {
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+      background: #eee;
+    }
+  }
+}

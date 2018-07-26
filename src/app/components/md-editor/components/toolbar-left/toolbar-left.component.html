@@ -1,11 +1,11 @@
 <ul class="toolbar">
   <li>
-    <button title="粗体">
+    <button title="粗体" (click)="onClick('bold')">
       <i class="icon">format_bold</i>
     </button>
   </li>
   <li>
-    <button title="斜体">
+    <button title="斜体" (click)="onClick('italic')">
       <i class="icon">format_italic</i>
     </button>
   </li>
@@ -13,89 +13,97 @@
     <button title="标题">
       <i class="icon">title</i>
     </button>
+    <ul class="dropdown">
+      <li (click)="onClick('header1')">一级标题</li>
+      <li (click)="onClick('header2')">二级标题</li>
+      <li (click)="onClick('header3')">三级标题</li>
+      <li (click)="onClick('header4')">四级标题</li>
+      <li (click)="onClick('header5')">五级标题</li>
+      <li (click)="onClick('header6')">六级标题</li>
+    </ul>
   </li>
-  <li class="divider">
+  <li class="divider" (click)="onClick('underline')">
     <button title="下划线">
       <i class="icon">format_underlined</i>
     </button>
   </li>
   <li>
-    <button title="中划线">
+    <button title="中划线" (click)="onClick('strikethrough')">
       <i class="icon">strikethrough_s</i>
     </button>
   </li>
   <li>
-    <button title="标记">
+    <button title="标记" (click)="onClick('mark')">
       <i class="icon">bookmark</i>
     </button>
   </li>
   <li>
-    <button title="居左">
+    <button title="居左" (click)="onClick('alignleft')">
       <i class="icon">format_align_left</i>
     </button>
   </li>
   <li>
-    <button title="居中">
+    <button title="居中" (click)="onClick('aligncenter')">
       <i class="icon">format_align_center</i>
     </button>
   </li>
   <li>
-    <button title="居右">
+    <button title="居右" (click)="onClick('alignright')">
       <i class="icon">format_align_right</i>
     </button>
   </li>
-  <li class="divider">
+  <li class="divider" (click)="onClick('quote')">
     <button title="段落引用">
       <i class="icon">format_quote</i>
     </button>
   </li>
   <li>
-    <button title="有序列表">
+    <button title="有序列表" (click)="onClick('ol')">
       <i class="icon">format_list_numbered</i>
     </button>
   </li>
   <li>
-    <button title="无序列表">
+    <button title="无序列表" (click)="onClick('ul')">
       <i class="icon">format_list_bulleted</i>
     </button>
   </li>
-  <li class="divider">
+  <li class="divider" (click)="onClick('link')">
     <button title="链接">
       <i class="icon">insert_link</i>
     </button>
   </li>
   <li>
-    <button title="图片">
+    <button title="图片" (click)="onClick('imageLink')">
       <i class="icon">insert_photo</i>
     </button>
   </li>
   <li>
-    <button title="代码块">
+    <button title="代码块" (click)="onClick('code')">
       <i class="icon">code</i>
     </button>
   </li>
   <li>
-    <button title="表格">
+    <button title="表格" (click)="onClick('table')">
       <i class="icon">grid_on</i>
     </button>
   </li>
-  <li class="divider">
+  <li class="divider" (click)="onClick('undo')">
     <button title="上一步">
       <i class="icon">undo</i>
     </button>
   </li>
   <li>
-    <button title="下一步">
+    <button title="下一步" (click)="onClick('redo')">
       <i class="icon">redo</i>
     </button>
   </li>
   <li>
-    <button title="删除">
+    <button title="删除" (click)="onClick('trash')">
       <i class="icon">delete_forever</i>
     </button>
   </li>
   <li>
-    <button title="保存">
+    <button title="保存" (click)="onClick('save')">
       <i class="icon">save</i>
     </button>
   </li>

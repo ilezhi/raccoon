@@ -1,9 +1,9 @@
 <div class="md-editor">
   <div class="toolbar">
-    <app-toolbar-left></app-toolbar-left>
+    <app-toolbar-left (toolbarClick)="onInsert($event)"></app-toolbar-left>
     <app-toolbar-right></app-toolbar-right>
   </div>
-  <div class="pane">
+  <div class="panel">
     <app-panel-edit></app-panel-edit>
     <app-panel-view></app-panel-view>
   </div>
