@@ -14,15 +14,15 @@
       <i class="icon">visibility_off</i>
     </button>
   </li>
-  <li>
-    <button title="全屏">
+  <li (click)="onToggleFullscreen()">
+    <button *ngIf="!fullscreen; else elseBlock" title="全屏">
       <i class="icon">fullscreen</i>
     </button>
-  </li>
-  <li>
-    <button title="退出全屏">
-      <i class="icon">fullscreen_exit</i>
-    </button>
+    <ng-template #elseBlock>
+      <button title="退出全屏">
+        <i class="icon">fullscreen_exit</i>
+      </button>
+    </ng-template>
   </li>
   <li>
     <button title="沉浸式阅读">

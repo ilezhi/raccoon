@@ -1,4 +1,5 @@
 import { NgModule }     from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule }  from '@angular/forms';
 
 import { PanelEditComponent }     from './components/panel-edit/panel-edit.component';
@@ -11,6 +12,7 @@ import { EditorService }          from './services/editor.service';
 
 @NgModule({
   imports: [
+    CommonModule,
     FormsModule
   ],
   declarations: [

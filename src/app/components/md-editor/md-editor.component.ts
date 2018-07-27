@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PanelEditComponent } from './components/panel-edit/panel-edit.component';
+import { EditorService } from './services/editor.service';
 
 @Component({
   selector: 'app-md-editor',
@@ -8,13 +9,19 @@ import { PanelEditComponent } from './components/panel-edit/panel-edit.component
 })
 export class MdEditorComponent implements OnInit {
   text = 'abc';
+  fullscreen = false;
 
-  constructor() { }
+  constructor(
+    private editorService: EditorService
+  ) { }
 
   ngOnInit() {
+    const { toggleFullscreen } = this;
+    this.editorService.fullscreen$
+      .subscribe(toggleFullscreen.bind(this))
   }
 
-  onInsert(text) {
-    
+  toggleFullscreen(isFull: boolean) {
+    this.fullscreen = isFull;
   }
 }

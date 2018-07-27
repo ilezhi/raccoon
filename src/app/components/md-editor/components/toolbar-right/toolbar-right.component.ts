@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EditorService } from '../../services/editor.service';
 
 @Component({
   selector: 'app-toolbar-right',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./toolbar-right.component.scss']
 })
 export class ToolbarRightComponent implements OnInit {
+  fullscreen = false;
 
-  constructor() { }
+  constructor(
+    private editorService: EditorService
+  ) { }
 
   ngOnInit() {
   }
 
+  onToggleFullscreen() {
+    let fullscreen = !this.fullscreen;
+    this.fullscreen = fullscreen;
+    this.editorService.toggleFullscreen(fullscreen);
+  }
 }

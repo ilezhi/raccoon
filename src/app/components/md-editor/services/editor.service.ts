@@ -5,9 +5,11 @@ import { Subject } from 'rxjs';
 export class EditorService {
   private toolbar = new Subject<ToolbarItem>();
   private data = new Subject<any>();
+  private fullscreen = new Subject<boolean>();
 
   toolbar$ = this.toolbar.asObservable();
   data$ = this.data.asObservable();
+  fullscreen$ = this.fullscreen.asObservable();
 
   constructor() {}
 
@@ -18,6 +20,10 @@ export class EditorService {
 
   updateText(value: string) {
     this.data.next({value});
+  }
+
+  toggleFullscreen(value: boolean) {
+    this.fullscreen.next(value);
   }
 
   // 生成插入后的内容, 并广播.
