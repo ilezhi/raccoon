@@ -14,10 +14,17 @@ const option = {
 const MD = markdown(option);
 
 MD.renderer.rules.fence = function (tokens, idx) {
-  var token    = tokens[idx];
-  var language = token.info && ('language-' + token.info) || '';
+  const token    = tokens[idx];
+  const language = token.info && ('language-' + token.info) || '';
+  
+  // 代码块有内容, 则高亮代码.
+  if (token.content) {
+    setTimeout(() => {
+      prettyPrint();
+    }, 0);
+  }
 
-  return '<pre class="prettyprint ' + language + '">'
+  return '<pre class="prettyprint ' + language + ' linenums">'
     + '<code>' + token.content + '</code>'
     + '</pre>';
 };
