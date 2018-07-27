@@ -16,9 +16,20 @@ export class ToolbarRightComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * 网页全屏
+   */
   onToggleFullscreen() {
     let fullscreen = !this.fullscreen;
     this.fullscreen = fullscreen;
     this.editorService.toggleFullscreen(fullscreen);
+  }
+
+  /**
+   * F11效果全屏
+   */
+  onFullscreen() {
+    const $panel = document.querySelector('.md-editor .panel');
+    $panel.webkitRequestFullscreen();
   }
 }
