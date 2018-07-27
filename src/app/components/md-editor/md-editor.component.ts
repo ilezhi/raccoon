@@ -1,51 +1,48 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
-import { PanelEditComponent } from './components/panel-edit/panel-edit.component';
-import { EditorService } from './services/editor.service';
 
+import { EditorService } from './services/editor.service';
+import { slidePanel } from './animations/slide-panel';
 @Component({
   selector: 'app-md-editor',
   templateUrl: './md-editor.component.html',
   styleUrls: ['./md-editor.component.scss'],
-  animations: [
-    trigger('state', [
-      state('edit', style({
-        width: '0%'
-      })),
-      state('preview', style({
-        width: '50%'
-      })),
-      transition('preview <=> edit', animate('300ms ease-in'))
-    ])
-  ]
+  animations: slidePanel
 })
 export class MdEditorComponent implements OnInit {
   text = 'abc';
   fullscreen = false;
-  viewState = 'preview';
+  preview = 'preview';
 
   constructor(
     private editorService: EditorService
   ) { }
 
   ngOnInit() {
-    const { toggleFullscreen } = this;
+    const { toggleFullscreen$, toggleLayout$ } = this;
     // 订阅全屏切换
     this.editorService.fullscreen$
-      .subscribe(toggleFullscreen.bind(this))
+      .subscribe(toggleFullscreen$.bind(this))
     
     // 订阅预览切换
-    this.editorService.preview$
-      .subscribe(state => this.viewState = state);
+    this.editorService.layout$
+      .subscribe(toggleLayout$.bind(this));
   }
 
-  toggleFullscreen(isFull: boolean) {
+  toggleFullscreen$(isFull: boolean) {
     this.fullscreen = isFull;
+  }
+
+  toggleLayout$(layout: Layout) {
+    const { panel, preview } = layout;
+
+    let state = 'preview';
+    if (panel) {
+      // 单栏
+      state = preview ? 'full' : 'edit';
+    } else {
+      state = preview ? 'preview' : 'edit';
+    }
+
+    this.preview = state;
   }
 }

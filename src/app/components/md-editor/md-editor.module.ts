@@ -7,6 +7,8 @@ import { PanelViewComponent }     from './components/panel-view/panel-view.compo
 import { ToolbarLeftComponent }   from './components/toolbar-left/toolbar-left.component';
 import { ToolbarRightComponent }  from './components/toolbar-right/toolbar-right.component';
 import { MdEditorComponent }      from './md-editor.component';
+import { LayoutTip }              from './pipes/layout-tip.pipe';
+import { ParseMD }                from './pipes/parse-md.pipe';
 import { Pretty }                 from './pipes/pretty.pipe';
 import { EditorService }          from './services/editor.service';
 
@@ -21,6 +23,8 @@ import { EditorService }          from './services/editor.service';
     ToolbarRightComponent,
     PanelEditComponent,
     PanelViewComponent,
+    LayoutTip,
+    ParseMD,
     Pretty
   ],
   exports: [

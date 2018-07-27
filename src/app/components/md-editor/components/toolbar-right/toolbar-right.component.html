@@ -5,11 +5,11 @@
     </button>
   </li>
   <li (click)="onTogglePreview()">
-    <button *ngIf="viewState === 'preview'; else elseEdit" title="预览">
+    <button *ngIf="!preview; else elseEdit" title="预览">
       <i class="icon">visibility</i>
     </button>
     <ng-template #elseEdit>
-      <button title="编辑">
+      <button title="编辑" class="active">
         <i class="icon">visibility_off</i>
       </button>
     </ng-template>
@@ -30,7 +30,11 @@
     </button>
   </li>
   <li>
-    <button title="双栏">
+    <button
+      class="rotate"
+      [class.active]="!panel"
+      [title]="panel | layoutTip"
+      (click)="onTogglePanel()">
       <i class="icon">view_stream</i>
     </button>
   </li>

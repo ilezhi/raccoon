@@ -22,7 +22,8 @@
     padding: 4px;
     border-radius: 4px;
     cursor: pointer;
-  
+    
+    &.active,
     &:hover {
       background: #eee;
     }

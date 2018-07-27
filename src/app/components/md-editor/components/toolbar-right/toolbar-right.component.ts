@@ -8,7 +8,8 @@ import { EditorService } from '../../services/editor.service';
 })
 export class ToolbarRightComponent implements OnInit {
   fullscreen = false;
-  viewState = 'preview';
+  preview = 1;   // 0: 不显示预览; 1: 显示预览 
+  panel = 0;     // 0: 双栏; 1: 单栏
 
   constructor(
     private editorService: EditorService
@@ -35,9 +36,22 @@ export class ToolbarRightComponent implements OnInit {
   }
 
   onTogglePreview() {
-    let { viewState } = this;
-    viewState = viewState === 'preview' ? 'edit' : 'preview';
-    this.viewState = viewState;
-    this.editorService.togglePreview(viewState);
+    let { preview, panel } = this;
+    preview ^= 1;
+    this.preview = preview;
+    this.editorService.toggleLayout({panel, preview});
+  }
+
+  onTogglePanel() {
+    let { preview, panel } = this;
+    panel ^= 1;
+
+    if (panel === 0 && preview === 0) {
+      preview = 1;
+    }
+
+    this.panel = panel;
+    this.preview = preview;
+    this.editorService.toggleLayout({panel, preview});
   }
 }

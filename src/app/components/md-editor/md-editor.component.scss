@@ -30,10 +30,7 @@
   display: flex;
   flex: 1;
 
-  app-panel-edit {
-    flex: 1;
-  }
-
+  app-panel-edit,
   app-panel-view {
     width: 50%;
     overflow: hidden;

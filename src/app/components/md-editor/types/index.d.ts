@@ -13,4 +13,9 @@ declare class SelectedText {
   end: number;
 }
 
+declare class Layout {
+  preview: number;
+  panel: number;
+}
+
 declare var prettyPrint;
