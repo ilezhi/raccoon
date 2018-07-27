@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { EditorService } from '../../services/editor.service';
 import markdown from 'markdown-it';
+
+import { EditorService } from '../../services/editor.service';
 import { throttleTime } from 'rxjs/operators';
+
 const option = {
   html: true,        // Enable HTML tags in source
   xhtmlOut: true,        // Use '/' to close single tags (<br />).

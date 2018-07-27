@@ -8,6 +8,7 @@ import { EditorService } from '../../services/editor.service';
 })
 export class ToolbarRightComponent implements OnInit {
   fullscreen = false;
+  viewState = 'preview';
 
   constructor(
     private editorService: EditorService
@@ -31,5 +32,12 @@ export class ToolbarRightComponent implements OnInit {
   onFullscreen() {
     const $panel = document.querySelector('.md-editor .panel');
     $panel.webkitRequestFullscreen();
+  }
+
+  onTogglePreview() {
+    let { viewState } = this;
+    viewState = viewState === 'preview' ? 'edit' : 'preview';
+    this.viewState = viewState;
+    this.editorService.togglePreview(viewState);
   }
 }

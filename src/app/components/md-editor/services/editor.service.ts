@@ -6,10 +6,12 @@ export class EditorService {
   private toolbar = new Subject<ToolbarItem>();
   private data = new Subject<any>();
   private fullscreen = new Subject<boolean>();
+  private preview = new Subject<string>()
 
   toolbar$ = this.toolbar.asObservable();
   data$ = this.data.asObservable();
   fullscreen$ = this.fullscreen.asObservable();
+  preview$ = this.preview.asObservable();
 
   constructor() {}
 
@@ -22,8 +24,19 @@ export class EditorService {
     this.data.next({value});
   }
 
+  /**
+   * 网页全屏
+   */
   toggleFullscreen(value: boolean) {
     this.fullscreen.next(value);
+  }
+
+  /**
+   * 预览切换
+   * @param state 'preview' | 'edit'
+   */
+  togglePreview(state: string) {
+    this.preview.next(state);
   }
 
   // 生成插入后的内容, 并广播.
