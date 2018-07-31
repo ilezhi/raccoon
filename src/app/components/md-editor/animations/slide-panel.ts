@@ -31,4 +31,4 @@ export const slidePanel = [
     })),
     transition('* <=> *', animate('300ms ease-in'))
   ])
-]
+];

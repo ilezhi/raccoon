@@ -30,7 +30,7 @@ export class EditorService {
   toggleFullscreen(value: boolean) {
     this.fullscreen.next(value);
   }
-  
+
   toggleLayout(layout: Layout) {
     this.layout.next(layout);
   }
@@ -44,9 +44,9 @@ export class EditorService {
       throw new Error('浏览器版本过低');
     }
 
-    let lenPrefix = prefix.length;
-    let lenSubfix = subfix.length;
-    let lenText = text.length;
+    const lenPrefix = prefix.length;
+    const lenSubfix = subfix.length;
+    const lenText = text.length;
 
     if (start === end) {
       // 直接插入

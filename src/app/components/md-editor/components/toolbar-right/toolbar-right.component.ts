@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { EditorService } from '../../services/editor.service';
 
 @Component({
@@ -6,23 +6,20 @@ import { EditorService } from '../../services/editor.service';
   templateUrl: './toolbar-right.component.html',
   styleUrls: ['./toolbar-right.component.scss']
 })
-export class ToolbarRightComponent implements OnInit {
+export class ToolbarRightComponent {
   fullscreen = false;
-  preview = 1;   // 0: 不显示预览; 1: 显示预览 
+  preview = 1;   // 0: 不显示预览; 1: 显示预览
   panel = 0;     // 0: 双栏; 1: 单栏
 
   constructor(
     private editorService: EditorService
   ) { }
 
-  ngOnInit() {
-  }
-
   /**
    * 网页全屏
    */
   onToggleFullscreen() {
-    let fullscreen = !this.fullscreen;
+    const fullscreen = !this.fullscreen;
     this.fullscreen = fullscreen;
     this.editorService.toggleFullscreen(fullscreen);
   }

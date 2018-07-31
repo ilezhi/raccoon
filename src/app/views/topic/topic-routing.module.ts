@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '', component: TopicComponent
   }
-]
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

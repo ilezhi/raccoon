@@ -47,7 +47,7 @@ export class PanelEditComponent implements OnInit  {
 
     // 通过工具条插入格式片段
     this.data = value;
-    let { $textarea, renderer2 } = this;
+    const { $textarea, renderer2 } = this;
 
     if (start !== end) {
       setTimeout(() => {
@@ -64,7 +64,7 @@ export class PanelEditComponent implements OnInit  {
    */
   onPressEnter() {
     let { selectionStart: start, selectionEnd: end } = this.$textarea.nativeElement;
-    let lines = this.data.trim().split(/\n/g);
+    const lines = this.data.trim().split(/\n/g);
     let last = lines.pop();
     let data = '';
 
@@ -74,9 +74,9 @@ export class PanelEditComponent implements OnInit  {
         start -= last.length;
         last = '';
       } else {
-        let num = +last[0] + 1;
+        const num = +last[0] + 1;
         data = `${num}. `;
-        start += 4
+        start += 4;
       }
     } else if (/^\-\s?[\s\S]*$/.test(last)) {
       // 无序列表
@@ -102,7 +102,7 @@ export class PanelEditComponent implements OnInit  {
     }
 
     this.data = lines.join('\n') + '\n';
-    let { renderer2, $textarea } = this;
+    const { renderer2, $textarea } = this;
     setTimeout(() => {
       // 获取焦点才能选中
       renderer2.setProperty($textarea.nativeElement, 'selectionStart', start);

@@ -24,7 +24,7 @@ export class MdEditorComponent implements OnInit {
     // 订阅全屏切换
     editorService.fullscreen$
       .subscribe(toggleFullscreen$.bind(this));
-    
+
     // 订阅预览切换
     editorService.layout$
       .subscribe(toggleLayout$.bind(this));
