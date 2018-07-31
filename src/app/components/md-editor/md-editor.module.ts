@@ -9,7 +9,6 @@ import { ToolbarRightComponent }  from './components/toolbar-right/toolbar-right
 import { MdEditorComponent }      from './md-editor.component';
 import { LayoutTip }              from './pipes/layout-tip.pipe';
 import { ParseMD }                from './pipes/parse-md.pipe';
-import { Pretty }                 from './pipes/pretty.pipe';
 import { EditorService }          from './services/editor.service';
 
 @NgModule({
@@ -24,8 +23,7 @@ import { EditorService }          from './services/editor.service';
     PanelEditComponent,
     PanelViewComponent,
     LayoutTip,
-    ParseMD,
-    Pretty
+    ParseMD
   ],
   exports: [
     MdEditorComponent

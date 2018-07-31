@@ -11,7 +11,7 @@
     "target": "es5",
     "typeRoots": [
       "node_modules/@types",
-      "src/app"
+      "src/app/components/md-editor/types"
     ],
     "lib": [
       "es2017",

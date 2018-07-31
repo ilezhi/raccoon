@@ -18,4 +18,4 @@ declare class Layout {
   panel: number;
 }
 
-declare var prettyPrint;
+declare function prettyPrintOne(html: string, language?: string, lines?: boolean | number): string
