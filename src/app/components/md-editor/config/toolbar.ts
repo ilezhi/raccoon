@@ -74,6 +74,16 @@ export const toolbar: Toolbar = {
     subfix: '',
     text: '段落引用'
   },
+  'ol': {
+    prefix: '1. ',
+    subfix: '',
+    text: ''
+  },
+  'ul': {
+    prefix: '- ',
+    subfix: '',
+    text: ''
+  },
   'link': {
     prefix: '[文本](',
     subfix: ')',

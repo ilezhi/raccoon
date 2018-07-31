@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { throttleTime, debounceTime } from 'rxjs/operators';
 
 import { EditorService } from './services/editor.service';
 import { slidePanel } from './animations/slide-panel';
+
 @Component({
   selector: 'app-md-editor',
   templateUrl: './md-editor.component.html',
@@ -18,13 +20,13 @@ export class MdEditorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const { toggleFullscreen$, toggleLayout$ } = this;
+    const { editorService, toggleFullscreen$, toggleLayout$ } = this;
     // 订阅全屏切换
-    this.editorService.fullscreen$
-      .subscribe(toggleFullscreen$.bind(this))
+    editorService.fullscreen$
+      .subscribe(toggleFullscreen$.bind(this));
     
     // 订阅预览切换
-    this.editorService.layout$
+    editorService.layout$
       .subscribe(toggleLayout$.bind(this));
   }
 

@@ -1,4 +1,9 @@
 <div class="markdown-text">
-  <textarea #md class="textarea" [(ngModel)]="data" (ngModelChange)="onTextChange()">
+  <textarea 
+    #md
+    class="textarea"
+    [(ngModel)]="data"
+    (ngModelChange)="onTextChange()"
+    (keydown.enter)="onPressEnter()">
   </textarea>
 </div>
