@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 
 import { EditorService } from '../../services/editor.service';
@@ -13,7 +13,7 @@ import { throttleTime } from 'rxjs/operators';
 })
 export class PanelViewComponent implements OnInit {
   data: string;
-  isRender = 'abd';
+  @Input() isParse: boolean;
 
   constructor(
     private editorService: EditorService

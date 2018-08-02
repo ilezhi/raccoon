@@ -16,6 +16,7 @@ export class MdEditorComponent implements OnInit {
   preview = 'preview';
   history: string[] = [];
   cursor = -1; // 游标
+  isParse = true; // 是否解析markdown语法
 
   constructor(
     private editorService: EditorService
@@ -63,6 +64,7 @@ export class MdEditorComponent implements OnInit {
       state = preview ? 'preview' : 'edit';
     }
 
+    this.isParse = (state !== 'edit');
     this.preview = state;
   }
 
