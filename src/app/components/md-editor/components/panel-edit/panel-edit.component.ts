@@ -19,7 +19,9 @@ export class PanelEditComponent implements OnInit  {
 
   ngOnInit() {
     const { editorService, insertText$, updateData$ } = this;
+    // 订阅工具条插入文本事件
     editorService.toolbar$.subscribe(insertText$.bind(this));
+    // 订阅textarea数据更改事件
     editorService.data$.subscribe(updateData$.bind(this));
   }
 
@@ -38,8 +40,12 @@ export class PanelEditComponent implements OnInit  {
 
   // 编辑区内容改变
   updateData$(data) {
-    const { value, start, end } = data;
+    const { value, start, end, record } = data;
 
+    if (typeof record === 'boolean') {
+      this.data = value;
+      return;
+    }
     // 手动输入
     if (typeof start !== 'number' || typeof end !== 'number') {
       return;

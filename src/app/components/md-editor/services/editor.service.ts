@@ -20,8 +20,8 @@ export class EditorService {
     this.toolbar.next(item);
   }
 
-  updateText(value: string) {
-    this.data.next({value});
+  updateText(value: string, record?: boolean) {
+    this.data.next({value, record});
   }
 
   /**

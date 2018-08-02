@@ -13,6 +13,7 @@ import { throttleTime } from 'rxjs/operators';
 })
 export class PanelViewComponent implements OnInit {
   data: string;
+  isRender = 'abd';
 
   constructor(
     private editorService: EditorService

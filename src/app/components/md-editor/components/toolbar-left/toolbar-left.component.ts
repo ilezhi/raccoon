@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { toolbar }        from '../../config/toolbar';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { toolbar, eventHandle } from '../../config/toolbar';
 import { EditorService }  from '../../services/editor.service';
 
 @Component({
@@ -7,20 +7,25 @@ import { EditorService }  from '../../services/editor.service';
   templateUrl: './toolbar-left.component.html',
   styleUrls: ['./toolbar-left.component.scss']
 })
-export class ToolbarLeftComponent implements OnInit {
-  @Output() toolbarClick = new EventEmitter<ToolbarItem>();
+export class ToolbarLeftComponent {
+
+  @Output() prev = new EventEmitter();
+  @Output() next = new EventEmitter();
+  @Output() trash = new EventEmitter();
+  @Output() save = new EventEmitter();
 
   constructor(
     private editorService: EditorService
   ) { }
 
-  ngOnInit() {
-  }
-
   onClick(type: string) {
     if (toolbar.hasOwnProperty(type)) {
       const item: ToolbarItem = toolbar[type];
       this.editorService.toolbarItemClick(item);
+    }
+
+    if (eventHandle.hasOwnProperty(type)) {
+      this[eventHandle[type]].emit();
     }
   }
 }
