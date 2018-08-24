@@ -3,7 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '', loadChildren: './views/topic/topic.module#TopicModule'
+    path: '', loadChildren: './views/home/home.module#HomeModule'
+  },
+  {
+    path: 'topic', loadChildren: './views/topic/topic.module#TopicModule'
   }
 ];
 
