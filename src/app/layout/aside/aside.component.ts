@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./aside.component.scss']
 })
 export class AsideComponent implements OnInit {
+  showTags = 0;
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  onToggleTags() {
+    this.showTags ^= 1;
+  }
 }

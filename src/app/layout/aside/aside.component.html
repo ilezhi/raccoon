@@ -1,30 +1,81 @@
 <aside>
   <div class="new-topic">
     <a href="javascript:;">
-      <i class="anticon anticon-plus"></i>
-      提问题
+      <i class="icon">add</i>
+      <span>提问题</span>
     </a>
   </div>
   <ul class="dashboard">
     <li>
-      <i></i>
-      <span>我的提问</span>
-      <strong>123</strong>
+      <div class="item active">
+        <i class="icon">question_answer</i>
+        <span>全部</span>
+        <strong>123</strong>
+      </div>
     </li>
     <li>
-      <span>已解决</span>
+      <div class="item">
+        <i class="icon">record_voice_over</i>
+        <span>我的</span>
+        <strong>123</strong>
+      </div>
     </li>
     <li>
-      <i></i>
-      <span>关注</span>
-      <strong>123</strong>
+      <div class="item">
+        <i class="icon">done</i>
+        <span>已解决</span>
+        <strong>1</strong>
+      </div>
     </li>
     <li>
-      <span>标签</span>
-      <strong>4</strong>
+      <div class="item">
+        <i class="icon">star</i>
+        <span>收藏</span>
+        <strong>123</strong>
+      </div>
     </li>
     <li>
-      <i></i>
+      <div class="item">
+        <i class="icon">group</i>
+        <span>项目</span>
+        <strong>12</strong>
+      </div>
+    </li>
+    <li>
+      <div class="item">
+        <i class="icon">share</i>
+        <span>分享</span>
+        <strong></strong>
+      </div>
+    </li>
+    <li (click)="onToggleTags()">
+      <div class="item">
+        <label class="arrow">
+          <i class="anticon anticon-caret-right"></i>
+        </label>
+        <i class="icon">label</i>
+        <span>标签</span>
+        <strong>4</strong>
+      </div>
+    </li>
+    <li class="dropdown" [class.show]="showTags">
+      <div class="item">
+        <i class="icon">J</i>
+        <span>javascript</span>
+        <strong>12</strong>
+      </div>
+      <div class="item">
+        <i class="icon">J</i>
+        <span>javascript</span>
+        <strong>12</strong>
+      </div>
+    </li>
+    <li>
+      <div class="item">
+        <i class="icon">insert_drive_file</i>
+        <span>草稿</span>
+        <strong>12</strong>
+      </div>
     </li>
   </ul>
 </aside>
