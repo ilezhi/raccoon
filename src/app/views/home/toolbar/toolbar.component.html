@@ -1,0 +1,30 @@
+<div class="toolbar">
+  <div class="inner">
+    <div class="op">
+      <div class="item ripple" (click)="onRefresh()">
+        <i class="icon">refresh</i>
+      </div>
+      <div class="item ripple">
+        <i class="icon">more_vert</i>
+      </div>
+    </div>
+    <div class="pagination">
+      <div class="fc">
+        <span>
+          第 <span>1</span> - <span>50</span> 行,
+        </span>
+        <span>
+          共 <span>250</span> 行
+        </span>
+      </div>
+      <div class="fc">
+        <div class="item ripple disabled" nz-tooltip nzTitle="上一页" nzPlacement="bottom">
+          <i class="icon">chevron_left</i>
+        </div>
+        <div class="item ripple" nz-tooltip nzTitle="下一页" nzPlacement="bottom">
+          <i class="icon">chevron_right</i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
