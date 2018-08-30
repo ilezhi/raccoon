@@ -1,10 +1,10 @@
 <div class="toolbar">
   <div class="inner">
     <div class="op">
-      <div class="item ripple" (click)="onRefresh()">
+      <div class="item ripple" nz-tooltip nzTitle="刷新数据" (click)="onRefresh()" nzPlacement="bottom">
         <i class="icon">refresh</i>
       </div>
-      <div class="item ripple">
+      <div class="item ripple" nz-tooltip nzTitle="更多" nzPlacement="bottom">
         <i class="icon">more_vert</i>
       </div>
     </div>

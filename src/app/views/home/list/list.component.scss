@@ -1,5 +1,10 @@
+.inner {
+  width: 100%;
+  overflow: hidden;
+}
 table {
   width: 100%;
+  table-layout: fixed;
 }
 
 tr {
@@ -10,10 +15,12 @@ tr {
 }
 
 td {
-  flex: 0;
+  flex: none;
 }
 
 .user {
+  width: 54px;
+  height: 40px;
   padding: 0 12px;
 }
 
@@ -33,13 +40,17 @@ td {
 }
 
 .title {
-  flex: 1;
+  width: calc(100% - 252px);
+}
+
+.text-ellipsis {
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
 }
 
 .comt {
+  width: 24px;
   height: 24px;
 }
 
