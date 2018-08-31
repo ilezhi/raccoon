@@ -4,6 +4,25 @@
       <div class="item ripple" nz-tooltip nzTitle="刷新数据" (click)="onRefresh()" nzPlacement="bottom">
         <i class="icon">refresh</i>
       </div>
+      <div class="item">
+        <nz-button-group nzSize="small" (click)="onDateFilter($event)">
+          <button nz-button data-date="0">本周</button>
+          <button nz-button data-date="1">上周</button>
+          <button nz-button data-date="2">本月</button>
+          <button
+            class="date"
+            nz-button
+            nz-tooltip
+            nzTitle="自定义"
+            nzPlacement="bottom"
+            data-date="3">
+            <i class="icon mid">date_range</i>
+          </button>
+        </nz-button-group>
+      </div>
+      <div class="item">
+        2019-01-01 12:33:33 ~ 2019-01-33 12:33:33
+      </div>
       <div class="item ripple" nz-tooltip nzTitle="更多" nzPlacement="bottom">
         <i class="icon">more_vert</i>
       </div>

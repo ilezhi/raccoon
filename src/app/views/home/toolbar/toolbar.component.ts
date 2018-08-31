@@ -15,4 +15,8 @@ export class ToolbarComponent implements OnInit {
   onRefresh() {
     console.log('refresh')
   }
+
+  onDateFilter(ev) {
+    console.log(ev.target.dataset.date)
+  }
 }
