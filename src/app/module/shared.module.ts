@@ -11,7 +11,9 @@ import { BodyComponent }   from '../layout/body/body.component';
 import { FooterComponent } from '../layout/footer/footer.component';
 import { HeaderComponent } from '../layout/header/header.component';
 import { AsideComponent } from '../layout/aside/aside.component';
-import { MainComponent } from '../layout/main/main.component'
+import { MainComponent } from '../layout/main/main.component';
+import { ToolbarComponent } from '../components/toolbar/toolbar.component';
+import { TableComponent } from '../components/table/table.component';
 
 @NgModule({
   imports: [
@@ -25,7 +27,9 @@ import { MainComponent } from '../layout/main/main.component'
     BodyComponent,
     FooterComponent,
     AsideComponent,
-    MainComponent
+    MainComponent,
+    ToolbarComponent,
+    TableComponent
   ],
   exports: [
     NgZorroAntdModule,
@@ -33,7 +37,9 @@ import { MainComponent } from '../layout/main/main.component'
     BodyComponent,
     FooterComponent,
     AsideComponent,
-    MainComponent
+    MainComponent,
+    ToolbarComponent,
+    TableComponent
   ],
   providers: [
     NzMessageService
