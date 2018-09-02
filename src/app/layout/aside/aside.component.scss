@@ -66,16 +66,22 @@ aside {
 
   &.active {
     background-color: #fce8e6;
-    color: #d93025;
-    font-weight: bold;
+
+    a,
+    span {
+      color: #d93025;
+      font-weight: bold;
+    }
   }
 
   i {
     margin: 0 20px 0 0;
   }
 
+  a,
   span {
     flex: auto;
+    color: #666;
   }
 
   strong {

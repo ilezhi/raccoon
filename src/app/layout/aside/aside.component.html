@@ -7,44 +7,44 @@
   </div>
   <ul class="dashboard">
     <li>
-      <div class="item active">
+      <div class="item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         <i class="icon">question_answer</i>
-        <span>全部</span>
+        <a routerLink="/">全部</a>
         <strong>123</strong>
       </div>
     </li>
     <li>
-      <div class="item">
+      <div class="item" routerLinkActive="active">
         <i class="icon">record_voice_over</i>
-        <span>我的</span>
+        <a routerLink="/my">我的</a>
         <strong>123</strong>
       </div>
     </li>
     <li>
-      <div class="item">
+      <div class="item" routerLinkActive="active">
         <i class="icon">done</i>
-        <span>已解决</span>
+        <a routerLink="/solved">已解决</a>
         <strong>1</strong>
       </div>
     </li>
     <li>
-      <div class="item">
+      <div class="item" routerLinkActive="active">
         <i class="icon">star</i>
-        <span>收藏</span>
+        <a routerLink="/collection">收藏</a>
         <strong>123</strong>
       </div>
     </li>
     <li>
-      <div class="item">
+      <div class="item" routerLinkActive="active">
         <i class="icon">group</i>
-        <span>项目</span>
+        <a routerLink="/project">项目</a>
         <strong>12</strong>
       </div>
     </li>
     <li>
-      <div class="item">
+      <div class="item" routerLinkActive="active">
         <i class="icon">share</i>
-        <span>分享</span>
+        <a routerLink="/shared">分享</a>
         <strong></strong>
       </div>
     </li>
@@ -59,21 +59,21 @@
       </div>
     </li>
     <li class="dropdown" [class.show]="showTags">
-      <div class="item">
+      <div class="item" routerLinkActive="active">
         <i class="icon">J</i>
-        <span>javascript</span>
+        <a routerLink="/tag">javascript</a>
         <strong>12</strong>
       </div>
-      <div class="item">
+      <div class="item" routerLinkActive="active">
         <i class="icon">J</i>
-        <span>javascript</span>
+        <a routerLink="/tag">javascript</a>
         <strong>12</strong>
       </div>
     </li>
     <li>
-      <div class="item">
+      <div class="item" routerLinkActive="active">
         <i class="icon">insert_drive_file</i>
-        <span>草稿</span>
+        <a routerLink="/draft">草稿</a>
         <strong>12</strong>
       </div>
     </li>
