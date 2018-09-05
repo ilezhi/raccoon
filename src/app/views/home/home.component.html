@@ -1,4 +1,17 @@
 <app-main>
-  <app-toolbar></app-toolbar>
-  <app-table></app-table>
+  <app-toolbar (filter)="onFilterByDate($event)"></app-toolbar>
+  <nz-tabset>
+    <nz-tab nzTitle="全部">
+      <app-table></app-table>
+    </nz-tab>
+    <nz-tab nzTitle="精华">
+      <app-table></app-table>
+    </nz-tab>
+    <nz-tab nzTitle="部门">
+      <app-table></app-table>
+    </nz-tab>
+    <nz-tab nzTitle="team">
+      <app-table></app-table>
+    </nz-tab>
+  </nz-tabset>
 </app-main>

@@ -1,12 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core'
+import { StoreModule } from '@ngrx/store'
 
-import { TagRoutingModule } from './tag-routing.module';
-import { TagComponent } from './tag.component';
+import { TagRoutingModule } from './tag-routing.module'
+import { TagComponent } from './tag.component'
+
+import { SharedModule } from '../../module/shared.module'
+import { tagReducer } from '../../reducers'
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
+    StoreModule.forFeature('tag', tagReducer),
     TagRoutingModule
   ],
   declarations: [TagComponent]

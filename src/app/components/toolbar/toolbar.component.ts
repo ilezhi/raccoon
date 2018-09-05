@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-toolbar',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-
+  @Output() filter = new EventEmitter<number>()
   constructor() { }
 
   ngOnInit() {
@@ -17,6 +17,6 @@ export class ToolbarComponent implements OnInit {
   }
 
   onDateFilter(ev) {
-    console.log(ev.target.dataset.date)
+    this.filter.emit(ev.target.dataset.date)
   }
 }

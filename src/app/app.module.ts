@@ -1,12 +1,12 @@
-import { NgModule }       from '@angular/core';
-import { StoreModule, StoreFeatureModule } from '@ngrx/store'
-import { BrowserModule }  from '@angular/platform-browser';
+import { NgModule } from '@angular/core'
+import { StoreModule } from '@ngrx/store'
+import { BrowserModule } from '@angular/platform-browser'
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { CoreModule }   from './module/core.module';
+import { AppComponent } from './app.component'
+import { AppRoutingModule } from './app-routing.module'
+import { CoreModule } from './module/core.module'
 
-import { reducers } from './reducers'
+import { appReducer } from './reducers'
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { reducers } from './reducers'
   imports: [
     BrowserModule,
     CoreModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(appReducer),
     AppRoutingModule
   ],
   providers: [],

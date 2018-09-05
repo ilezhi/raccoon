@@ -1,14 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core'
+import { StoreModule } from '@ngrx/store'
 
-import { SharedModule } from '../../module/shared.module';
-import { CollectionRoutingModule } from './collection-routing.module';
-import { CollectionComponent } from './collection.component';
+import { SharedModule } from '../../module/shared.module'
+import { CollectionRoutingModule } from './collection-routing.module'
+import { CollectionComponent } from './collection.component'
+import { collectionReducer } from '../../reducers'
 
 @NgModule({
   imports: [
-    CommonModule,
     SharedModule,
+    StoreModule.forFeature('collection', collectionReducer),
     CollectionRoutingModule
   ],
   declarations: [CollectionComponent]

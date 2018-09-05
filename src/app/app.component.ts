@@ -1,9 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store'
-import { Observable } from 'rxjs';
+
 import { Topic } from './models/topic.model'
-import { StateTree } from './reducers'
-import { getUsers } from './reducers/entities.reducer'
 import { AddTopicAction } from './action/entity.action'
 
 @Component({
@@ -16,10 +14,10 @@ export class AppComponent {
   title = 'app';
   topics$: Array<Topic>;
 
-  constructor(private store: Store<StateTree>) {
-    store.pipe(select(getUsers))
+  constructor(private store: Store<any>) {
+    store.pipe(select('users'))
       .subscribe(data => {
-        console.log(data)
+        console.log('app', data)
       })
   }
 

@@ -1,14 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core'
+import { StoreModule } from '@ngrx/store'
 
-import { SharedModule } from '../../module/shared.module';
-import { DraftRoutingModule } from './draft-routing.module';
-import { DraftComponent } from './draft.component';
+import { SharedModule } from '../../module/shared.module'
+import { DraftRoutingModule } from './draft-routing.module'
+import { DraftComponent } from './draft.component'
+import { draftReducer } from '../../reducers'
 
 @NgModule({
   imports: [
-    CommonModule,
     SharedModule,
+    StoreModule.forFeature('draft', draftReducer),
     DraftRoutingModule
   ],
   declarations: [DraftComponent]
