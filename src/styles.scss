@@ -168,3 +168,21 @@ nz-tabset {
 .ant-tabs-tabpane {
 	display: flex;
 }
+
+/*****/
+.arrow {
+  position: absolute;
+  left: 4px;
+  width: 20px;
+  font-size: 10px;
+  cursor: inherit;
+
+  &.down i {
+    transform: scale(0.7) rotateZ(90deg);
+  }
+
+  i {
+    transition: transform 0.3s;
+    transform: scale(0.7);
+  }
+}

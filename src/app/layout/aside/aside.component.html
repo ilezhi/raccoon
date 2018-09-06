@@ -34,10 +34,20 @@
         <strong>123</strong>
       </div>
     </li>
-    <li>
-      <div class="item" routerLinkActive="active">
+    <li toggle>
+      <div class="item">
+        <label class="arrow">
+          <i class="anticon anticon-caret-right"></i>
+        </label>
         <i class="icon">group</i>
         <a routerLink="/project">项目</a>
+        <strong>12</strong>
+      </div>
+    </li>
+    <li class="dropdown">
+      <div class="item">
+        <i class="icon">指</i>
+          <a routerLink="/tag">raccon</a>
         <strong>12</strong>
       </div>
     </li>
@@ -48,7 +58,7 @@
         <strong></strong>
       </div>
     </li>
-    <li (click)="onToggleTags()">
+    <li toggle>
       <div class="item">
         <label class="arrow">
           <i class="anticon anticon-caret-right"></i>
@@ -59,7 +69,7 @@
       </div>
     </li>
     <li class="dropdown" [class.show]="showTags">
-      <div class="item" routerLinkActive="active">
+      <div class="item">
         <i class="icon">J</i>
         <a routerLink="/tag">javascript</a>
         <strong>12</strong>
