@@ -27,7 +27,9 @@ const routes: Routes = [
     path: 'draft', loadChildren: './views/draft/draft.module#DraftModule'
   },
   {
-    path: 'topic', loadChildren: './views/topic/topic.module#TopicModule'
+    path: 'topic',
+    loadChildren: './views/topic/topic.module#TopicModule',
+    outlet: 'slide'
   }
 ];
 

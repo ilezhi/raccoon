@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core'
 import { StoreModule } from '@ngrx/store'
-import { BrowserModule } from '@angular/platform-browser'
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
@@ -13,7 +12,6 @@ import { appReducer } from './reducers'
     AppComponent
   ],
   imports: [
-    BrowserModule,
     CoreModule,
     StoreModule.forRoot(appReducer),
     AppRoutingModule

@@ -1,4 +1,4 @@
-<div>
-  topic works!
-  <app-md-editor></app-md-editor>
+<div class="topic" [@slide]="state" *ngIf="state">
+  这是
+  <button (click)="onClose()">close</button>
 </div>
