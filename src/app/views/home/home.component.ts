@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private store: Store<any>) {
     this.sb = store.pipe(select(getHome))
       .subscribe(data => {
-        console.log('home', data)
+        // console.log('home', data)
       })
   }
 

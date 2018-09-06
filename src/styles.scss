@@ -153,3 +153,18 @@ app-table {
   overflow-x: hidden;
   overflow-y: scroll;
 }
+
+nz-tabset {
+  flex: 1;
+  display: flex !important;
+  flex-direction: column;
+}
+
+.ant-tabs-content {
+	flex: 1 !important;
+	padding: 0;
+}
+
+.ant-tabs-tabpane {
+	display: flex;
+}
