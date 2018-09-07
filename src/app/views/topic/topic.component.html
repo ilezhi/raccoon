@@ -3,6 +3,6 @@
   *ngIf="state"
   [@slide]="state"
   (@slide.done)="slideDone()">
-  这是
-  <button (click)="onClose()">close</button>
+  <a [routerLink]="['', {outlets: {slide: null}}]">close</a>
+  <router-outlet></router-outlet>
 </div>
