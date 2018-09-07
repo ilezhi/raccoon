@@ -18,6 +18,11 @@ export class TopicComponent implements OnInit {
 
   onClose() {
     this.state = ''
-    // this.router.navigate([{outlets: {slide: null}}])
+  }
+
+  slideDone() {
+    if (!this.state) {
+      this.router.navigate([{outlets: {slide: null}}])
+    }
   }
 }

@@ -1,4 +1,8 @@
-<div class="topic" [@slide]="state" *ngIf="state">
+<div
+  class="topic"
+  *ngIf="state"
+  [@slide]="state"
+  (@slide.done)="slideDone()">
   这是
   <button (click)="onClose()">close</button>
 </div>
