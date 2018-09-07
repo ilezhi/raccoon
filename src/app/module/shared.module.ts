@@ -38,6 +38,7 @@ const comp = [
   ],
   declarations: comp,
   exports: [
+    CommonModule,
     NgZorroAntdModule,
     ...comp
   ],
