@@ -1,0 +1,37 @@
+.post {
+  display: flex;
+  height: 100%;
+}
+
+aside {
+  width: 400px;
+}
+
+.title {
+  padding: 10px;
+}
+
+.md {
+  flex: 1;
+}
+
+.tags {
+  padding: 0 10px;
+  line-height: 2.2;
+}
+
+.add ::ng-deep .ant-tag {
+  border-style: dashed;
+}
+
+.input-tag {
+  width: 80px;
+}
+
+app-search-tag {
+  position: absolute;
+  margin: 20px 0 0;
+  width: 400px;
+  height: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
