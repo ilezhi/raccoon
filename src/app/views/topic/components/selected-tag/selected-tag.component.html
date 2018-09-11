@@ -1,0 +1,26 @@
+<div class="tags">
+  <nz-tag
+    *ngFor="let tag of tags;"
+    nzMode="closeable">
+    {{ tag }}
+  </nz-tag>
+  <nz-tag *ngIf="!editable" class="add" (click)="showTagInput()">
+    <i class="anticon anticon-plus"></i>
+    添加tag
+  </nz-tag>
+  <input
+    #input
+    nz-input
+    *ngIf="editable"
+    class="input-tag"
+    type="text"
+    nzSize="small"
+    [(ngModel)]="tag"
+    (ngModelChange)="search(input.value)"
+    (keydown)="postTag($event)">
+</div>
+<app-search-tag
+  *ngIf="searching"
+  [@slideLeft]="searching"
+  (close)="close()">
+</app-search-tag>

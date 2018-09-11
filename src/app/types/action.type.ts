@@ -65,5 +65,7 @@ export enum ProjectTypes {
 }
 
 export enum TagTypes {
-  TOPICS = '[Tag] tag topics',
+  TOPICS = '[Tag] tag topics',  // 此标签下的topic
+  SearchTags = '[Tag] search tags',
+  Tags = '[Tag] tag list'
 }

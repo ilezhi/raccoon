@@ -3,33 +3,7 @@
     <h1 class="title">
       <input nz-input type="text" placeholder="标题">
     </h1>
-    <div class="tags">
-      <nz-tag
-        *ngFor="let tag of tags;"
-        nzMode="closeable">
-        {{ tag }}
-      </nz-tag>
-      <nz-tag *ngIf="!showAddTag" class="add" (click)="showAddTagInput()">
-        <i class="anticon anticon-plus"></i>
-        添加tag
-      </nz-tag>
-      <input
-        #tag
-        nz-input
-        *ngIf="showAddTag"
-        class="input-tag"
-        type="text"
-        nzSize="small"
-        name="tag"
-        [(ngModel)]="searchTag"
-        (ngModelChange)="search(tag.value)"
-        (keydown)="postTag($event)">
-    </div>
-    <app-search-tag
-      *ngIf="searching"
-      [@slideLeft]="searching"
-      (close)="closeSearchingTags()">
-    </app-search-tag>
+    <app-selected-tag></app-selected-tag>
   </aside>
   <div class="md">
     <app-md-editor></app-md-editor>
