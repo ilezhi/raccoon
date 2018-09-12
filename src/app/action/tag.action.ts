@@ -4,7 +4,7 @@ import { TagTypes, ListState } from '../types/action.type'
 import { Tag } from "../models";
 
 export class TagTopicsAction implements Action {
-  readonly type = TagTypes.TOPICS
+  readonly type = TagTypes.Topics
   constructor(public payload: ListState) {}
 }
 

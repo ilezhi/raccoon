@@ -10,7 +10,7 @@ import {
   ATopicsAction,
 } from '../action/solved.action'
 
-const question = createReducer<PageState, QTopicsAction>(SolvedTypes.QUESTION_TOPICS)
-const answer = createReducer<PageState, ATopicsAction>(SolvedTypes.QUESTION_TOPICS)
+const question = createReducer<PageState, QTopicsAction>(SolvedTypes.QuestionTopics)
+const answer = createReducer<PageState, ATopicsAction>(SolvedTypes.QuestionTopics)
 
 export default combineReducers({question, answer})

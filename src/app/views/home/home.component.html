@@ -2,7 +2,7 @@
   <app-toolbar (filter)="onFilterByDate($event)"></app-toolbar>
   <nz-tabset>
     <nz-tab nzTitle="全部">
-      <app-table></app-table>
+      <app-table [data]="all.topics"></app-table>
     </nz-tab>
     <nz-tab nzTitle="精华">
       <app-table></app-table>

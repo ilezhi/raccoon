@@ -5,6 +5,7 @@ import {
   HomeTypes,
   EntityTypes,
   PageState,
+  defaultValue,
 } from '../types/action.type'
 import {
   AllTopicsAction,
@@ -18,7 +19,7 @@ const awesome = createReducer<PageState, AwesomeTopicsAction>(HomeTypes.AWESOME_
 const dept = createReducer<PageState, DeptTopicsAction>(HomeTypes.DEPT_TOPICS)
 const team = createReducer<PageState, TeamTopicsAction>(HomeTypes.TEAM_TOPICS)
 
-const all = (state: PageState, action) => {
+const all = (state: PageState = defaultValue, action) => {
   const { type, payload } = action
   console.log('all reducer')
 
@@ -54,7 +55,8 @@ const all = (state: PageState, action) => {
     }
 
     case EntityTypes.CreateTopic: {
-      let { ids, total } = state
+
+      let { ids = [], total = 0 } = state
       const { id } = payload
 
       ids.unshift(id)
@@ -97,8 +99,17 @@ const fetching = (state, action) => {
   }
 }
 
-export const getHome = (state: any) => {
-  return state
+export const getAll = (state: any) => {
+  const { entities: { topics }, home: { all } } = state
+  const { ids, page, size = 50 } = all
+  const start = (page - 1) * size
+  const end = page * size
+  let t = ids.slice(start, end).map(id => topics[id])
+
+  return {
+    ...all,
+    topics: t
+  }
 }
 
 export default combineReducers({all, awesome, dept, team, fetching})

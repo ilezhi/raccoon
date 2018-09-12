@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store'
 import { Subscription } from 'rxjs' 
 
 import { AllTopicsAction } from '../../action/home.action'
-import { getHome } from '../../reducers/home.reducer'
+import { getAll } from '../../reducers/home.reducer'
 
 @Component({
   selector: 'app-home',
@@ -12,11 +12,13 @@ import { getHome } from '../../reducers/home.reducer'
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private sb: Subscription
+  all = {}
 
   constructor(private store: Store<any>) {
-    this.sb = store.pipe(select(getHome))
-      .subscribe(data => {
-        // console.log('home', data)
+    this.sb = store.pipe(select(getAll))
+      .subscribe(all => {
+        console.log(all, 'haha')
+        this.all = all
       })
   }
 

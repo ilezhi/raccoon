@@ -3,6 +3,6 @@ import { TagTopicsAction } from '../action/tag.action'
 
 import { createKeyReducer } from '../tools/create-reducer'
 
-const reducer = createKeyReducer<PageState, TagTopicsAction>(TagTypes.TOPICS)
+const reducer = createKeyReducer<PageState, TagTopicsAction>(TagTypes.Topics)
 
 export default reducer

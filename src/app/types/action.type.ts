@@ -20,6 +20,14 @@ export interface PageState {
   filter: string
 }
 
+export const defaultValue = {
+  time: 0,
+  page: 1,
+  total: 0,
+  ids: [],
+  filter: ''
+}
+
 export interface ListState extends PageState {
   id: number
 }
@@ -45,32 +53,32 @@ export enum EntityTypes {
 }
 
 export enum MyTypes {
-  TOPICS = '[My] get topics',
+  Topics = '[My] my topics',
 }
 
 export enum SolvedTypes {
-  QUESTION_TOPICS = '[Solved] question topics',
-  ANSWER_TOPICS = '[Solved] anwser topics',
+  QuestionTopics = '[Solved] question topics',
+  AnswerTopics = '[Solved] anwser topics',
 }
 
 export enum CollectTypes {
-  TOPICS = '[Collection] collection topics',
+  Topics = '[Collection] collection topics',
 }
 
 export enum SharedTypes {
-  TOPICS = '[Shared] shared topics',
+  Topics = '[Shared] shared topics',
 }
 
 export enum DraftTypes {
-  TOPICS = '[Draft] draft topics',
+  Topics = '[Draft] draft topics',
 }
 
 export enum ProjectTypes {
-  TOPICS = '[Project] project topics',
+  Topics = '[Project] project topics',
 }
 
 export enum TagTypes {
-  TOPICS = '[Tag] tag topics',  // 此标签下的topic
+  Topics = '[Tag] tag topics',  // 此标签下的topic
   SearchTags = '[Tag] search tags',
   Tags = '[Tag] tag list'
 }

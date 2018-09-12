@@ -46,7 +46,7 @@
       </td>
       <td class="date">12分钟前</td>
     </tr>
-    <tr>
+    <tr *ngFor="let topic of data">
       <td class="user">
         <img src="https://avatars1.githubusercontent.com/u/11797281?s=30&v=4" alt="stark" title="stark">
       </td>
@@ -60,8 +60,8 @@
       </td>
       <td class="title">
         <div class="text-ellipsis">
-          <strong>明, you have more friends on Facebook than you think</strong>
-          <span>- 放量A级发开翻开ad森饭卡隆扥解决发送到囧放大看法as量翻看法撒旦卡解决发送到囧放大看法as量翻看法撒旦卡了发当饭哈法撒旦发当饭哈法撒</span>
+          <strong>{{ topic.title }}</strong>
+          <span>- {{ topic.content }}</span>
         </div>
       </td>
       <td class="comt">

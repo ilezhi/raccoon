@@ -5,6 +5,6 @@ import {
   PageState,
 } from '../types/action.type'
 
-const reducer = createReducer<PageState, DraftTopicsAction>(DraftTypes.TOPICS)
+const reducer = createReducer<PageState, DraftTopicsAction>(DraftTypes.Topics)
 
 export default reducer
