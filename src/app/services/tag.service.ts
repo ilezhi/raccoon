@@ -1,37 +1,41 @@
 import { Injectable } from '@angular/core'
-import { Subject, Observable, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Tag } from '../models';
+import { Subject, Observable, of } from 'rxjs'
+import { debounceTime, distinctUntilChanged, switchMap, catchError } from 'rxjs/operators'
+
+import { Tag } from '../models'
+import { HttpService } from './http.service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class TagService {
   tag$ = new Subject<string>()
+  delTag$ = new Subject<number>()
 
-  constructor() {}
+  constructor(
+    private http: HttpService
+  ) {}
 
   input(tag: string) {
     this.tag$.next(tag)
   }
 
-  listen(): Observable<string> {
+  listen(): Observable<any> {
     return this.tag$.pipe(
       debounceTime(1000),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     )
   }
 
-  // getByTag(tag: string): Array<Tag> {
-    
-  // }
-  fetchTag(): Observable<Array<Tag>> {
-    const tags = [
-      {id: 1, name: 'javascript'},
-      {id: 2, name: 'web'},
-      {id: 3, name: '算法'}
-    ]
+  fetchTag(tag: string): Observable<Array<Tag>> {
+    const url = `search/tag/${tag}`
+    return this.http.get<Array<Tag>>(url)
+      .pipe(
+        catchError(_ => of([]))
+      )
+  }
 
-    return of(tags)
+  delTag(id: number) {
+    this.delTag$.next(id)
   }
 }

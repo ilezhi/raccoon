@@ -6,3 +6,11 @@
   right: 0;
   background: #fff;
 }
+
+.close {
+  position: absolute;
+  top: 12px;
+  left: 360px;
+  cursor: pointer;
+  z-index: 99;
+}

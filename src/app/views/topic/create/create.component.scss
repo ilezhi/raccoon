@@ -4,11 +4,19 @@
 }
 
 aside {
+  position: relative;
+}
+
+aside {
   width: 400px;
 }
 
-.title {
+dl {
   padding: 10px;
+}
+
+.title {
+  margin: 20px 0 5px;
 }
 
 .md {

@@ -15,16 +15,16 @@ export class TagComponent implements OnInit {
   }
 
   onFilterByDate(n) {
-    const topic = {
-      id: 1,
-      time: 20180909,
-      page: 1,
-      size: 50,
-      total: 100,
-      filter: ''
-    }
+    // const topic = {
+    //   id: 1,
+    //   time: 20180909,
+    //   page: 1,
+    //   size: 50,
+    //   total: 100,
+    //   filter: ''
+    // }
 
-    this.store.dispatch(new TagTopicsAction(topic))
+    // this.store.dispatch(new TagTopicsAction(topic))
   }
 
 }

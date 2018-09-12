@@ -237,3 +237,9 @@ nz-tabset {
 		transform:rotate(360deg)
 	}
 }
+
+/*** form ****/
+.required:after {
+	content: '*';
+	color: #f5222d;
+}

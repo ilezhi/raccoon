@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core'
 import { Store, select } from '@ngrx/store'
 
 import { Topic } from './models/topic.model'
@@ -15,7 +15,7 @@ export class AppComponent {
   topics$: Array<Topic>;
 
   constructor(private store: Store<any>) {
-    store.pipe(select('users'))
+    store.pipe(select('entities'))
       .subscribe(data => {
         console.log('app', data)
       })

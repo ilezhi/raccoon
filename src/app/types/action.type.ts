@@ -15,8 +15,8 @@ export interface Action {
 export interface PageState {
   time: number
   page: number
-  size: number
   total: number
+  ids: number[]
   filter: string
 }
 
@@ -25,10 +25,12 @@ export interface ListState extends PageState {
 }
 
 export enum HomeTypes {
-  TOPICS = '[Home] all topics',
+  Topics = '[Home] all topics',
   AWESOME_TOPICS = '[Home] awesome topics',
   DEPT_TOPICS = '[Home] dept topics',
-  TEAM_TOPICS = '[Home] teamtopics',
+  TEAM_TOPICS = '[Home] team topics',
+
+  Filter = '[Home] filter topics',
 }
 
 export enum EntityTypes {
@@ -37,6 +39,9 @@ export enum EntityTypes {
   ADD_TAG = '[Entity] add Tag',
   ADD_COMMENT = '[Entity] add Comment',
   ADD_REPLY = '[Entity] add Reply',
+
+  UpdateTopic = '[Entity] update topic',
+  CreateTopic = '[Entity] create topic',
 }
 
 export enum MyTypes {

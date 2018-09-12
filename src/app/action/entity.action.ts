@@ -19,6 +19,16 @@ export class AddTopicAction implements Action {
   constructor(public payload: {[id: number]: Topic}) {}
 }
 
+export class UpdateTopic implements Action {
+  readonly type = EntityTypes.UpdateTopic
+  constructor(public payload: {[id: number]: Topic}) {}
+}
+
+export class CreateTopic implements Action {
+  readonly type = EntityTypes.CreateTopic
+  constructor(public payload: {[key: string]: any}) {}
+}
+
 export class AddTagAction implements Action {
   readonly type = EntityTypes.ADD_TAG
   constructor(public payload: {[id: number]: Tag}) {}

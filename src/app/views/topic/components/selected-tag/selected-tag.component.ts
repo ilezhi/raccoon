@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 
+import { Tag } from 'src/app/models'
 import { slideLeft } from 'src/app/animations/slide-left'
 import { TagService } from 'src/app/services/tag.service'
 
@@ -10,7 +11,7 @@ import { TagService } from 'src/app/services/tag.service'
   animations: [slideLeft]
 })
 export class SelectedTagComponent implements OnInit {
-  tags = ['javascript', 'web', '算法']
+  tags = []
   editable = false
   tag = ''
   searching = ''
@@ -25,6 +26,7 @@ export class SelectedTagComponent implements OnInit {
 
   showTagInput() {
     this.editable = true
+    this.searching = 'in'
     setTimeout(() => {
       this.$tag.nativeElement.focus()
     }, 10)
@@ -35,7 +37,6 @@ export class SelectedTagComponent implements OnInit {
    * @param input tag输入
    */
   search(input: string) {
-    !this.searching && (this.searching = 'in')
     this.tagService.input(input)
   }
 
@@ -43,13 +44,37 @@ export class SelectedTagComponent implements OnInit {
    * 添加tag
    * TODO: 判断是否已存在, 存在则直接添加, 不存在则保存后添加
    */
-  postTag() {
+  postTag(e: KeyboardEvent) {
+    const { keyCode } = e
 
+    if (keyCode === 13) {
+      // 回车
+      this.editable = false
+      this.tag = ''
+    }
+
+    if (keyCode === 27) {
+      this.close()
+    }
   }
 
   close() {
     this.editable = false
     this.searching = ''
     this.tag = ''
+  }
+
+  onPickTag(tag: Tag) {
+    const { selected } = tag
+    if (selected) {
+      this.tags.push(tag)
+    } else {
+      this.tags = this.tags.filter(t => t.id !== tag.id)
+    }
+  }
+
+  delTag(id: number) {
+    this.tagService.delTag(id)
+    this.tags = this.tags.filter(t => t.id !== id)
   }
 }

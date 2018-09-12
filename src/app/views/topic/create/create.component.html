@@ -1,11 +1,35 @@
 <div class="post">
   <aside [loading]="loading">
-    <h1 class="title">
-      <input nz-input type="text" placeholder="标题">
-    </h1>
-    <app-selected-tag></app-selected-tag>
+    <dl>
+      <dt class="title">
+        <span class="required">
+          标题
+        </span>
+      </dt>
+      <dd>
+        <input nz-input [(ngModel)]="title" type="text" placeholder="标题">
+      </dd>
+      <dt class="title">标签</dt>
+      <dd class="tag">
+        <app-selected-tag #tags></app-selected-tag>
+      </dd>
+      <dt class="title">项目</dt>
+      <dd class="project">
+        <nz-select
+          style="width: 100%;"
+          [(ngModel)]="pid"
+          nzShowSearch
+          nzAllowClear
+          nzPlaceHolder="无">
+          <nz-option
+            *ngFor="let p of projects" [nzValue]="p.id" [nzLabel]="p.name">
+          </nz-option>
+        </nz-select>
+      </dd>
+    </dl>
   </aside>
   <div class="md">
-    <app-md-editor></app-md-editor>
+    <app-md-editor
+      (save)="onSave($event)"></app-md-editor>
   </div>
 </div>

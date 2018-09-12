@@ -1,8 +1,9 @@
 <div class="tags">
   <nz-tag
     *ngFor="let tag of tags;"
-    nzMode="closeable">
-    {{ tag }}
+    nzMode="closeable"
+    (nzOnClose)="delTag(tag.id)">
+    {{ tag.name }}
   </nz-tag>
   <nz-tag *ngIf="!editable" class="add" (click)="showTagInput()">
     <i class="anticon anticon-plus"></i>
@@ -22,5 +23,6 @@
 <app-search-tag
   *ngIf="searching"
   [@slideLeft]="searching"
-  (close)="close()">
+  (close)="close()"
+  (select)="onPickTag($event)">
 </app-search-tag>

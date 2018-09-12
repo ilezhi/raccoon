@@ -6,9 +6,10 @@ import {
   HttpRequest,
   HttpResponse,
   HTTP_INTERCEPTORS,
+  HttpErrorResponse,
 } from '@angular/common/http'
 import { Observable, throwError } from 'rxjs'
-import { tap, catchError, retry } from 'rxjs/operators'
+import { map, catchError, retry, tap } from 'rxjs/operators'
 import { NzMessageService } from 'ng-zorro-antd'
 
 import { API_HOST } from 'src/app/config/global.config'
@@ -26,17 +27,16 @@ export class RequestInterceptor implements HttpInterceptor {
 
     return next.handle(secureReq)
       .pipe(
-        retry(0),
-        tap(res => {
+        tap((res: any) => {
           if (res instanceof HttpResponse) {
             const { body: { code, msg } } = res
 
-            if (code !== 200) {
+            if (code !== 0) {
               throw Error(msg)
             }
           }
         }),
-        catchError(error => {
+        catchError((error: HttpErrorResponse) => {
           const { ok, statusText } = error
           let msg = ''
           // 后端正常返回, code不是0

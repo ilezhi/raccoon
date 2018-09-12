@@ -6,16 +6,11 @@
     </button>
   </header>
   <article [loading]="loading">
-    <nz-tag>Tag 1</nz-tag>
-    <nz-tag>Tag 1</nz-tag>
-    <nz-tag>Tag 1</nz-tag>
-    <nz-tag>Tag 1</nz-tag>
-    <nz-tag>Tag 1</nz-tag>
-    <nz-tag>Tag 1</nz-tag>
-    <nz-tag>Tag 1</nz-tag>
-    <nz-tag>Tag 1</nz-tag>
-    <nz-tag>Tag 1</nz-tag>
-    <nz-tag>Tag 1</nz-tag>
-    <nz-tag>Tag 1</nz-tag>
+    <nz-tag
+      [class.selected]="tag.selected"
+      *ngFor="let tag of tags; let i = index;"
+      (click)="onPickTag(tag, i)">
+      {{ tag.name }}
+    </nz-tag>
   </article>
 </section>

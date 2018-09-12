@@ -3,7 +3,7 @@ import { Action } from "@ngrx/store"
 import { HomeTypes, PageState } from '../types/action.type'
 
 export class AllTopicsAction implements Action {
-  readonly type = HomeTypes.TOPICS
+  readonly type = HomeTypes.Topics
   constructor(public payload: PageState) {}
 }
 

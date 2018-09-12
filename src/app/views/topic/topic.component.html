@@ -3,5 +3,8 @@
   *ngIf="state"
   [@slide]="state"
   (@slide.done)="slideDone()">
+  <i class="icon close ripple" (click)="onClose()">
+    close
+  </i>
   <router-outlet></router-outlet>
 </div>

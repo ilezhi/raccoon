@@ -1,7 +1,9 @@
 import { Component, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs'
 
+import { Tag } from 'src/app/models'
 import { TagService } from 'src/app/services/tag.service'
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-tag',
@@ -10,9 +12,16 @@ import { TagService } from 'src/app/services/tag.service'
 })
 export class SearchTagComponent implements OnInit, OnDestroy {
   private subscription: Subscription
-  loading = true
+
+  tags = [
+    {id: 1, name: 'javascript'},
+    {id: 2, name: 'web'},
+    {id: 3, name: '算法'}
+  ]
+  loading = false
 
   @Output() close = new EventEmitter<void>()
+  @Output() select = new EventEmitter<Tag>()
 
   constructor(
     private tagService: TagService
@@ -27,9 +36,14 @@ export class SearchTagComponent implements OnInit, OnDestroy {
   }
 
   sub() {
-    const { tagService, searchTag } = this
-    this.subscription = tagService.listen()
-      .subscribe(searchTag)
+    const { tagService, searchTag, delTag } = this
+    const subs = tagService.listen()
+      .subscribe(searchTag.bind(this))
+
+    const sub = tagService.delTag$
+      .subscribe(delTag.bind(this))
+
+    this.subscription = subs.add(sub)
   }
 
   onClose() {
@@ -44,5 +58,33 @@ export class SearchTagComponent implements OnInit, OnDestroy {
    */
   searchTag(tag: string) {
     this.loading = true
+    this.tagService.fetchTag(tag)
+      .subscribe((tags: Tag[]) => {
+        this.loading = false
+        this.tags = tags
+      })
+  }
+
+  onPickTag(tag: Tag, i) {
+    tag = {
+      ...tag,
+      selected: !tag.selected
+    }
+
+    this.tags.splice(i, 1, tag)
+    this.select.emit(tag)
+  }
+
+  delTag(id: number) {
+    this.tags = this.tags.map(t => {
+      if (t.id === id) {
+        return {
+          ...t,
+          selected: false
+        }
+      }
+
+      return t
+    })
   }
 }

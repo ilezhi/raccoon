@@ -28,15 +28,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onFilterByDate(n) {
-    const topic = {
-      time: 20180909,
-      page: 1,
-      size: 50,
-      total: 100,
-      filter: ''
-    }
+    // const topic = {
+    //   time: 20180909,
+    //   page: 1,
+    //   size: 50,
+    //   total: 100,
+    //   filter: ''
+    // }
 
-    this.store.dispatch(new AllTopicsAction(topic))
+    // this.store.dispatch(new AllTopicsAction(topic))
   }
 
 }
