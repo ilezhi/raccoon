@@ -1,7 +1,8 @@
-import { NgModule }     from '@angular/core';
+import { NgModule }     from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
+import { httpInterceptorProviders } from '../config/interceptor.config'
 import { SharedModule } from './shared.module'
 
 @NgModule({
@@ -12,7 +13,8 @@ import { SharedModule } from './shared.module'
   ],
   exports: [
     SharedModule
-  ]
+  ],
+  providers: [httpInterceptorProviders]
 })
 export class CoreModule {
   name = '核心模块';

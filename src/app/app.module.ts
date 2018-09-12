@@ -9,14 +9,13 @@ import { appReducer } from './reducers'
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     CoreModule,
     StoreModule.forRoot(appReducer),
-    AppRoutingModule
+    AppRoutingModule,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
