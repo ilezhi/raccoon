@@ -6,6 +6,7 @@ import {
   EntityTypes,
   PageState,
   defaultValue,
+  TopicTypes,
 } from '../types/action.type'
 import {
   AllTopicsAction,
@@ -24,7 +25,7 @@ const all = (state: PageState = defaultValue, action) => {
   console.log('all reducer')
 
   switch(type) {
-    case HomeTypes.Topics: {
+    case TopicTypes.TopicsSuccess: {
       let { ids } = state
       const { total, page, tids } = payload
       let unique = new Set(ids.concat(tids))
@@ -38,7 +39,7 @@ const all = (state: PageState = defaultValue, action) => {
       }
     }
 
-    case EntityTypes.UpdateTopic: {
+    case TopicTypes.UpdateSuccess: {
       let { ids } = state
       const { id } = payload
       const i = ids.indexOf(id)
@@ -54,8 +55,7 @@ const all = (state: PageState = defaultValue, action) => {
       }
     }
 
-    case EntityTypes.CreateTopic: {
-
+    case TopicTypes.PostSuccess: {
       let { ids = [], total = 0 } = state
       const { id } = payload
 
@@ -86,15 +86,12 @@ const all = (state: PageState = defaultValue, action) => {
 
 const fetching = (state, action) => {
   switch(action.type) {
-    case AllTopicsAction:
-    case AwesomeTopicsAction:
-    case DeptTopicsAction:
-    case TeamTopicsAction: {
+    case TopicTypes.Topics: {
       return true
     }
 
     default: {
-      return false
+      return state
     }
   }
 }
@@ -106,10 +103,7 @@ export const getAll = (state: any) => {
   const end = page * size
   let t = ids.slice(start, end).map(id => topics[id])
 
-  return {
-    ...all,
-    topics: t
-  }
+  return t
 }
 
 export default combineReducers({all, awesome, dept, team, fetching})

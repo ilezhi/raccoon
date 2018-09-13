@@ -6,7 +6,7 @@ import { Topic } from 'src/app/models'
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
-  @Input() data: Topic[]
+  @Input() data: Topic[] = []
 
   constructor() { }
 

@@ -23,7 +23,7 @@ import { EditorService }          from './services/editor.service';
     PanelEditComponent,
     PanelViewComponent,
     LayoutTip,
-    ParseMD
+    ParseMD,
   ],
   exports: [
     MdEditorComponent

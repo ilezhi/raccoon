@@ -51,3 +51,12 @@ exp
 // 显示命名路由下的子路由
 `/all(slide:topic/create)`
 ```
+
+
+## Q4: 如何监控路由变化
+A: 
+```ts
+router.event.pipe(
+  filter(ev => ev instanceof NavigationEnd)
+).subscribe()
+```

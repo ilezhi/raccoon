@@ -1,17 +1,18 @@
 <app-main>
   <app-toolbar (filter)="onFilterByDate($event)"></app-toolbar>
-  <nz-tabset>
-    <nz-tab nzTitle="全部">
-      <app-table [data]="all.topics"></app-table>
-    </nz-tab>
-    <nz-tab nzTitle="精华">
-      <app-table></app-table>
-    </nz-tab>
-    <nz-tab nzTitle="部门">
-      <app-table></app-table>
-    </nz-tab>
-    <nz-tab nzTitle="team">
-      <app-table></app-table>
-    </nz-tab>
-  </nz-tabset>
+  <ul nz-menu nzMode="horizontal">
+    <li nz-menu-item>
+      <a routerLink="/">全部</a>
+    </li>
+    <li nz-menu-item>
+      <a routerLink="/awesome">精华</a>
+    </li>
+    <li nz-menu-item>
+      <a routerLink="/department">部门</a>
+    </li>
+    <li nz-menu-item>
+      <a routerLink="/team">小队</a>
+    </li>
+  </ul>
+  <router-outlet></router-outlet>
 </app-main>

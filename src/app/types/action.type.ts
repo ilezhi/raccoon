@@ -32,6 +32,24 @@ export interface ListState extends PageState {
   id: number
 }
 
+export enum TopicTypes {
+  Topics = '[Topic List Page] list',
+  TopicsSuccess = '[Topic/api] list',
+
+  Topic = '[Topic Detail Page] detail',
+  TopicSuccess = '[Topic/api] detail',
+
+  Post = '[Post Topic Page] post topic',
+  PostSuccess = '[Topic/api] success post topic',
+  PostFailure = '[Topic/api] fail post topic'
+
+  Update = '[Edit Topic Page] update topic',
+  UpdateSuccess = '[Topic/api] update topic success',
+
+  Trash = '[Trash Topic Page] trash topic',
+  TrashSuccess = '[Topic] trash topic success',
+}
+
 export enum HomeTypes {
   Topics = '[Home] all topics',
   AWESOME_TOPICS = '[Home] awesome topics',

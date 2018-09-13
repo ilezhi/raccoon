@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Router } from '@angular/router'
+import { Component, OnInit, ViewChild } from '@angular/core'
+import { Store } from '@ngrx/store'
 import { NzMessageService } from 'ng-zorro-antd'
 
 import { SelectedTagComponent } from '../components/selected-tag/selected-tag.component'
@@ -16,20 +16,16 @@ export class CreateComponent implements OnInit {
     {id: 1, name: 'raccon'}
   ]
   pid: number
+  loading = false
 
   @ViewChild(SelectedTagComponent) $tag: SelectedTagComponent
 
   constructor(
-    private router: Router,
     private message: NzMessageService,
     private topicService: TopicService
-  ) { }
+  ) {}
 
   ngOnInit() {}
-
-  onClose() {
-    this.router.navigate([{outlets: {slide: null}}])
-  }
 
   /**
    * 保存topic
@@ -53,10 +49,15 @@ export class CreateComponent implements OnInit {
       tags,
       content: text
     }
-    
-    topicService.postTopic(params)
-      .subscribe(topic => {
-        this.message.success('成功')
+
+    this.loading = true
+    topicService.post(params)
+      .subscribe(done => {
+        this.loading = false
+        if (done) {
+          this.message.success('发布成功')
+          topicService.close()
+        }
       })
   }
 }

@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs'
 
 import { AllTopicsAction } from '../../action/home.action'
 import { getAll } from '../../reducers/home.reducer'
+import { ActivatedRoute, ParamMap, Router, NavigationEnd } from '@angular/router';
+import { switchMap, filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +15,26 @@ import { getAll } from '../../reducers/home.reducer'
 export class HomeComponent implements OnInit, OnDestroy {
   private sb: Subscription
   all = {}
+  private type: string
 
-  constructor(private store: Store<any>) {
+  constructor(
+    store: Store<any>,
+    route: ActivatedRoute,
+    router: Router
+  ) {
     this.sb = store.pipe(select(getAll))
       .subscribe(all => {
-        console.log(all, 'haha')
         this.all = all
       })
+
+    const subRouter = router.events.pipe(
+      filter(ev => ev instanceof NavigationEnd),
+      map((data: NavigationEnd) => data.url.slice(1))
+    ).subscribe((url: string) => {
+      this.type = url || 'all'
+    })
+
+    this.sb.add(subRouter)
   }
 
   ngOnInit() {

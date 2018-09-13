@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '', redirectTo: '/all', pathMatch: 'full'
   },
   {
-    path: 'all', loadChildren: './views/home/home.module#HomeModule'
+    path: '', loadChildren: './views/home/home.module#HomeModule'
   },
   {
     path: 'my', loadChildren: './views/my/my.module#MyModule'

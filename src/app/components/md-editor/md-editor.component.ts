@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core'
-import { throttleTime, debounceTime } from 'rxjs/operators'
+import { Component, OnInit, Output, EventEmitter } from '@angular/core'
+import { debounceTime } from 'rxjs/operators'
 
 import { EditorService } from './services/editor.service'
 import { slidePanel } from './animations/slide-panel'

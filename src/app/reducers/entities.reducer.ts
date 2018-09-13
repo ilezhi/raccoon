@@ -10,6 +10,7 @@ import {
   SharedTypes,
   DraftTypes,
   KeyMap,
+  TopicTypes,
 } from '../types/action.type'
 import {
   User,
@@ -36,13 +37,7 @@ const topics = (state: KeyMap<Topic> = {}, action: any) => {
   const { type, payload } = action
   console.log('entities reducer')
   switch(type) {
-    case HomeTypes.Topics:
-    case MyTypes.Topics:
-    case SolvedTypes.AnswerTopics:
-    case SolvedTypes.QuestionTopics:
-    case CollectTypes.Topics:
-    case SharedTypes.Topics:
-    case DraftTypes.Topics: {
+    case TopicTypes.TopicsSuccess: {
       const { entities } = payload
       return {
         ...state,
@@ -50,12 +45,21 @@ const topics = (state: KeyMap<Topic> = {}, action: any) => {
       }
     }
 
-    case EntityTypes.UpdateTopic:
-    case EntityTypes.CreateTopic: {
+    case TopicTypes.TopicSuccess:
+    case TopicTypes.PostSuccess:
+    case TopicTypes.UpdateSuccess: {
       const { id } = payload
       return {
         ...state,
         [id]: payload
+      }
+    }
+
+    case TopicTypes.TrashSuccess: {
+      const { id } = payload
+      delete state[id]
+      return {
+        ...state
       }
     }
 

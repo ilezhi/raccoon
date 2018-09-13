@@ -8,7 +8,6 @@ import { EditorService }  from '../../services/editor.service';
   styleUrls: ['./toolbar-left.component.scss']
 })
 export class ToolbarLeftComponent {
-
   @Output() prev = new EventEmitter();
   @Output() next = new EventEmitter();
   @Output() trash = new EventEmitter();
