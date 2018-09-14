@@ -5,12 +5,12 @@ import { SolvedRoutingModule } from './solved-routing.module'
 import { SolvedComponent } from './solved.component'
 
 import { SharedModule } from '../../module/shared.module'
-import { solvedReducer } from '../../reducers'
+// import { solvedReducer } from '../../reducers'
 
 @NgModule({
   imports: [
     SharedModule,
-    StoreModule.forFeature('solved', solvedReducer),
+    // StoreModule.forFeature('solved', solvedReducer),
     SolvedRoutingModule
   ],
   declarations: [SolvedComponent]

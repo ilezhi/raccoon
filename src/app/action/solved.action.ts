@@ -1,6 +1,6 @@
 import { Action } from "@ngrx/store"
 
-import { SolvedTypes, PageState } from '../types/action.type'
+import { SolvedTypes } from './type'
 
 export class QTopicsAction implements Action {
   readonly type = SolvedTypes.QuestionTopics

@@ -15,11 +15,6 @@ export class AllComponent implements OnInit {
   topics$: Observable<Topic[]>
 
   constructor(private store: Store<any>) {
-    this.topics$ = store.pipe(select(getAll))
-    store.pipe(select('entities'))
-      .subscribe(data => {
-        console.log('home entities', data)
-      })
   }
 
   ngOnInit() {

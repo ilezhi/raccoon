@@ -1,50 +1,64 @@
 import {
-  KeyMap,
-  Action,
-} from '../types/action.type'
+  TopicTypes,
+} from '../action/type'
 
-export function createReducer<S, A extends Action>(condition) {
-  return function page(state: KeyMap<S> = {}, action: A): KeyMap<S> {
-    const { type, payload } = action
-    switch(type) {
-      case condition: {
-        return {...payload}
-      }
+export const topicListCase = (state: PageState, payload: any): PageState => {
+  let { ids } = state
+  const { total, page, tids } = payload
 
-      default: {
-        return state
-      }
-    }
+  ids = [...ids]
+  let unique = new Set(ids.concat(tids))
+  ids = [...unique]
+
+  return { ...state, page, total, ids }
+}
+
+export const topicPostCase = (state: PageState, payload: any): PageState => {
+  let { ids, total } = state
+  const { id } = payload
+
+  ids.unshift(id)
+  total += 1
+
+  return {
+    ...state,
+    total,
+    ids
   }
 }
 
-export function createEntity<S, A extends Action>(condition) {
-  return function entity(state: KeyMap<S> = {}, action: A): KeyMap<S> {
-    const { type, payload } = action
-    switch(type) {
-      case condition: {
-        return { ...state, ...payload}
-      }
+export const topicUpdateCase = (state: PageState, payload: any): PageState =>{
+  let { ids } = state
+  const { id } = payload
 
-      default: {
-        return state
-      }
-    }
+  ids = [...ids]
+  const i = ids.indexOf(id)
+
+  if (i !== -1) {
+    ids.splice(i, 1)
+  }
+
+  ids.unshift(id)
+
+  return {
+    ...state,
+    ids
   }
 }
 
-export function createKeyReducer<S, A extends Action>(condition) {
-  return function list(state: KeyMap<S> = {}, action: A): KeyMap<S> {
-    const { type, payload } = action
-    switch(type) {
-      case condition: {
-        const { id, ...rest } = payload
-        return { ...state, [id]: rest }
-      }
+export const topicTrashCase = (state: PageState, payload: any): PageState => {
+  let { ids, total } = state
+  const { id } = payload
+  const i = ids.indexOf(id)
 
-      default: {
-        return state
-      }
-    }
+  if (i !== -1) {
+    ids.splice(i, 1)
+    total -= 1
+  }
+
+  return {
+    ...state,
+    total,
+    ids
   }
 }

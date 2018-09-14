@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store'
 
 import { Topic } from 'src/app/models'
-import { TopicTypes } from '../types/action.type'
+import { TopicTypes } from './type'
 import { TopicParams } from 'src/app/types/api.params.type'
 
 export class Topics implements Action {

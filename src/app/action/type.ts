@@ -1,37 +1,3 @@
-export interface State {
-  entities: {[key: string]: any}
-  home?: {[key: string]: any}
-}
-
-export interface KeyMap<T> {
-  [key: number]: T
-}
-
-export interface Action {
-  type: string
-  payload: any
-}
-
-export interface PageState {
-  time: number
-  page: number
-  total: number
-  ids: number[]
-  filter: string
-}
-
-export const defaultValue = {
-  time: 0,
-  page: 1,
-  total: 0,
-  ids: [],
-  filter: ''
-}
-
-export interface ListState extends PageState {
-  id: number
-}
-
 export enum TopicTypes {
   Topics = '[Topic List Page] list',
   TopicsSuccess = '[Topic/api] list',
@@ -41,7 +7,7 @@ export enum TopicTypes {
 
   Post = '[Post Topic Page] post topic',
   PostSuccess = '[Topic/api] success post topic',
-  PostFailure = '[Topic/api] fail post topic'
+  PostFailure = '[Topic/api] fail post topic',
 
   Update = '[Edit Topic Page] update topic',
   UpdateSuccess = '[Topic/api] update topic success',
@@ -51,12 +17,17 @@ export enum TopicTypes {
 }
 
 export enum HomeTypes {
-  Topics = '[Home] all topics',
-  AWESOME_TOPICS = '[Home] awesome topics',
-  DEPT_TOPICS = '[Home] dept topics',
-  TEAM_TOPICS = '[Home] team topics',
+  All = '[All/api] all topic',
+  AllSuccess = '[All Page] all topic',
 
-  Filter = '[Home] filter topics',
+  Awesome = '[Awesome Page] awesome topic',
+  AwesomeSuccess = '[Awesome/api] awesome topic',
+
+  Dept = '[Dept Page] dept topic',
+  DeptSuccess = '[Dept/api] dept topic',
+
+  Team = '[Team Page] team topic',
+  TeamSuccess = '[Team/api] team topic'
 }
 
 export enum EntityTypes {

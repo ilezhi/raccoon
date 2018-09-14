@@ -1,6 +1,6 @@
 import { Action } from "@ngrx/store"
 
-import { SharedTypes, PageState } from '../types/action.type'
+import { SharedTypes } from './type'
 
 export class SharedTopicsAction implements Action {
   readonly type = SharedTypes.Topics

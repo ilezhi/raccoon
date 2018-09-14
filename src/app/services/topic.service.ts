@@ -3,7 +3,6 @@ import { Observable, of, Subject } from 'rxjs'
 
 import { Store } from '@ngrx/store'
 
-import { Response } from 'src/app/types/global.type'
 import { HttpService } from './http.service'
 import { Topic } from 'src/app/models'
 import { catchError, tap, map } from 'rxjs/operators'
@@ -30,7 +29,7 @@ export class TopicService {
     const { store, http } = this
     return http.post(url, params)
       .pipe(
-        map((res: Response) => {
+        map((res: Res) => {
           const { data } = res
           store.dispatch(new TopicAction.PostSuccess(data))
           return true

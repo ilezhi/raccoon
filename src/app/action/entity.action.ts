@@ -1,6 +1,6 @@
 import { Action } from "@ngrx/store"
 
-import { EntityTypes } from '../types/action.type'
+import { EntityTypes } from './type'
 import {
   User,
   Topic,

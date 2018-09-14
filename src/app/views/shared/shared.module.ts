@@ -4,12 +4,12 @@ import { StoreModule } from '@ngrx/store'
 import { SharedModule as EnjoyModule } from '../../module/shared.module'
 import { SharedRoutingModule } from './shared-routing.module'
 import { SharedComponent } from './shared.component'
-import { sharedReducer } from '../../reducers'
+// import { sharedReducer } from '../../reducers'
 
 @NgModule({
   imports: [
     EnjoyModule,
-    StoreModule.forFeature('shared', sharedReducer),
+    // StoreModule.forFeature('shared', sharedReducer),
     SharedRoutingModule
   ],
   declarations: [SharedComponent]

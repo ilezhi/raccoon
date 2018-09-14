@@ -1,4 +1,7 @@
 import { Component } from '@angular/core'
+import { Store } from '@ngrx/store'
+
+import { getFull } from 'src/app/reducers'
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,11 @@ import { Component } from '@angular/core'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  constructor(store: Store<any>) {
+    store.select(getFull)
+      .subscribe(data => {
+        console.log('app', data)
+      })
+  }
   private name = 'app'
 }
