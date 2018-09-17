@@ -7,7 +7,6 @@ import { HttpService } from './http.service'
 import { Topic } from 'src/app/models'
 import { catchError, tap, map } from 'rxjs/operators'
 import * as TopicAction from 'src/app/action/topic.action'
-import { TopicParams } from 'src/app/types/api.params.type'
 
 @Injectable({
   providedIn: 'root'

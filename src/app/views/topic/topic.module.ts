@@ -6,7 +6,6 @@ import { SharedModule } from '../../module/shared.module'
 import { TopicRoutingModule } from './topic-routing.module'
 import { TopicComponent } from './topic.component'
 import { CreateComponent } from './create/create.component'
-import { SearchTagComponent } from './components/search-tag/search-tag.component';
 import { SelectedTagComponent } from './components/selected-tag/selected-tag.component'
 
 @NgModule({
@@ -15,6 +14,10 @@ import { SelectedTagComponent } from './components/selected-tag/selected-tag.com
     SharedModule,
     TopicRoutingModule
   ],
-  declarations: [TopicComponent, CreateComponent, SearchTagComponent, SelectedTagComponent]
+  declarations: [
+    TopicComponent,
+    CreateComponent,
+    SelectedTagComponent,
+  ]
 })
 export class TopicModule { }

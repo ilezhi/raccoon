@@ -1,32 +1,16 @@
 <div class="post" [loading]="loading">
   <aside>
-    <dl>
-      <dt class="title">
-        <span class="required">
-          标题
-        </span>
-      </dt>
-      <dd>
+    <ul>
+      <li>
         <input nz-input [(ngModel)]="title" type="text" placeholder="标题">
-      </dd>
-      <dt class="title">标签</dt>
-      <dd class="tag">
+      </li>
+      <li>
+        <label nz-checkbox [(ngModel)]="shared">分享</label>
+      </li>
+      <li>
         <app-selected-tag #tags></app-selected-tag>
-      </dd>
-      <dt class="title">项目</dt>
-      <dd class="project">
-        <nz-select
-          style="width: 100%;"
-          [(ngModel)]="pid"
-          nzShowSearch
-          nzAllowClear
-          nzPlaceHolder="无">
-          <nz-option
-            *ngFor="let p of projects" [nzValue]="p.id" [nzLabel]="p.name">
-          </nz-option>
-        </nz-select>
-      </dd>
-    </dl>
+      </li>
+    </ul>
   </aside>
   <div class="md">
     <app-md-editor

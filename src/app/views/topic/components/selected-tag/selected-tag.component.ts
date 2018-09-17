@@ -1,56 +1,93 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 
-import { Tag } from 'src/app/models'
-import { slideLeft } from 'src/app/animations/slide-left'
 import { TagService } from 'src/app/services/tag.service'
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-selected-tag',
   templateUrl: './selected-tag.component.html',
   styleUrls: ['./selected-tag.component.scss'],
-  animations: [slideLeft]
 })
-export class SelectedTagComponent implements OnInit {
-  tags = []
-  editable = false
-  tag = ''
-  searching = ''
+export class SelectedTagComponent implements OnDestroy {
+  tags = []         // 已选tag
+  editable = false  // 搜索状态
+  tag = ''          // 搜索输入
+  loading = false   // 搜索loading
+  result: Tag[] = [
+    {name: 'javascript', id: 1},
+    {name: 'web', id: 2}
+  ]
+
+  private sub: Subscription
 
   @ViewChild('input') $tag: ElementRef
 
   constructor(
     private tagService: TagService
-  ) { }
+  ) {
+    this.sub = tagService.search()
+      .subscribe(data => {
+        this.loading = false
+        this.result = data
+      })
+  }
 
-  ngOnInit() {}
+  ngOnDestroy() {
+    this.sub.unsubscribe()
+  }
 
-  showTagInput() {
+  onShowInput() {
     this.editable = true
-    this.searching = 'in'
     setTimeout(() => {
       this.$tag.nativeElement.focus()
     }, 10)
   }
 
-  /**
-   * 根据当前输入的tag来检索
-   * @param input tag输入
-   */
-  search(input: string) {
+  onSearchInput(input: string) {
+    this.loading = true
     this.tagService.input(input)
+  }
+
+  onSelect(tag: Tag) {
+    const isExist = this.tags.some(t => {
+      return t.id === tag.id
+    })
+
+    !isExist && this.tags.push(tag)
   }
 
   /**
    * 添加tag
    * TODO: 判断是否已存在, 存在则直接添加, 不存在则保存后添加
    */
-  postTag(e: KeyboardEvent) {
+  post(e: KeyboardEvent): void {
     const { keyCode } = e
 
     if (keyCode === 13) {
       // 回车
-      this.editable = false
-      this.tag = ''
+      let { result, tag, tags, tagService } = this
+      tag = tag.trim()
+
+      if (!tag) {
+        return
+      }
+
+      const item = result.find(item => {
+        return item.name.toLowerCase() === tag.toLowerCase()
+      })
+
+      if (item) {
+        tags.push(item)
+        this.close()
+      } else {
+        // 相当于新增
+        tagService.post(tag)
+          .subscribe(tag => {
+            tag && tags.push(tag)
+            this.close()
+          })
+      }
     }
 
     if (keyCode === 27) {
@@ -60,21 +97,14 @@ export class SelectedTagComponent implements OnInit {
 
   close() {
     this.editable = false
-    this.searching = ''
     this.tag = ''
   }
 
-  onPickTag(tag: Tag) {
-    const { selected } = tag
-    if (selected) {
-      this.tags.push(tag)
-    } else {
-      this.tags = this.tags.filter(t => t.id !== tag.id)
-    }
-  }
-
-  delTag(id: number) {
-    this.tagService.delTag(id)
-    this.tags = this.tags.filter(t => t.id !== id)
+  /**
+   * 删除tag
+   * @param i index
+   */
+  del(i: number) {
+    this.tags.splice(i, 1)
   }
 }

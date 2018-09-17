@@ -11,11 +11,8 @@ import { TopicService } from 'src/app/services/topic.service';
   styleUrls: ['./create.component.scss']
 })
 export class CreateComponent implements OnInit {
-  title: string = ''
-  projects = [
-    {id: 1, name: 'raccon'}
-  ]
-  pid: number
+  title = ''
+  shared = false
   loading = false
 
   @ViewChild(SelectedTagComponent) $tag: SelectedTagComponent
@@ -35,7 +32,7 @@ export class CreateComponent implements OnInit {
    * 3. 获取project
    */
   onSave(text: string) {
-    let { title, pid: projectID, $tag, topicService } = this
+    let { title, shared, $tag, topicService } = this
     title = title.trim()
 
     if (title === '') {
@@ -43,9 +40,14 @@ export class CreateComponent implements OnInit {
     }
 
     const tags = $tag.tags.map(t => t.id)
+
+    if (tags.length === 0) {
+      return this.message.warning('至少添加一个标签')
+    }
+
     const params = {
       title,
-      projectID,
+      shared,
       tags,
       content: text
     }

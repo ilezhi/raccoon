@@ -1,11 +1,11 @@
 <div class="tags">
   <nz-tag
-    *ngFor="let tag of tags;"
+    *ngFor="let tag of tags; let i = index;"
     nzMode="closeable"
-    (nzOnClose)="delTag(tag.id)">
+    (nzOnClose)="del(i)">
     {{ tag.name }}
   </nz-tag>
-  <nz-tag *ngIf="!editable" class="add" (click)="showTagInput()">
+  <nz-tag *ngIf="!editable" class="add" (click)="onShowInput()">
     <i class="anticon anticon-plus"></i>
     添加tag
   </nz-tag>
@@ -17,12 +17,14 @@
     type="text"
     nzSize="small"
     [(ngModel)]="tag"
-    (ngModelChange)="search(input.value)"
-    (keydown)="postTag($event)">
+    (ngModelChange)="onSearchInput(input.value)"
+    (keydown)="post($event)">
 </div>
-<app-search-tag
-  *ngIf="searching"
-  [@slideLeft]="searching"
-  (close)="close()"
-  (select)="onPickTag($event)">
-</app-search-tag>
+<section class="list" [loading]="loading">
+  <nz-tag
+    *ngFor="let tag of result;"
+    (click)="onSelect(tag)">
+    {{ tag.name }}
+  </nz-tag>
+</section>
+

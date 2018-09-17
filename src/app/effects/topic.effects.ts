@@ -10,7 +10,6 @@ import { Topic } from '../models'
 import { TopicTypes } from 'src/app/action/type'
 import * as TopicAction from 'src/app/action/topic.action'
 import { TopicService } from '../services/topic.service'
-import { TopicParams } from 'src/app/types/api.params.type'
 
 @Injectable()
 export class TopicEffects {
