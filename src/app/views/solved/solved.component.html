@@ -1,11 +1,12 @@
 <app-main>
   <app-toolbar></app-toolbar>
-  <nz-tabset>
-    <nz-tab nzTitle="提问">
-      <app-table></app-table>
-    </nz-tab>
-    <nz-tab nzTitle="回答">
-      <app-table></app-table>
-    </nz-tab>
-  </nz-tabset>
+  <ul nz-menu nzMode="horizontal">
+    <li nz-menu-item>
+      <a routerLink="/solved/question">提问</a>
+    </li>
+    <li nz-menu-item>
+      <a routerLink="/solved/answer">回答</a>
+    </li>
+  </ul>
+  <router-outlet></router-outlet>
 </app-main>

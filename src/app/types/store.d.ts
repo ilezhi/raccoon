@@ -5,6 +5,11 @@ declare interface PageState {
   ids: number[]
 }
 
+
+declare interface DState {
+  [id: number]: PageState
+}
+
 declare interface Action {
   type: string
   payload: any

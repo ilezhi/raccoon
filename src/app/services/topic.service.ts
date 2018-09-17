@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store'
 import { HttpService } from './http.service'
 import { Topic } from 'src/app/models'
 import { catchError, tap, map } from 'rxjs/operators'
-import { AddTopicAction, CreateTopic } from 'src/app/action/entity.action'
 import * as TopicAction from 'src/app/action/topic.action'
 import { TopicParams } from 'src/app/types/api.params.type'
 
