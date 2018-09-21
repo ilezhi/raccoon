@@ -6,9 +6,9 @@ import {
   HomeTypes
 } from '../action/type'
 
-const topics = (state: KeyMap = {}, action: any) => {
+const topics = (state: KeyMap = {}, action: Action): KeyMap => {
   const { type, payload } = action
-  console.log('entities reducer')
+
   switch(type) {
     case HomeTypes.AllSuccess:
     case HomeTypes.DeptSuccess:
@@ -25,10 +25,10 @@ const topics = (state: KeyMap = {}, action: any) => {
     case TopicTypes.TopicSuccess:
     case TopicTypes.PostSuccess:
     case TopicTypes.UpdateSuccess: {
-      const { id } = payload
+      const { topics } = payload.entities
       return {
         ...state,
-        [id]: payload
+        ...topics
       }
     }
 
@@ -82,4 +82,34 @@ const draft = (state: KeyMap = {}, action: Action): KeyMap => {
   }
 }
 
-export default combineReducers({topics, draft})
+const tags = (state: KeyMap = {}, action: Action): KeyMap => {
+  const { type, payload } = action
+  switch(type) {
+    case TopicTypes.TopicSuccess:
+    case TopicTypes.PostSuccess:
+    case TopicTypes.UpdateSuccess: {
+      const { tags } = payload.entities
+
+      const ids = Object.keys(tags).filter(id => !state[id])
+      if (!ids.length) {
+        return state
+      }
+
+      const newTags = ids.reduce((obj, id) => {
+        obj[id] = tags[id]
+        return obj
+      }, {})
+
+      return {
+        ...state,
+        ...newTags
+      }
+    }
+
+    default: {
+      return state
+    }
+  }
+}
+
+export default combineReducers({topics, draft, tags})

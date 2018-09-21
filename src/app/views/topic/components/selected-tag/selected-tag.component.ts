@@ -14,10 +14,7 @@ export class SelectedTagComponent implements OnDestroy {
   editable = false  // 搜索状态
   tag = ''          // 搜索输入
   loading = false   // 搜索loading
-  result: Tag[] = [
-    {name: 'javascript', id: 1},
-    {name: 'web', id: 2}
-  ]
+  result: Tag[]
 
   private sub: Subscription
 

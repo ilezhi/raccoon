@@ -95,6 +95,10 @@ h1 {
   }
 }
 
+button {
+	outline: none;
+}
+
 .ripple {
 	position: relative;
 	cursor: pointer;
@@ -134,9 +138,8 @@ h1 {
 	}
 }
 
-.fc {
+.flex {
 	display: flex;
-	align-items: center;
 }
 
 // reset

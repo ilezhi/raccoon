@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Subject, Observable, of } from 'rxjs'
-import { debounceTime, distinctUntilChanged, switchMap, catchError, tap } from 'rxjs/operators'
+import { debounceTime, distinctUntilChanged, switchMap, catchError, tap, map } from 'rxjs/operators'
 
 import { Tag } from '../models'
 import { HttpService } from './http.service'
@@ -17,6 +17,7 @@ export class TagService {
   ) {}
 
   input(tag: string) {
+    tag = tag.trim() || 'all'
     this.tag$.next(tag)
   }
 
@@ -31,16 +32,23 @@ export class TagService {
   }
 
   fetchTag(tag: string): Observable<Array<Tag>> {
-    const url = `tag/search/${tag}`
+    const url = `search/tag/${tag}`
     return this.http.get<Array<Tag>>(url)
       .pipe(
+        map((res: Res) => res.data),
         catchError(_ => of([]))
       )
   }
 
   post(tag: string): Observable<Tag> {
-    const url = `tag/post/${tag}`
-    return this.http.post<Tag>(url)
-      .pipe(catchError(_ => of(null)))
+    const url = `tag/create`
+    const params = {
+      name: tag
+    }
+    return this.http.post<Tag>(url, params)
+      .pipe(
+        map((res: Res) => res.data),
+        catchError(_ => of(null))
+      )
   }
 }

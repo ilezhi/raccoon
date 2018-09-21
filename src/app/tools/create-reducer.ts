@@ -2,7 +2,13 @@ import {
   TopicTypes,
 } from '../action/type'
 
-export const topicListCase = (state: PageState, payload: any): PageState => {
+const initState = {
+  page: 1,
+  total: 0,
+  size: 50,
+}
+
+export const topicListCase = (state: PageState = {...initState, ids: []}, payload: any): PageState => {
   let { ids } = state
   const { total, page, tids } = payload
 
@@ -13,9 +19,9 @@ export const topicListCase = (state: PageState, payload: any): PageState => {
   return { ...state, page, total, ids }
 }
 
-export const topicPostCase = (state: PageState, payload: any): PageState => {
+export const topicPostCase = (state: PageState = {...initState, ids: []}, payload: any): PageState => {
   let { ids, total } = state
-  const { id } = payload
+  const { result: id } = payload
 
   ids.unshift(id)
   total += 1
@@ -27,9 +33,9 @@ export const topicPostCase = (state: PageState, payload: any): PageState => {
   }
 }
 
-export const topicUpdateCase = (state: PageState, payload: any): PageState =>{
+export const topicUpdateCase = (state: PageState = {...initState, ids: []}, payload: any): PageState =>{
   let { ids } = state
-  const { id } = payload
+  const { result: id } = payload
 
   ids = [...ids]
   const i = ids.indexOf(id)
@@ -46,7 +52,7 @@ export const topicUpdateCase = (state: PageState, payload: any): PageState =>{
   }
 }
 
-export const topicTrashCase = (state: PageState, payload: any): PageState => {
+export const topicTrashCase = (state: PageState = {...initState, ids: []}, payload: any): PageState => {
   let { ids, total } = state
   const { id } = payload
   const i = ids.indexOf(id)

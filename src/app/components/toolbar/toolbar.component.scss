@@ -44,7 +44,7 @@
   align-items: center;
 }
 
-.disabled {
+button[disabled] {
   color: #ccc;
 }
 
@@ -55,4 +55,16 @@ i.mid {
 
 .date {
   border-radius: 0 4px 4px 0 !important;
+}
+
+.center {
+  line-height: 1.6;
+}
+
+button {
+  border: none;
+  background: transparent;
+  width: 24px;
+  height: 24px;
+  padding: 0;
 }

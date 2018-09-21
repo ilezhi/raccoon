@@ -1,4 +1,4 @@
-import { combineReducers } from '@ngrx/store'
+import { combineReducers, ActionReducer } from '@ngrx/store'
 
 import {
   topicListCase,
@@ -11,13 +11,7 @@ import {
   TopicTypes
 } from '../action/type'
 
-const initState = {
-  page: 1,
-  total: 0,
-  size: 50,
-}
-
-const all = (state: PageState = {...initState, ids: []}, action: Action): PageState => {
+const all = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
   switch(type) {
@@ -43,7 +37,7 @@ const all = (state: PageState = {...initState, ids: []}, action: Action): PageSt
   }
 }
 
-const awesome = (state: PageState = {...initState, ids: []}, action: Action): PageState => {
+const awesome = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
   switch(type) {
@@ -67,7 +61,7 @@ const awesome = (state: PageState = {...initState, ids: []}, action: Action): Pa
   }
 }
 
-const dept = (state: PageState = {...initState, ids: []}, action: Action): PageState => {
+const dept = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
   switch(type) {
@@ -93,7 +87,7 @@ const dept = (state: PageState = {...initState, ids: []}, action: Action): PageS
   }
 }
 
-const team = (state: PageState = {...initState, ids: []}, action: Action): PageState => {
+const team = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
   switch(type) {
@@ -120,7 +114,25 @@ const team = (state: PageState = {...initState, ids: []}, action: Action): PageS
 }
 
 export const getAll = (state) => {
-  return state.home.all
+  const all = state.home.all
+  if (!all) {
+    return
+  }
+
+  const { page, size, ids } = all
+  const { topics } = state.entities
+
+  const end = page * size
+  const start = end - size
+  const data = ids.slice(start, end).map(id => topics[id])
+
+  return data
 }
 
-export default combineReducers({all, awesome, dept, team})
+export const getTotal = (state) => {
+  return state.home.all.total
+}
+
+const reducer: ActionReducer<any, Action> = combineReducers({all, awesome, dept, team})
+
+export default reducer

@@ -14,19 +14,31 @@ const routes: Routes = [
     children: [
       {
         path: 'all',
-        component: AllComponent
+        component: AllComponent,
+        data: {
+          page: 'home@all'
+        }
       },
       {
         path: 'awesome',
-        component: AwesomeComponent
+        component: AwesomeComponent,
+        data: {
+          page: 'home@awesome'
+        }
       },
       {
         path: 'department',
-        component: DeptComponent
+        component: DeptComponent,
+        data: {
+          page: 'home@dept'
+        }
       },
       {
         path: 'team',
-        component: TeamComponent
+        component: TeamComponent,
+        data: {
+          page: 'home@team'
+        }
       }
     ]
   }

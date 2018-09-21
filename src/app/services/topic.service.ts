@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core'
 import { Observable, of, Subject } from 'rxjs'
 
 import { Store } from '@ngrx/store'
+import { normalize } from 'normalizr'
+
+import { topic } from 'src/app/normalizr/schema'
 
 import { HttpService } from './http.service'
 import { Topic } from 'src/app/models'
@@ -22,13 +25,24 @@ export class TopicService {
     private http: HttpService
   ) {}
 
+  topics(type = 'all', lastID?: number, size = 50): Observable<Array<Topic>> {
+    const url = `topics/${type}`
+    const params = {
+      lastID,
+      size
+    }
+
+    return this.http.get(url, params)
+      .pipe(map((res: Res) => res.data))
+  }
+
   post(params: TopicParams): Observable<boolean> {
     const url = 'topic/create'
     const { store, http } = this
     return http.post(url, params)
       .pipe(
         map((res: Res) => {
-          const { data } = res
+          const data = normalize(res.data, topic)
           store.dispatch(new TopicAction.PostSuccess(data))
           return true
         }),

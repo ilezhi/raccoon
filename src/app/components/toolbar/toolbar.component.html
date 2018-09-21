@@ -28,21 +28,40 @@
       </div>
     </div>
     <div class="pagination">
-      <div class="fc">
+      <div class="flex center">
         <span>
-          第 <span>1</span> - <span>50</span> 行,
+          第
+          <ng-container *ngIf="total; else zero" >
+            <span>{{ start }}</span> - <span>{{ end }}</span>
+          </ng-container>
+          <ng-template #zero>
+            <span>0</span>
+          </ng-template>
+          行,
         </span>
         <span>
-          共 <span>250</span> 行
+          共 <span>{{ total }}</span> 行
         </span>
       </div>
-      <div class="fc">
-        <div class="item ripple disabled" nz-tooltip nzTitle="上一页" nzPlacement="bottom">
+      <div class="flex">
+        <button
+          class="item ripple"
+          nz-tooltip
+          nzTitle="上一页"
+          nzPlacement="bottom"
+          [disabled]="size >= start"
+          (click)="onPage('prev')">
           <i class="icon">chevron_left</i>
-        </div>
-        <div class="item ripple" nz-tooltip nzTitle="下一页" nzPlacement="bottom">
+        </button>
+        <button
+          class="item ripple"
+          nz-tooltip
+          nzTitle="下一页"
+          nzPlacement="bottom"
+          [disabled]="end === total"
+          (click)="onPage('next')">
           <i class="icon">chevron_right</i>
-        </div>
+        </button>
       </div>
     </div>
   </div>

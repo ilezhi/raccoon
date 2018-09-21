@@ -30,6 +30,7 @@
     "markdown-it": "^8.4.2",
     "material-design-icons": "^3.0.1",
     "ng-zorro-antd": "^1.2.0",
+    "normalizr": "^3.2.4",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },
