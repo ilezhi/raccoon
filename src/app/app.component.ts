@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { Store } from '@ngrx/store'
 
-import { getFull } from 'src/app/reducers'
+import { getState } from 'src/app/reducers'
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ import { getFull } from 'src/app/reducers'
 })
 export class AppComponent {
   constructor(store: Store<any>) {
-    store.select(getFull)
+    store.select(getState)
       .subscribe(data => {
         console.log('app', data)
       })

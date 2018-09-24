@@ -15,10 +15,10 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
     case HomeTypes.TeamSuccess:
     case HomeTypes.AwesomeSuccess:
     case TopicTypes.TopicsSuccess: {
-      const { entities } = payload
+      const { topics } = payload.entities
       return {
         ...state,
-        ...entities
+        ...topics
       }
     }
 
@@ -85,6 +85,11 @@ const draft = (state: KeyMap = {}, action: Action): KeyMap => {
 const tags = (state: KeyMap = {}, action: Action): KeyMap => {
   const { type, payload } = action
   switch(type) {
+    case HomeTypes.AllSuccess:
+    case HomeTypes.DeptSuccess:
+    case HomeTypes.TeamSuccess:
+    case HomeTypes.AwesomeSuccess:
+    case TopicTypes.TopicsSuccess:
     case TopicTypes.TopicSuccess:
     case TopicTypes.PostSuccess:
     case TopicTypes.UpdateSuccess: {
@@ -110,6 +115,10 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
       return state
     }
   }
+}
+
+export const getTopics = (state) => {
+  return state.entities.topics
 }
 
 export default combineReducers({topics, draft, tags})

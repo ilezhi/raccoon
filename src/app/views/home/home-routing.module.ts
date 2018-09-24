@@ -4,8 +4,12 @@ import { Routes, RouterModule } from '@angular/router'
 import { HomeComponent } from './home.component'
 import { AllComponent } from './all/all.component'
 import { AwesomeComponent } from './awesome/awesome.component'
-import { DeptComponent } from './dept/dept.component';
-import { TeamComponent } from './team/team.component';
+import { DeptComponent } from './dept/dept.component'
+import { TeamComponent } from './team/team.component'
+
+import {
+  AllSuccess
+} from 'src/app/action/home.action'
 
 const routes: Routes = [
   {
@@ -16,7 +20,8 @@ const routes: Routes = [
         path: 'all',
         component: AllComponent,
         data: {
-          page: 'home@all'
+          page: 'home@all',
+          action: AllSuccess
         }
       },
       {

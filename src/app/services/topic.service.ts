@@ -4,7 +4,7 @@ import { Observable, of, Subject } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { normalize } from 'normalizr'
 
-import { topic } from 'src/app/normalizr/schema'
+import { topicSchema } from 'src/app/normalizr/schema'
 
 import { HttpService } from './http.service'
 import { Topic } from 'src/app/models'
@@ -25,7 +25,7 @@ export class TopicService {
     private http: HttpService
   ) {}
 
-  topics(type = 'all', lastID?: number, size = 50): Observable<Array<Topic>> {
+  topics(type = 'all', lastID?: number, size = 50): Observable<any> {
     const url = `topics/${type}`
     const params = {
       lastID,
@@ -42,7 +42,7 @@ export class TopicService {
     return http.post(url, params)
       .pipe(
         map((res: Res) => {
-          const data = normalize(res.data, topic)
+          const data = normalize(res.data, topicSchema)
           store.dispatch(new TopicAction.PostSuccess(data))
           return true
         }),

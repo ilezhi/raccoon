@@ -1,7 +1,9 @@
 import { schema } from 'normalizr'
 
-const tag = new schema.Entity('tags')
+const tagSchema = new schema.Entity('tags')
 
-export const topic = new schema.Entity('topics', {
-  tags: [tag]
+export const topicSchema = new schema.Entity('topics', {
+  tags: [tagSchema]
 })
+
+export const topicsSchema = new schema.Array(topicSchema)

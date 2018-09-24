@@ -10,6 +10,7 @@ import { Topics } from '../../action/topic.action';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
+  page = 1
   size = 50
   start: number
   end: number
@@ -21,19 +22,22 @@ export class ToolbarComponent implements OnInit {
   ) {
     store.select(filter)
       .subscribe(data => {
-        let start, end, total
+        let start, end, total, page
         if (!data) {
           start = 0
           end = 0
           total = 0
+          page = 1
         } else {
-          let { page, size, total: t } = data
-          const count = page * size
+          let { page: p, size, total: t } = data
+          const count = p * size
           start = count - size + 1
           end = t > count ? count : t
           total = t
+          page = p
         }
 
+        this.page = page
         this.start = start
         this.end = end
         this.total = total
@@ -45,10 +49,12 @@ export class ToolbarComponent implements OnInit {
 
   /**
    * 分页
-   * @param page prev: 上一页; next: 下一页 
+   * @param n -1: 上一页; 1: 下一页 
    */
-  onPage(page: string) {
-    this.store.dispatch(new Topics(page))
+  onPage(n: number) {
+    let { page } = this
+    page += n
+    this.store.dispatch(new Topics({page}))
   }
 
   onDateFilter(ev) {

@@ -50,7 +50,7 @@
           nzTitle="上一页"
           nzPlacement="bottom"
           [disabled]="size >= start"
-          (click)="onPage('prev')">
+          (click)="onPage(-1)">
           <i class="icon">chevron_left</i>
         </button>
         <button
@@ -59,7 +59,7 @@
           nzTitle="下一页"
           nzPlacement="bottom"
           [disabled]="end === total"
-          (click)="onPage('next')">
+          (click)="onPage(1)">
           <i class="icon">chevron_right</i>
         </button>
       </div>

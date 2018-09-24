@@ -9,8 +9,15 @@ const initState = {
 }
 
 export const topicListCase = (state: PageState = {...initState, ids: []}, payload: any): PageState => {
+  if (typeof payload === 'number') {
+    return {
+      ...state,
+      page: payload
+    }
+  }
+
   let { ids } = state
-  const { total, page, tids } = payload
+  const { total, page, result: tids } = payload
 
   ids = [...ids]
   let unique = new Set(ids.concat(tids))
@@ -19,7 +26,11 @@ export const topicListCase = (state: PageState = {...initState, ids: []}, payloa
   return { ...state, page, total, ids }
 }
 
-export const topicPostCase = (state: PageState = {...initState, ids: []}, payload: any): PageState => {
+export const topicPostCase = (state: PageState, payload: any): PageState => {
+  if (!state) {
+    return state
+  }
+
   let { ids, total } = state
   const { result: id } = payload
 
@@ -33,7 +44,11 @@ export const topicPostCase = (state: PageState = {...initState, ids: []}, payloa
   }
 }
 
-export const topicUpdateCase = (state: PageState = {...initState, ids: []}, payload: any): PageState =>{
+export const topicUpdateCase = (state: PageState, payload: any): PageState =>{
+  if (!state) {
+    return state
+  }
+
   let { ids } = state
   const { result: id } = payload
 
@@ -52,7 +67,11 @@ export const topicUpdateCase = (state: PageState = {...initState, ids: []}, payl
   }
 }
 
-export const topicTrashCase = (state: PageState = {...initState, ids: []}, payload: any): PageState => {
+export const topicTrashCase = (state: PageState, payload: any): PageState => {
+  if (!state) {
+    return state
+  }
+
   let { ids, total } = state
   const { id } = payload
   const i = ids.indexOf(id)
