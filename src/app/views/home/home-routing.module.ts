@@ -8,7 +8,8 @@ import { DeptComponent } from './dept/dept.component'
 import { TeamComponent } from './team/team.component'
 
 import {
-  AllSuccess
+  AllSuccess,
+  AwesomeSuccess
 } from 'src/app/action/home.action'
 
 const routes: Routes = [
@@ -28,7 +29,8 @@ const routes: Routes = [
         path: 'awesome',
         component: AwesomeComponent,
         data: {
-          page: 'home@awesome'
+          page: 'home@awesome',
+          action: AwesomeSuccess
         }
       },
       {

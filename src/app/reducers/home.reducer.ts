@@ -1,5 +1,6 @@
-import { combineReducers, ActionReducer } from '@ngrx/store'
+import { combineReducers, ActionReducer, createSelector } from '@ngrx/store'
 
+import * as utils from 'src/app/tools/util'
 import {
   topicListCase,
   topicPostCase,
@@ -10,6 +11,8 @@ import {
   HomeTypes,
   TopicTypes
 } from '../action/type'
+import { getTopics } from './entities.reducer'
+
 
 const all = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
@@ -113,21 +116,25 @@ const team = (state: PageState, action: Action): PageState => {
   }
 }
 
-export const getAll = (state) => {
-  const all = state.home.all
-  if (!all) {
-    return
-  }
-
-  const { page, size, ids } = all
-  const { topics } = state.entities
-
-  const end = page * size
-  const start = end - size
-  const data = ids.slice(start, end).map(id => topics[id])
-
-  return data
+export const allState = (state) => {
+  return state.home.all
 }
+
+export const awesomeState = (state) => {
+  return state.home.awesome
+}
+
+export const getAll = createSelector(
+  getTopics,
+  allState,
+  utils.getPageTopics
+)
+
+export const getAwesome = createSelector(
+  getTopics,
+  awesomeState,
+  utils.getPageTopics
+)
 
 export const getTotal = (state) => {
   return state.home.all.total

@@ -44,22 +44,36 @@ export const getRouterData = (state) => {
   return route.data
 }
 
-export const getLastID = (page) => createSelector(
+export const getPageState = createSelector(
   getState,
-  getTopics,
   getRouterData,
-  (state, topics, data) => {
-    let { page: p, action } = data
-
+  (state, data) => {
     let pageState: PageState
-    if (p.includes('@')) {
-      p = p.split('@')
-      pageState = state[p[0]][p[1]]
-    } else {
-      pageState = state[p]
-    }
+    let arr: string[]
 
-    const { size, ids, total } = pageState
+    let { page, action } = data
+    page = page.split('@')
+    let type = page[0]
+    pageState = state[type]
+
+    if (page[1]) {
+      type = page[1]
+      pageState = pageState[type]
+    }
+    
+    return {
+      ...pageState,
+      type,
+      action
+    }
+  }
+)
+
+export const getLastID = (page) => createSelector(
+  getTopics,
+  getPageState,
+  (topics, state) => {
+    const { size, ids, total, action, type } = state
     const count = page * size
     let len = ids.length
     let lastID
@@ -71,31 +85,8 @@ export const getLastID = (page) => createSelector(
 
     return {
       Action: action,
-      lastID
+      lastID,
+      type,
     }
   }
 )
-
-export const filter = (state) => {
-  let { page } = util.getRouterData(state.router.state)
-
-  let obj
-  if (page.includes('@')) {
-    page = page.split('@')
-    obj = state[page[0]][page[1]]
-  } else {
-    obj = state[page]
-  }
-
-  if (!obj) {
-    return
-  }
-
-  const { page: n, size, total } = obj
-
-  return {
-    page: n,
-    size,
-    total
-  }
-}

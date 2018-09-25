@@ -25,7 +25,7 @@ export class TopicService {
     private http: HttpService
   ) {}
 
-  topics(type = 'all', lastID?: number, size = 50): Observable<any> {
+  topics(type = 'all', lastID?: number, size = 2): Observable<any> {
     const url = `topics/${type}`
     const params = {
       lastID,

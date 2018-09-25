@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects'
 import { Action, Store, select } from '@ngrx/store'
 import { Observable, asyncScheduler, EMPTY as empty, of } from 'rxjs'
 import {
-  debounceTime, map, switchMap, catchError, tap,
+  debounceTime, map, switchMap, catchError, tap, distinctUntilChanged, skip, last,
 } from 'rxjs/operators'
 import { normalize } from 'normalizr'
 
@@ -21,34 +21,7 @@ export class TopicEffects {
   topics$ = (): Observable<Action> =>
     this.action$.pipe(
       ofType<TopicAction.Topics>(TopicTypes.Topics),
-      switchMap(action => {
-        // 缓存判断
-        let { type, page } = action.payload
-        let cache = false
-
-        // 首次加载
-        if (!page) {
-          return this.store.select(getRouterData)
-            .pipe(
-              map(data => {
-                return { cache, type, Action: data.action }
-              })
-            )
-        }
-
-        // 根据page获取lastID
-        return this.store.select(getLastID(page))
-          .pipe(
-            map(state => {
-              const { lastID, Action } = state
-              if (!lastID) {
-                cache = true
-              }
-
-              return { cache, type, lastID, Action, page }
-            })
-          )
-      }),
+      map(action => action.payload),
       switchMap((payload: any) => {
         const { cache, type, page = 1, lastID, Action } = payload
 
@@ -56,6 +29,7 @@ export class TopicEffects {
         if (cache) {
           return of(new Action(page))
         }
+
         // 请求数据
         return this.topicService.topics(type, lastID)
           .pipe(

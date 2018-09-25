@@ -9,6 +9,10 @@ declare interface DState {
   [id: number]: PageState
 }
 
+declare interface State {
+  [key: string]: PageState
+}
+
 declare interface Action {
   type: string
   payload: any

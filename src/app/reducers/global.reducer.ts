@@ -6,6 +6,7 @@ import {
   SharedTypes,
   DraftTypes,
   TagTypes,
+  TopicTypes,
 } from '../action/type'
 
 const initState = {
@@ -15,11 +16,7 @@ const initState = {
 const global = (state = initState, action: Action): {} => {
   const { type } = action
   switch(type) {
-    case HomeTypes.All:
-    case HomeTypes.Awesome:
-    case HomeTypes.Dept:
-    case HomeTypes.Team:
-    case MyTypes.Topics:
+    case TopicTypes.Topics:
     case SolvedTypes.QTopics:
     case SolvedTypes.ATopics:
     case CollectTypes.Topics:
@@ -32,9 +29,16 @@ const global = (state = initState, action: Action): {} => {
     }
 
     default: {
-      return state
+      return {
+        ...state,
+        loading: false,
+      }
     }
   }
+}
+
+export const getLoading = (state) => {
+  return state.global.loading
 }
 
 export default global

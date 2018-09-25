@@ -15,6 +15,11 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
     case HomeTypes.TeamSuccess:
     case HomeTypes.AwesomeSuccess:
     case TopicTypes.TopicsSuccess: {
+
+      if (typeof payload === 'number') {
+        return state
+      }
+
       const { topics } = payload.entities
       return {
         ...state,
@@ -93,7 +98,15 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
     case TopicTypes.TopicSuccess:
     case TopicTypes.PostSuccess:
     case TopicTypes.UpdateSuccess: {
+      if (typeof payload === 'number') {
+        return state
+      }
+
       const { tags } = payload.entities
+      
+      if (!tags) {
+        return state
+      }
 
       const ids = Object.keys(tags).filter(id => !state[id])
       if (!ids.length) {

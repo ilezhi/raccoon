@@ -14,5 +14,7 @@
       <a routerLink="/team">小队</a>
     </li>
   </ul>
-  <router-outlet></router-outlet>
+  <div [loading]="loading$ | async">
+    <router-outlet></router-outlet>
+  </div>
 </app-main>

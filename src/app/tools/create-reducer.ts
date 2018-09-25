@@ -5,7 +5,7 @@ import {
 const initState = {
   page: 1,
   total: 0,
-  size: 50,
+  size: 2,
 }
 
 export const topicListCase = (state: PageState = {...initState, ids: []}, payload: any): PageState => {
