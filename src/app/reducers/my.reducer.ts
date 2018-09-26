@@ -1,3 +1,5 @@
+import { createSelector } from '@ngrx/store'
+
 import {
   topicListCase,
   topicPostCase,
@@ -8,14 +10,10 @@ import {
   MyTypes,
   TopicTypes
 } from '../action/type'
+import { getTopics } from './entities.reducer'
+import * as utils from 'src/app/tools/util'
 
-const initState = {
-  page: 1,
-  total: 0,
-  size: 50,
-}
-
-const my = (state: PageState = {...initState, ids: []}, action: Action): PageState => {
+const my = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
   
   switch(type) {
@@ -40,5 +38,15 @@ const my = (state: PageState = {...initState, ids: []}, action: Action): PageSta
     }
   }
 }
+
+export const myState = (state) => {
+  return state.my
+}
+
+export const getMyTopics = createSelector(
+  getTopics,
+  myState,
+  utils.getPageTopics
+)
 
 export default my

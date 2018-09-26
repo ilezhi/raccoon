@@ -1,5 +1,5 @@
 
-import { combineReducers } from '@ngrx/store'
+import { combineReducers, createSelector } from '@ngrx/store'
 
 import {
   topicListCase,
@@ -11,14 +11,10 @@ import {
   SolvedTypes,
   TopicTypes
 } from '../action/type'
+import { getTopics } from './entities.reducer'
+import * as utils from 'src/app/tools/util'
 
-const initState = {
-  page: 1,
-  total: 0,
-  size: 50,
-}
-
-const question = (state: PageState = {...initState, ids: []}, action: Action): PageState => {
+const question = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
   
   switch(type) {
@@ -40,7 +36,7 @@ const question = (state: PageState = {...initState, ids: []}, action: Action): P
   }
 }
 
-const answer = (state: PageState = {...initState, ids: []}, action: Action): PageState => {
+const answer = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
   switch(type) {
@@ -61,5 +57,25 @@ const answer = (state: PageState = {...initState, ids: []}, action: Action): Pag
     }
   }
 }
+
+export const questionState = (state) => {
+  return state.solved.question
+}
+
+export const answerState = (state) => {
+  return state.solved.answer
+}
+
+export const getQTopics = createSelector(
+  getTopics,
+  questionState,
+  utils.getPageTopics
+)
+
+export const getATopics = createSelector(
+  getTopics,
+  answerState,
+  utils.getPageTopics
+)
 
 export default combineReducers({question, answer})

@@ -163,7 +163,8 @@ nz-tabset {
   flex-direction: column;
 }
 
-app-home {
+app-home,
+app-solved {
 	width: 100%;
 }
 
@@ -249,4 +250,8 @@ app-home {
 .required:after {
 	content: '*';
 	color: #f5222d;
+}
+
+.content {
+	min-height: 100px;
 }

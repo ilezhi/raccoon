@@ -28,7 +28,7 @@ export class ToolbarComponent implements OnInit {
       .subscribe(data => {
         let start, end, total, page, size
 
-        if (!data.page) {
+        if (!data || !data.page) {
           start = 0
           end = 0
           total = 0

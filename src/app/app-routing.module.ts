@@ -33,6 +33,10 @@ const routes: Routes = [
     path: 'topic',
     loadChildren: './views/topic/topic.module#TopicModule',
     outlet: 'slide'
+  },
+  {
+    path: '**',
+    redirectTo: '/all'
   }
 ];
 

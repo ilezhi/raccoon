@@ -3,7 +3,9 @@ import { combineReducers } from '@ngrx/store'
 import {
   TopicTypes,
   DraftTypes,
-  HomeTypes
+  HomeTypes,
+  MyTypes,
+  SolvedTypes
 } from '../action/type'
 
 const topics = (state: KeyMap = {}, action: Action): KeyMap => {
@@ -14,7 +16,10 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
     case HomeTypes.DeptSuccess:
     case HomeTypes.TeamSuccess:
     case HomeTypes.AwesomeSuccess:
-    case TopicTypes.TopicsSuccess: {
+    case TopicTypes.TopicsSuccess:
+    case MyTypes.TopicsSuccess:
+    case SolvedTypes.QTopicsSuccess:
+    case SolvedTypes.ATopicsSuccess: {
 
       if (typeof payload === 'number') {
         return state

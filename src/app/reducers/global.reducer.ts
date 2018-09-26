@@ -24,7 +24,8 @@ const global = (state = initState, action: Action): {} => {
     case DraftTypes.Topics:
     case TagTypes.Topics: {
       return {
-        loading: true
+        ...state,
+        loading: true,
       }
     }
 

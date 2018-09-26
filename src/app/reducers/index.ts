@@ -49,9 +49,12 @@ export const getPageState = createSelector(
   getRouterData,
   (state, data) => {
     let pageState: PageState
-    let arr: string[]
-
     let { page, action } = data
+    
+    if (!page) {
+      return
+    }
+
     page = page.split('@')
     let type = page[0]
     pageState = state[type]

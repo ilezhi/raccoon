@@ -13,7 +13,7 @@ export class LoadingDirective implements OnChanges {
   ) {
     this.onLoading()
   }
-
+  
   ngOnChanges() {
     this.onLoading()
   }

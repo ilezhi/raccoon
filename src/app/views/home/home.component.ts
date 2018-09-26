@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { getLoading } from '../../reducers/global.reducer';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core'
+import { Observable } from 'rxjs'
+import { Store, select } from '@ngrx/store'
+
+import { getLoading } from 'src/app/reducers/global.reducer'
 
 @Component({
   selector: 'app-home',
@@ -9,20 +10,14 @@ import { getLoading } from '../../reducers/global.reducer';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   loading$: Observable<boolean>
 
-  constructor(private store: Store<any>) {
-    this.loading$ = store.select(getLoading)
+  constructor(store: Store<any>) {
+    this.loading$ = store.pipe(select(getLoading))
   }
 
   ngOnInit() {
-  }
-
-  ngOnDestroy() {
-  }
-
-  onFilterByDate(n) {
   }
 
 }
