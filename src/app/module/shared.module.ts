@@ -15,7 +15,6 @@ import { FooterComponent } from '../layout/footer/footer.component'
 import { HeaderComponent } from '../layout/header/header.component'
 import { AsideComponent } from '../layout/aside/aside.component'
 import { MainComponent } from '../layout/main/main.component'
-import { ToolbarComponent } from '../components/toolbar/toolbar.component'
 import { TableComponent } from '../components/table/table.component'
 
 const comp = [
@@ -24,7 +23,6 @@ const comp = [
   FooterComponent,
   AsideComponent,
   MainComponent,
-  ToolbarComponent,
   TableComponent,
   ToggleDirective,
   LoadingDirective,

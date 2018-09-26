@@ -1,7 +1,9 @@
-.inner {
-  width: 100%;
-  overflow: hidden;
+.wrapper {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
+
 table {
   width: 100%;
   table-layout: fixed;

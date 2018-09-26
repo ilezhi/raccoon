@@ -1,5 +1,4 @@
 <app-main>
-  <app-toolbar (filter)="onFilterByDate($event)"></app-toolbar>
   <ul nz-menu nzMode="horizontal">
     <li nz-menu-item>
       <a routerLink="/all">全部</a>
@@ -14,7 +13,5 @@
       <a routerLink="/team">小队</a>
     </li>
   </ul>
-  <div class="content" [loading]="loading$ | async">
-    <router-outlet></router-outlet>
-  </div>
+  <router-outlet></router-outlet>
 </app-main>

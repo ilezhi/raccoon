@@ -1,27 +1,29 @@
-<table>
-  <tbody>
-    <tr *ngFor="let topic of data">
-      <td class="user">
-        <img src="https://avatars1.githubusercontent.com/u/11797281?s=30&v=4" alt="stark" title="stark">
-      </td>
-      <td class="mark">
-        <span class="ripple">
-          <i class="icon">star_border</i>
-        </span>
-      </td>
-      <td class="scan">
-        <span>0</span> / <span>0</span>
-      </td>
-      <td class="title">
-        <div class="text-ellipsis">
-          <strong>{{ topic.title }}</strong>
-          <span>- {{ topic.content }}</span>
-        </div>
-      </td>
-      <td class="comt">
-        <img src="https://avatars1.githubusercontent.com/u/11797281?s=24&v=4" alt="">
-      </td>
-      <td class="date">12分钟前</td>
-    </tr>
-  </tbody>
-</table>
+<div class="wrapper" [loading]="loading$ | async">
+  <table>
+    <tbody>
+      <tr *ngFor="let topic of data">
+        <td class="user">
+          <img src="https://avatars1.githubusercontent.com/u/11797281?s=30&v=4" alt="stark" title="stark">
+        </td>
+        <td class="mark">
+          <span class="ripple">
+            <i class="icon">star_border</i>
+          </span>
+        </td>
+        <td class="scan">
+          <span>0</span> / <span>0</span>
+        </td>
+        <td class="title">
+          <div class="text-ellipsis">
+            <strong>{{ topic.title }}</strong>
+            <span>- {{ topic.content }}</span>
+          </div>
+        </td>
+        <td class="comt">
+          <img src="https://avatars1.githubusercontent.com/u/11797281?s=24&v=4" alt="">
+        </td>
+        <td class="date">12分钟前</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

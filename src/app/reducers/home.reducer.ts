@@ -13,7 +13,6 @@ import {
 } from '../action/type'
 import { getTopics } from './entities.reducer'
 
-
 const all = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 

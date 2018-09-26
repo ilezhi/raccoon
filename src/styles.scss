@@ -151,16 +151,20 @@ button {
   padding: 0 0 5px 0;
 }
 
-app-table {
-  flex: 1;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
 nz-tabset {
   flex: 1;
   display: flex !important;
   flex-direction: column;
+}
+
+app-all,
+app-awesome,
+app-dept,
+app-team,
+app-table,
+app-answer,
+app-question {
+	flex: 1;
 }
 
 app-home,

@@ -1,8 +1,6 @@
 import { ActionReducerMap, createSelector } from '@ngrx/store'
 import { routerReducer } from '@ngrx/router-store'
 
-import * as util from 'src/app/tools/util'
-
 import entities, { getTopics } from './entities.reducer'
 import homeReducer from './home.reducer'
 import myReducer from './my.reducer'
@@ -72,19 +70,13 @@ export const getPageState = createSelector(
   }
 )
 
-export const getLastID = (page) => createSelector(
+export const getLastID = createSelector(
   getTopics,
   getPageState,
   (topics, state) => {
-    const { size, ids, total, action, type } = state
-    const count = page * size
-    let len = ids.length
-    let lastID
-    // 需要的数据不存在
-    if (count > len && total > len) {
-      const id = ids[count - size - 1]
-      lastID = topics[id].updatedAt
-    }
+    const { ids, action, type } = state
+    const last = ids.length - 1
+    const lastID = topics[ids[last]].updatedAt
 
     return {
       Action: action,

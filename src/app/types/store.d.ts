@@ -1,8 +1,6 @@
 declare interface PageState {
-  page: number
-  total: number
-  size: number
   ids: number[]
+  [key: string]: any
 }
 
 declare interface DState {
