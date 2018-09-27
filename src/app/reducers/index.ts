@@ -42,6 +42,10 @@ export const getRouterData = (state) => {
   return route.data
 }
 
+export const getUrl = (state) => {
+  return state.router.state.url
+}
+
 export const getPageState = createSelector(
   getState,
   getRouterData,

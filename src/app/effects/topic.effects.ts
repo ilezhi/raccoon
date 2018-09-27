@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Actions, Effect, ofType } from '@ngrx/effects'
-import { Action, Store } from '@ngrx/store'
+import { Action } from '@ngrx/store'
 import { Observable } from 'rxjs'
 import { map, switchMap } from 'rxjs/operators'
 import { normalize } from 'normalizr'
@@ -9,7 +9,7 @@ import { TopicTypes } from 'src/app/action/type'
 import * as TopicAction from 'src/app/action/topic.action'
 import { TopicService } from '../services/topic.service'
 
-import { topicsSchema } from 'src/app/normalizr/schema'
+import { topicsSchema, topicSchema } from 'src/app/normalizr/schema'
 
 @Injectable()
 export class TopicEffects {
@@ -44,8 +44,23 @@ export class TopicEffects {
   //   })
   // )
 
+  @Effect()
+  detail$ = (): Observable<Action> =>
+    this.action$.pipe(
+      ofType<TopicAction.Detail>(TopicTypes.Detail),
+      map(action => action.payload),
+      switchMap((id: number) => {
+        return this.topicService.detail(id)
+          .pipe(
+            map((topic: Topic) => {
+              const result = normalize(topic, topicSchema)
+              return new TopicAction.DetailSuccess(result)
+            })
+          )
+      })
+    )
+
   constructor(
-    private store: Store<any>,
     private action$: Actions,
     private topicService: TopicService
   ) {}

@@ -1,8 +1,11 @@
 <div class="post" [loading]="loading">
   <aside>
+    <i class="icon close ripple" (click)="onClose()">
+      close
+    </i>
     <ul>
       <li>
-        <input nz-input [(ngModel)]="title" type="text" placeholder="标题">
+        <input nz-input [(ngModel)]="title" type="text" placeholder="标题, 10~30个字符">
       </li>
       <li>
         <label nz-checkbox [(ngModel)]="shared">分享</label>

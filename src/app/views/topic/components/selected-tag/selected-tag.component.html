@@ -17,12 +17,11 @@
     type="text"
     nzSize="small"
     [(ngModel)]="tag"
-    (ngModelChange)="onSearchInput(input.value)"
     (keydown)="post($event)">
 </div>
-<section class="list" [loading]="loading">
+<section class="list">
   <nz-tag
-    *ngFor="let tag of result;"
+    *ngFor="let tag of list;"
     (click)="onSelect(tag)">
     {{ tag.name }}
   </nz-tag>

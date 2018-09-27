@@ -53,6 +53,14 @@ export class TopicService {
       )
   }
 
+  detail(id: number): Observable<Topic> {
+    const url = `topic/${id}`
+    return this.http.get(url)
+      .pipe(
+        map((res: Res) => res.data)
+      )
+  }
+
   close() {
     this.editor.next(true)
   }

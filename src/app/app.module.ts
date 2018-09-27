@@ -10,6 +10,7 @@ import { CoreModule } from './module/core.module'
 // import { environment } from '../environments/environment'
 import { appReducer } from './reducers'
 import { TopicEffects } from './effects/topic.effects'
+import { TagEffects } from './effects/tag.effects'
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { TopicEffects } from './effects/topic.effects'
   imports: [
     CoreModule,
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([TopicEffects]),
+    EffectsModule.forRoot([TopicEffects, TagEffects]),
     StoreRouterConnectingModule.forRoot(),
     AppRoutingModule,
   ],

@@ -38,6 +38,11 @@ export class UpdateSuccess implements Action {
 }
 
 export class Detail implements Action {
-  readonly type = TopicTypes.Topic
+  readonly type = TopicTypes.Detail
   constructor(public payload: number) {}
+}
+
+export class DetailSuccess implements Action {
+  readonly type = TopicTypes.DetailSuccess
+  constructor(public payload: any) {}
 }

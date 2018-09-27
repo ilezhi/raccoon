@@ -1,8 +1,9 @@
 import { Component, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs'
+import { Store, select } from '@ngrx/store'
 
-import { TagService } from 'src/app/services/tag.service'
-import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { getTags } from 'src/app/reducers/entities.reducer'
+import * as TagAction from 'src/app/action/tag.action'
 
 @Component({
   selector: 'app-selected-tag',
@@ -13,24 +14,22 @@ export class SelectedTagComponent implements OnDestroy {
   tags = []         // 已选tag
   editable = false  // 搜索状态
   tag = ''          // 搜索输入
-  loading = false   // 搜索loading
-  result: Tag[]
-
+  list: Tag[]
   private sub: Subscription
 
   @ViewChild('input') $tag: ElementRef
 
   constructor(
-    private tagService: TagService
+    private store: Store<Entities<Tag>>
   ) {
-    this.sub = tagService.search()
-      .subscribe(data => {
-        this.loading = false
-        this.result = data
+    this.sub = store.pipe(select(getTags))
+      .subscribe((tags: Entities<Tag>) => {
+        this.list = Object.keys(tags).map(id => tags[id])
       })
   }
 
   ngOnDestroy() {
+    // 取消订阅
     this.sub.unsubscribe()
   }
 
@@ -41,50 +40,38 @@ export class SelectedTagComponent implements OnDestroy {
     }, 10)
   }
 
-  onSearchInput(input: string) {
-    this.loading = true
-    this.tagService.input(input)
-  }
-
+  /**
+   * 选择标签
+   */
   onSelect(tag: Tag) {
-    const isExist = this.tags.some(t => {
-      return t.id === tag.id
-    })
+    const item = this.isTagExist(tag.id, this.tags)
 
-    !isExist && this.tags.push(tag)
+    !item && this.tags.push(tag)
   }
 
   /**
-   * 添加tag
-   * TODO: 判断是否已存在, 存在则直接添加, 不存在则保存后添加
+   * 添加tag, 回车添加, esc取消
    */
   post(e: KeyboardEvent): void {
     const { keyCode } = e
 
     if (keyCode === 13) {
-      // 回车
-      let { result, tag, tags, tagService } = this
-      tag = tag.trim()
-
-      if (!tag) {
+      // 是否已添加
+      let tag = this.isTagExist(this.tag, this.tags)
+      if (tag) {
         return
       }
 
-      const item = result.find(item => {
-        return item.name.toLowerCase() === tag.toLowerCase()
-      })
-
-      if (item) {
-        tags.push(item)
-        this.close()
-      } else {
-        // 相当于新增
-        tagService.post(tag)
-          .subscribe(tag => {
-            tag && tags.push(tag)
-            this.close()
-          })
+      // 本地是否存在
+      tag = this.isTagExist(this.tag, this.list)
+      if (tag) {
+        this.tags.push(tag)
+        return
       }
+
+      // 新增
+      this.store.dispatch(new TagAction.Post(this.tag))
+      this.close()
     }
 
     if (keyCode === 27) {
@@ -95,6 +82,34 @@ export class SelectedTagComponent implements OnDestroy {
   close() {
     this.editable = false
     this.tag = ''
+  }
+
+  /**
+   * 本地是否存在tag
+   * @param key 
+   */
+  isTagExist(key: number | string, source: Tag[]) {
+    if (!source.length) {
+      return
+    }
+
+    const type = typeof key
+
+    if (type !== 'number' && type !== 'string') {
+      return
+    }
+
+    return source.find(tag => {
+      if (type === 'number') {
+        return tag.id === key
+      }
+
+      if (type === 'string') {
+        return tag.name.trim().toLowerCase() === (key as string).toLowerCase()
+      }
+
+      return false
+    })
   }
 
   /**

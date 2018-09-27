@@ -2,12 +2,12 @@ import { Action } from "@ngrx/store"
 
 import { TagTypes } from './type'
 
-export class Topics implements Action {
-  readonly type = TagTypes.Topics
-  constructor() {}
+export class Post implements Action {
+  readonly type = TagTypes.Post
+  constructor(public payload: string) {}
 }
 
-export class TopicsSuccess implements Action {
-  readonly type = TagTypes.TopicsSuccess
-  constructor(public payload: any) {}
+export class PostSuccess implements Action {
+  readonly type = TagTypes.PostSuccess
+  constructor(public payload: Tag) {}
 }

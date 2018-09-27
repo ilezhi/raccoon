@@ -9,27 +9,9 @@ import { HttpService } from './http.service'
   providedIn: 'root'
 })
 export class TagService {
-  tag$ = new Subject<string>()
-  delTag$ = new Subject<number>()
-
   constructor(
     private http: HttpService
   ) {}
-
-  input(tag: string) {
-    tag = tag.trim() || 'all'
-    this.tag$.next(tag)
-  }
-
-  search(): Observable<Tag[]> {
-    return this.tag$.pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-      switchMap(tag => {
-        return this.fetchTag(tag)
-      })
-    )
-  }
 
   fetchTag(tag: string): Observable<Array<Tag>> {
     const url = `search/tag/${tag}`

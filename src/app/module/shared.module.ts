@@ -16,6 +16,7 @@ import { HeaderComponent } from '../layout/header/header.component'
 import { AsideComponent } from '../layout/aside/aside.component'
 import { MainComponent } from '../layout/main/main.component'
 import { TableComponent } from '../components/table/table.component'
+import { TagComponent } from '../components/tag/tag.component'
 
 const comp = [
   HeaderComponent,
@@ -26,6 +27,7 @@ const comp = [
   TableComponent,
   ToggleDirective,
   LoadingDirective,
+  TagComponent,
 ]
 
 @NgModule({

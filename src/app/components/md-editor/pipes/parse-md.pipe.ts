@@ -1,5 +1,6 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import markdown from 'markdown-it';
+import { Pipe, PipeTransform } from '@angular/core'
+import markdown from 'markdown-it'
+import hljs from 'highlight.js'
 
 const option = {
   html: true,        // Enable HTML tags in source
@@ -8,18 +9,24 @@ const option = {
   langPrefix: 'lang-',  // CSS language prefix for fenced blocks. Can be
   linkify: false,        // 自动识别url
   typographer: true,
-  quotes: '“”‘’'
+  quotes: '“”‘’',
 };
-const MD = markdown(option);
+const MD = markdown(option)
 
 MD.renderer.rules.fence = function (tokens, idx) {
-  const token    = tokens[idx];
-  const language = token.info && ('language-' + token.info) || '';
-  const prettyHTML = prettyPrintOne(token.content, language, true);
+  const token    = tokens[idx]
+  let lan = token.info || ''
+  let prettyHTML = token.content
 
-  return '<pre class="prettyprint ' + language + '">'
-    + '<code>' + prettyHTML + '</code>'
-    + '</pre>';
+  if (lan && hljs.getLanguage(lan)) {
+    try {
+      prettyHTML = hljs.highlight(lan, token.content, true).value
+    } catch (err) {}
+    lan = 'language-' + lan
+  }
+
+  return '<div class="highlight"><pre class="' + lan + '">'
+    + prettyHTML + '</pre></div>'
 };
 
 @Pipe({name: 'parseMD'})
@@ -30,9 +37,9 @@ export class ParseMD implements PipeTransform {
     }
 
     if (!isParse) {
-      return '';
+      return ''
     }
 
-    return MD.render(value);
+    return MD.render(value)
   }
 }

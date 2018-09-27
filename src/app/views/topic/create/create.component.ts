@@ -39,8 +39,12 @@ export class CreateComponent implements OnInit {
       return this.message.warning('标题不能为空')
     }
 
-    const tags = $tag.tags.map(t => t.id)
+    const len = title.length
+    if (len < 10 || len > 30) {
+      return this.message.warning('标题长度需限制在10~30个字符')
+    }
 
+    const tags = $tag.tags.map(t => t.id)
     if (tags.length === 0) {
       return this.message.warning('至少添加一个标签')
     }
@@ -49,7 +53,7 @@ export class CreateComponent implements OnInit {
       title,
       shared,
       tags,
-      content: text
+      content: text,
     }
 
     this.loading = true
@@ -61,5 +65,9 @@ export class CreateComponent implements OnInit {
           topicService.close()
         }
       })
+  }
+
+  onClose() {
+    this.topicService.close()
   }
 }

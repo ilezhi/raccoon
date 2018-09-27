@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Store, select } from '@ngrx/store'
 
-import { getLoading } from 'src/app/reducers/global.reducer'
+import { getUrl } from 'src/app/reducers'
 
 @Component({
   selector: 'app-home',
@@ -11,10 +11,14 @@ import { getLoading } from 'src/app/reducers/global.reducer'
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  loading$: Observable<boolean>
+  url: string
 
   constructor(store: Store<any>) {
-    this.loading$ = store.pipe(select(getLoading))
+    store.pipe(
+      select(getUrl)
+    ).subscribe(url => {
+      this.url = url
+    })
   }
 
   ngOnInit() {

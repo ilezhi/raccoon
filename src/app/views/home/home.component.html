@@ -1,15 +1,15 @@
 <app-main>
   <ul nz-menu nzMode="horizontal">
-    <li nz-menu-item>
+    <li nz-menu-item [nzSelected]="url === '/all'">
       <a routerLink="/all">全部</a>
     </li>
-    <li nz-menu-item>
+    <li nz-menu-item [nzSelected]="url === '/awesome'">
       <a routerLink="/awesome">精华</a>
     </li>
-    <li nz-menu-item>
+    <li nz-menu-item [nzSelected]="url === '/department'">
       <a routerLink="/department">部门</a>
     </li>
-    <li nz-menu-item>
+    <li nz-menu-item [nzSelected]="url === '/team'">
       <a routerLink="/team">小队</a>
     </li>
   </ul>

@@ -1,11 +1,12 @@
-import { combineReducers } from '@ngrx/store'
+import { combineReducers, createSelector } from '@ngrx/store'
 
 import {
   TopicTypes,
   DraftTypes,
   HomeTypes,
   MyTypes,
-  SolvedTypes
+  SolvedTypes,
+  TagTypes
 } from '../action/type'
 
 const topics = (state: KeyMap = {}, action: Action): KeyMap => {
@@ -32,10 +33,10 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
-    case TopicTypes.TopicSuccess:
+    case TopicTypes.DetailSuccess:
     case TopicTypes.PostSuccess:
     case TopicTypes.UpdateSuccess: {
-      const { topics } = payload.entities
+      const { id } = payload.entities
       return {
         ...state,
         ...topics
@@ -94,13 +95,18 @@ const draft = (state: KeyMap = {}, action: Action): KeyMap => {
 
 const tags = (state: KeyMap = {}, action: Action): KeyMap => {
   const { type, payload } = action
+
+  if (!payload) {
+    return state
+  }
+
   switch(type) {
     case HomeTypes.AllSuccess:
     case HomeTypes.DeptSuccess:
     case HomeTypes.TeamSuccess:
     case HomeTypes.AwesomeSuccess:
     case TopicTypes.TopicsSuccess:
-    case TopicTypes.TopicSuccess:
+    case TopicTypes.DetailSuccess:
     case TopicTypes.PostSuccess:
     case TopicTypes.UpdateSuccess: {
       if (typeof payload === 'number') {
@@ -129,6 +135,19 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
+    case TagTypes.PostSuccess: {
+      const { id } = payload
+
+      if (state[id]) {
+        return state
+      }
+
+      return {
+        ...state,
+        [id]: payload 
+      }
+    }
+
     default: {
       return state
     }
@@ -137,6 +156,15 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
 
 export const getTopics = (state) => {
   return state.entities.topics
+}
+
+export const getTopic = (id) => createSelector(
+  getTopics,
+  topics => topics[id]
+)
+
+export const getTags = (state) => {
+  return state.entities.tags
 }
 
 export default combineReducers({topics, draft, tags})

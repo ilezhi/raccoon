@@ -1,0 +1,6 @@
+<ng-container [ngSwitch]="status">
+  <nz-tag *ngSwitchCase="'top'" nzColor="#87d068">置顶</nz-tag>
+  <nz-tag *ngSwitchCase="'awesome'" nzColor="#87d068">精华</nz-tag>
+  <nz-tag *ngSwitchCase="'shared'" nzColor="#ccc">分享</nz-tag>
+  <nz-tag *ngSwitchDefault nzColor="#ccc">问答</nz-tag>
+</ng-container>

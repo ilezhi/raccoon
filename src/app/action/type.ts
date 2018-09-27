@@ -2,8 +2,8 @@ export enum TopicTypes {
   Topics = '[Topic List Page] list',
   TopicsSuccess = '[Topic/api] list',
 
-  Topic = '[Topic Detail Page] detail',
-  TopicSuccess = '[Topic/api] detail',
+  Detail = '[Topic Detail Page] detail',
+  DetailSuccess = '[Topic/api] detail',
 
   Post = '[Post Topic Page] post topic',
   PostSuccess = '[Topic/api] success post topic',
@@ -80,4 +80,7 @@ export enum ProjectTypes {
 export enum TagTypes {
   Topics = '[Tag Page] topics',
   TopicsSuccess = '[Tag/api] topics',
+
+  Post  = '[Tag Create] post tag',
+  PostSuccess = '[Tag/api] post tag',
 }

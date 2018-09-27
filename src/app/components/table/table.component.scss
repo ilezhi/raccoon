@@ -46,8 +46,20 @@ td {
   text-align: center;
 }
 
+.tag {
+  width: 46px;
+}
+
 .title {
-  width: calc(100% - 252px);
+  width: calc(100% - 280px);
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  .text-ellipsis {
+    outline: none;
+  }
 }
 
 .text-ellipsis {
