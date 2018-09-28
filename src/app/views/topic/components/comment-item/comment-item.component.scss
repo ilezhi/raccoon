@@ -1,0 +1,66 @@
+button {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0.8;
+
+  i {
+    font-size: 16px;
+    vertical-align: sub;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+article {
+  padding: 12px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.meta {
+  height: 27px;
+  margin: 0 0 5px;
+  font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+
+  img {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    align-self: flex-start;
+  }
+
+  span {
+    margin: 0 0 0 4px;
+    display: inline-block;
+  }
+
+  i {
+    transform: scale(0.6);
+  }
+}
+
+.text {
+  font-size: 15px;
+  margin: 0 0 6px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+
+.extra {
+  button + button {
+    display: none;
+  }
+
+  &:hover button + button {
+    display: inline-block;
+  }
+}

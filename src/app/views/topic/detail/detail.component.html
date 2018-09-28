@@ -1,1 +1,47 @@
-
+<article class="markdown-preview">
+  <div [innerHTML]="topic?.content | parseMD: isParse"></div>
+</article>
+<aside [@slideComt]="hide" (@slideComt.done)="toggleDone()">
+  <div class="inner">
+    <div class="header">
+      <button (click)="toggle()">
+        <i class="icon ripple" >menu</i>
+      </button>
+      <button (click)="close()">
+        <i class="icon ripple">close</i>
+      </button>
+    </div>
+    <ul class="statistic">
+      <li>
+        作者: <span>weels</span> /
+        发布: <span>21分钟前</span> /
+        浏览: <span>123</span>
+      </li>
+      <li>
+        <nz-button-group>
+          <button nz-button>
+            <i class="icon">favorite</i>
+          </button>
+          <button nz-button>12</button>
+        </nz-button-group>
+        <nz-button-group>
+          <button nz-button>
+            <i class="icon">star</i>
+          </button>
+          <button nz-button>12</button>
+        </nz-button-group>
+      </li>
+    </ul>
+    <div class="comments">
+      <nz-card nzTitle="12 回复" [nzExtra]="comt" [nzBordered]="false">
+        <app-comment-list></app-comment-list>
+      </nz-card>
+    </div>
+  </div>
+  <ng-template #comt>
+    <a href="javascript:;">回复</a>
+  </ng-template>
+</aside>
+<div class="btn-menu" *ngIf="done" (click)="toggle()">
+  <i class="icon ripple">menu</i>
+</div>

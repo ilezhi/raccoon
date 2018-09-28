@@ -26,7 +26,8 @@ import { EditorService }          from './services/editor.service';
     ParseMD,
   ],
   exports: [
-    MdEditorComponent
+    MdEditorComponent,
+    ParseMD
   ],
   providers: [EditorService]
 })

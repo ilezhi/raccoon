@@ -27,6 +27,13 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
 
       const { topics } = payload.entities
+      for (const id in topics) {
+        const topic = state[id]
+        if (topic && topic.content.length >= 140) {
+          delete topics[id]
+        }
+      }
+
       return {
         ...state,
         ...topics
@@ -36,7 +43,8 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
     case TopicTypes.DetailSuccess:
     case TopicTypes.PostSuccess:
     case TopicTypes.UpdateSuccess: {
-      const { id } = payload.entities
+      const { topics } = payload.entities
+
       return {
         ...state,
         ...topics

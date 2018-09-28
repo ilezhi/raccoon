@@ -1,0 +1,35 @@
+<article class="comment-item">
+  <div class="meta">
+    <div class="title">
+      <img src="https://avatars1.githubusercontent.com/u/11797281?s=24&v=4">
+      <span>这是一个人</span>
+      <ng-container *ngIf="comment.reciver">
+        <i class="anticon anticon-caret-right"></i>
+        <span>{{ comment.reciver }}</span>
+      </ng-container>
+    </div>
+    <div>
+      <span>12小时前</span>
+    </div>
+  </div>
+  <div class="text">
+    <div class="markdown-preview">
+      这是一条有味道的评论
+    </div>
+  </div>
+  <aside class="extra">
+    <button>
+      <i class="icon">thumb_up</i>
+      赞
+    </button>
+    <button>
+      <i class="icon">reply</i>
+      回复
+    </button>
+    <button>
+      <i class="icon">done</i>
+      采纳
+    </button>
+  </aside>
+</article>
+<ng-content></ng-content>

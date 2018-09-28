@@ -1,6 +1,7 @@
 import {
   trigger,
   style,
+  state,
   transition,
   animate,
   keyframes,
@@ -28,4 +29,11 @@ export const slide = trigger('slide', [
       style({transform: 'translate3d(0, -100%, 0)', offset: 1}),
     ]))
   ])
+])
+
+export const slideComt = trigger('slideComt', [
+  state('hide', style({
+    width: 0
+  })),
+  transition('hide <=> *', animate('300ms ease-in'))
 ])

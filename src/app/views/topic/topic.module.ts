@@ -4,9 +4,14 @@ import { MdEditorModule } from '../../components/md-editor/md-editor.module'
 
 import { SharedModule } from '../../module/shared.module'
 import { TopicRoutingModule } from './topic-routing.module'
+
+import { SelectedTagComponent } from './components/selected-tag/selected-tag.component'
+import { CommentComponent } from './components/comment/comment.component'
+import { CommentListComponent } from './components/comment-list/comment-list.component'
+import { CommentItemComponent } from './components/comment-item/comment-item.component'
+
 import { TopicComponent } from './topic.component'
 import { CreateComponent } from './create/create.component'
-import { SelectedTagComponent } from './components/selected-tag/selected-tag.component';
 import { DetailComponent } from './detail/detail.component'
 
 @NgModule({
@@ -20,6 +25,9 @@ import { DetailComponent } from './detail/detail.component'
     CreateComponent,
     SelectedTagComponent,
     DetailComponent,
+    CommentComponent,
+    CommentListComponent,
+    CommentItemComponent,
   ]
 })
 export class TopicModule { }
