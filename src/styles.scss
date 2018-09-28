@@ -261,3 +261,16 @@ app-solved {
 .content {
 	min-height: 100px;
 }
+
+div.textarea[contentEditable] {
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	outline: none;
+	background: #f6f6f6;
+
+	&:focus {
+		background: #fff;
+		border-color: #aaa;
+	}
+}

@@ -17,5 +17,3 @@ declare class Layout {
   preview: number;
   panel: number;
 }
-
-declare function prettyPrintOne(html: string, language?: string, lines?: boolean | number): string
