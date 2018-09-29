@@ -1,8 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core'
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core'
 import { debounceTime } from 'rxjs/operators'
 
 import { EditorService } from './services/editor.service'
 import { slidePanel } from './animations/slide-panel'
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-md-editor',
@@ -10,13 +11,27 @@ import { slidePanel } from './animations/slide-panel'
   styleUrls: ['./md-editor.component.scss'],
   animations: slidePanel
 })
-export class MdEditorComponent implements OnInit {
+export class MdEditorComponent implements OnInit, OnDestroy {
   text = ''
   fullscreen = false
   preview = 'preview'
   history: string[] = []
   cursor = -1 // 游标
   isParse = true // 是否解析markdown语法
+  thin = false
+  sub: Subscription
+
+  @Input()
+  set simple(isSimple: boolean) {
+    this.thin = isSimple
+    if (isSimple) {
+      this.preview = 'edit'
+      this.isParse = false
+    }
+  }
+  get simple() {
+    return this.thin
+  }
 
   @Output() save = new EventEmitter<string>()
 
@@ -28,6 +43,10 @@ export class MdEditorComponent implements OnInit {
     this.subscribe()
   }
 
+  ngOnDestroy() {
+    this.sub.unsubscribe()
+  }
+
   subscribe() {
     const {
       editorService,
@@ -36,19 +55,22 @@ export class MdEditorComponent implements OnInit {
       recordHistory$
     } = this
     // 订阅全屏切换
-    editorService.fullscreen$
+    this.sub = editorService.fullscreen$
       .subscribe(toggleFullscreen$.bind(this))
 
     // 订阅预览切换
-    editorService.layout$
+    const s2 = editorService.layout$
       .subscribe(toggleLayout$.bind(this))
-
+      
     // 订阅数据变化, 记录历史版本
-    editorService.data$
+    const s3 = editorService.data$
       .pipe(
         debounceTime(1000)
       )
       .subscribe(recordHistory$.bind(this))
+
+    this.sub.add(s2)
+    this.sub.add(s3)
   }
 
   toggleFullscreen$(isFull: boolean) {

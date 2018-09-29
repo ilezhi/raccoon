@@ -15,6 +15,7 @@ aside {
   width: 600px;
   flex-shrink: 0;
   overflow: hidden;
+  position: relative;
 }
 
 .header {
@@ -47,23 +48,25 @@ aside {
 }
 
 .comments {
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
+  flex: 1;
 }
 
 nz-button-group:first-child {
   margin: 0 10px 0 0;
 }
 
+nz-card {
+  height: 100%;
+}
+
 nz-card ::ng-deep .ant-card-body {
   padding: 0;
+  height: calc(100% - 57px);
+  overflow: auto;
 }
 
 nz-card ::ng-deep .ant-card-head {
-  position: sticky;
-  top: 0;
-  background-color: #fff;
-  z-index: 9;
   box-shadow: rgb(240, 241, 242) 0px 2px 8px;
 }
 
@@ -75,4 +78,13 @@ nz-card ::ng-deep .ant-card-head {
 
 i.icon {
   vertical-align: middle;
+}
+
+.md {
+  position: absolute;
+  right: 0;
+  top: 150px;
+  width: 600px;
+  height: calc(100% - 150px);
+  opacity: 0;
 }

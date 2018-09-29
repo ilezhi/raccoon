@@ -1,11 +1,12 @@
 <div class="md-editor" [class.fullscreen]="fullscreen">
   <div class="toolbar">
     <app-toolbar-left
+      [simple]="simple"
       (prev)="onPrev()"
       (next)="onNext()"
       (trash)="onTrash()"
       (save)="onSave()"></app-toolbar-left>
-    <app-toolbar-right></app-toolbar-right>
+    <app-toolbar-right [simple]="simple"></app-toolbar-right>
   </div>
   <div class="panel">
     <app-panel-edit [@stateEdit]="preview"></app-panel-edit>

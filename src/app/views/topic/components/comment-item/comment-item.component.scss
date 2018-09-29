@@ -1,21 +1,3 @@
-button {
-  border: none;
-  background: transparent;
-  outline: none;
-  font-size: 12px;
-  cursor: pointer;
-  opacity: 0.8;
-
-  i {
-    font-size: 16px;
-    vertical-align: sub;
-  }
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
 article {
   padding: 12px 20px;
   border-bottom: 1px solid #eee;
@@ -62,5 +44,32 @@ article {
 
   &:hover button + button {
     display: inline-block;
+  }
+
+  > button {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0.8;
+  
+    i {
+      font-size: 16px;
+      vertical-align: sub;
+    }
+  
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.reply-footer {
+  padding: 16px 0 0;
+  text-align: right;
+
+  button:first-child {
+    border: none;
   }
 }

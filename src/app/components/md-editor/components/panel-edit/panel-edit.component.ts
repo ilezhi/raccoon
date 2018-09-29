@@ -1,13 +1,16 @@
-import { Component, Renderer2, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Renderer2, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { EditorService } from '../../services/editor.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-panel-edit',
   templateUrl: './panel-edit.component.html',
   styleUrls: ['./panel-edit.component.scss']
 })
-export class PanelEditComponent implements OnInit  {
+export class PanelEditComponent implements OnInit, OnDestroy  {
   data = '';
+
+  private sub: Subscription
 
   @ViewChild('md')
   $textarea: ElementRef;
@@ -20,9 +23,15 @@ export class PanelEditComponent implements OnInit  {
   ngOnInit() {
     const { editorService, insertText$, updateData$ } = this;
     // 订阅工具条插入文本事件
-    editorService.toolbar$.subscribe(insertText$.bind(this));
+    this.sub = editorService.toolbar$.subscribe(insertText$.bind(this));
     // 订阅textarea数据更改事件
-    editorService.data$.subscribe(updateData$.bind(this));
+    const s2 = editorService.data$.subscribe(updateData$.bind(this));
+
+    this.sub.add(s2)
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe()
   }
 
   // 直接输入内容时, 触发textarea更新

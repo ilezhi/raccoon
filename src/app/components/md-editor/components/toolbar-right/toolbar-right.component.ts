@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { EditorService } from '../../services/editor.service';
 
 @Component({
@@ -7,9 +7,22 @@ import { EditorService } from '../../services/editor.service';
   styleUrls: ['./toolbar-right.component.scss']
 })
 export class ToolbarRightComponent {
-  fullscreen = false;
-  preview = 1;   // 0: 不显示预览; 1: 显示预览
-  panel = 0;     // 0: 双栏; 1: 单栏
+  fullscreen = false
+  preview = 1   // 0: 不显示预览; 1: 显示预览
+  panel = 0     // 0: 双栏; 1: 单栏
+  thin = false
+
+  @Input()
+  set simple(isSimple) {
+    this.thin = isSimple
+    if (isSimple) {
+      this.preview = 0
+      this.panel = 1
+    }
+  }
+  get simple() {
+    return this.thin
+  }
 
   constructor(
     private editorService: EditorService

@@ -37,3 +37,14 @@ export const slideComt = trigger('slideComt', [
   })),
   transition('hide <=> *', animate('300ms ease-in'))
 ])
+
+export const slideRight = trigger('slideRight', [
+  transition(':enter', [
+    style({transform: 'translate3d(0, 0, 0)'}),
+    animate(300)
+  ]),
+  transition(':leave', [
+    style({transform: 'translate3d(100%, 0, 0)'}),
+    animate(300)
+  ])
+])

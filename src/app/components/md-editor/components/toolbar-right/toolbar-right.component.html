@@ -1,9 +1,9 @@
 <ul class="toolbar">
-  <li>
+  <!-- <li>
     <button title="开启标题导航">
       <i class="icon">menu</i>
     </button>
-  </li>
+  </li> -->
   <li (click)="onTogglePreview()">
     <button *ngIf="!preview; else elseEdit" title="预览">
       <i class="icon">visibility</i>
@@ -38,14 +38,16 @@
       <i class="icon">view_stream</i>
     </button>
   </li>
-  <li class="divider">
-    <button title="查看html">
-      <i class="icon">code</i>
-    </button>
-  </li>
-  <li>
-    <button title="帮助">
-      <i class="icon">help</i>
-    </button>
-  </li>
+  <ng-container *ngIf="!simple">
+    <li class="divider">
+      <button title="查看html">
+        <i class="icon">code</i>
+      </button>
+    </li>
+    <li>
+      <button title="帮助">
+        <i class="icon">help</i>
+      </button>
+    </li>
+  </ng-container>
 </ul>

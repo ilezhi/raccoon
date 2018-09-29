@@ -22,36 +22,38 @@
       <li (click)="onClick('header6')">六级标题</li>
     </ul>
   </li>
-  <li class="divider" (click)="onClick('underline')">
-    <button title="下划线">
-      <i class="icon">format_underlined</i>
-    </button>
-  </li>
-  <li>
-    <button title="中划线" (click)="onClick('strikethrough')">
-      <i class="icon">strikethrough_s</i>
-    </button>
-  </li>
-  <li>
-    <button title="标记" (click)="onClick('mark')">
-      <i class="icon">bookmark</i>
-    </button>
-  </li>
-  <li>
-    <button title="居左" (click)="onClick('alignleft')">
-      <i class="icon">format_align_left</i>
-    </button>
-  </li>
-  <li>
-    <button title="居中" (click)="onClick('aligncenter')">
-      <i class="icon">format_align_center</i>
-    </button>
-  </li>
-  <li>
-    <button title="居右" (click)="onClick('alignright')">
-      <i class="icon">format_align_right</i>
-    </button>
-  </li>
+  <ng-container *ngIf="!simple">
+    <li class="divider" (click)="onClick('underline')">
+      <button title="下划线">
+        <i class="icon">format_underlined</i>
+      </button>
+    </li>
+    <li>
+      <button title="中划线" (click)="onClick('strikethrough')">
+        <i class="icon">strikethrough_s</i>
+      </button>
+    </li>
+    <li>
+      <button title="标记" (click)="onClick('mark')">
+        <i class="icon">bookmark</i>
+      </button>
+    </li>
+    <li>
+      <button title="居左" (click)="onClick('alignleft')">
+        <i class="icon">format_align_left</i>
+      </button>
+    </li>
+    <li>
+      <button title="居中" (click)="onClick('aligncenter')">
+        <i class="icon">format_align_center</i>
+      </button>
+    </li>
+    <li>
+      <button title="居右" (click)="onClick('alignright')">
+        <i class="icon">format_align_right</i>
+      </button>
+    </li>
+  </ng-container>
   <li class="divider" (click)="onClick('quote')">
     <button title="段落引用">
       <i class="icon">format_quote</i>
@@ -87,21 +89,23 @@
       <i class="icon">grid_on</i>
     </button>
   </li>
-  <li class="divider" (click)="onClick('undo')">
-    <button title="上一步">
-      <i class="icon">undo</i>
-    </button>
-  </li>
-  <li>
-    <button title="下一步" (click)="onClick('redo')">
-      <i class="icon">redo</i>
-    </button>
-  </li>
-  <li>
-    <button title="删除" (click)="onClick('trash')">
-      <i class="icon">delete_forever</i>
-    </button>
-  </li>
+  <ng-container *ngIf="!simple">
+    <li class="divider" (click)="onClick('undo')">
+      <button title="上一步">
+        <i class="icon">undo</i>
+      </button>
+    </li>
+    <li>
+      <button title="下一步" (click)="onClick('redo')">
+        <i class="icon">redo</i>
+      </button>
+    </li>
+    <li>
+      <button title="删除" (click)="onClick('trash')">
+        <i class="icon">delete_forever</i>
+      </button>
+    </li>
+  </ng-container>
   <li>
     <button title="保存" (click)="onClick('save')">
       <i class="icon">save</i>

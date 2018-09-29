@@ -17,12 +17,12 @@
       这是一条有味道的评论
     </div>
   </div>
-  <aside class="extra">
+  <aside class="extra" *ngIf="!isReply; else edit">
     <button>
       <i class="icon">thumb_up</i>
       赞
     </button>
-    <button>
+    <button (click)="showReplyEditor()">
       <i class="icon">reply</i>
       回复
     </button>
@@ -31,12 +31,14 @@
       采纳
     </button>
   </aside>
-  <div class="reply-edit">
-    <div class="textarea" contentEditable></div>
-    <div class="reply-footer">
-      <button nz-button>取消</button>
-      <button nz-button>回复</button>
+  <ng-template #edit>
+    <div class="reply-edit" *ngIf="isReply">
+      <div class="textarea" contentEditable></div>
+      <div class="reply-footer">
+        <button nz-button (click)="cancel()">取消</button>
+        <button nz-button nzType="primary" (click)="submit()">回复</button>
+      </div>
     </div>
-  </div>
+  </ng-template>
 </article>
 <ng-content></ng-content>

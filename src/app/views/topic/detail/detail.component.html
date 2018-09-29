@@ -39,8 +39,11 @@
     </div>
   </div>
   <ng-template #comt>
-    <a href="javascript:;">回复</a>
+    <a href="javascript:;" (click)="toggleComtEditor()">{{ fade ? '取消' : '回复' }}</a>
   </ng-template>
+  <div class="md" *ngIf="fade" [@fade]="fade">
+    <app-md-editor [simple]="true" (save)="onSubmit($event)"></app-md-editor>
+  </div>
 </aside>
 <div class="btn-menu" *ngIf="done" (click)="toggle()">
   <i class="icon ripple">menu</i>

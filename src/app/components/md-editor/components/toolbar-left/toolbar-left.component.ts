@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { toolbar, eventHandle } from '../../config/toolbar';
 import { EditorService }  from '../../services/editor.service';
 
@@ -8,6 +8,8 @@ import { EditorService }  from '../../services/editor.service';
   styleUrls: ['./toolbar-left.component.scss']
 })
 export class ToolbarLeftComponent {
+  @Input() simple: boolean
+
   @Output() prev = new EventEmitter();
   @Output() next = new EventEmitter();
   @Output() trash = new EventEmitter();

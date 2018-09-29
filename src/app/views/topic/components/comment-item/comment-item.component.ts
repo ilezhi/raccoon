@@ -7,6 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CommentItemComponent implements OnInit {
   reciver = true
+  isReply = false
+
   @Input() comment: any
 
   constructor() { }
@@ -14,4 +16,15 @@ export class CommentItemComponent implements OnInit {
   ngOnInit() {
   }
 
+  showReplyEditor() {
+    this.isReply = true
+  }
+
+  cancel() {
+    this.isReply = false
+  }
+
+  submit() {
+
+  }
 }
