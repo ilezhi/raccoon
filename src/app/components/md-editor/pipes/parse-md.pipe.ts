@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core'
 import markdown from 'markdown-it'
+import emoji from 'markdown-it-emoji'
 import hljs from 'highlight.js'
 
 const option = {
@@ -12,6 +13,7 @@ const option = {
   quotes: '“”‘’',
 };
 const MD = markdown(option)
+            .use(emoji)
 
 MD.renderer.rules.fence = function (tokens, idx) {
   const token    = tokens[idx]
