@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core'
 import markdown from 'markdown-it'
 import emoji from 'markdown-it-emoji'
 import ins from 'markdown-it-ins'
+import mark from 'markdown-it-mark'
 import hljs from 'highlight.js'
 
 const option = {
@@ -16,6 +17,7 @@ const option = {
 const MD = markdown(option)
             .use(emoji)
             .use(ins)
+            .use(mark)
 
 MD.renderer.rules.fence = function (tokens, idx) {
   const token    = tokens[idx]
