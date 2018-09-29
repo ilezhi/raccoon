@@ -30,6 +30,7 @@
     "highlight.js": "^9.12.0",
     "markdown-it": "^8.4.2",
     "markdown-it-emoji": "^1.4.0",
+    "markdown-it-ins": "^2.0.0",
     "material-design-icons": "^3.0.1",
     "ng-zorro-antd": "^1.2.0",
     "normalizr": "^3.2.4",
