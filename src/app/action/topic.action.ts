@@ -12,6 +12,11 @@ export class TopicsSuccess implements Action {
   constructor(public payload: MySchema) {}
 }
 
+export class TopicsFailure implements Action {
+  readonly type = TopicTypes.TopicsFailure
+  constructor(public payload: any) {}
+}
+
 export class Post implements Action {
   readonly type = TopicTypes.Post
   constructor(public payload: MySchema) {}

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Actions, Effect, ofType } from '@ngrx/effects'
 import { Action } from '@ngrx/store'
-import { Observable } from 'rxjs'
-import { map, switchMap } from 'rxjs/operators'
+import { Observable, of } from 'rxjs'
+import { map, switchMap, catchError } from 'rxjs/operators'
 import { normalize } from 'normalizr'
 
 import { TopicTypes } from 'src/app/action/type'
@@ -27,6 +27,10 @@ export class TopicEffects {
             map(data => {
               let result = normalize(data, topicsSchema)
               return new Action(result)
+            }),
+            catchError(err => {
+              console.log(err)
+              return of(new TopicAction.TopicsFailure(err))
             })
           )
       })

@@ -22,6 +22,7 @@ export class DetailComponent implements OnInit {
   done: boolean
   isParse = true
   fade: string
+  visible = false
 
   constructor(
     private route: ActivatedRoute,
@@ -72,5 +73,17 @@ export class DetailComponent implements OnInit {
    */
   onSubmit(text: string) {
     console.log(text)
+  }
+
+  showFavorModal() {
+    this.visible = true
+  }
+
+  onClose() {
+    this.visible = false
+  }
+
+  onFavorSubmit() {
+
   }
 }

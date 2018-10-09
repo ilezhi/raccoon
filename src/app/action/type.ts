@@ -1,6 +1,7 @@
 export enum TopicTypes {
   Topics = '[Topic List Page] list',
   TopicsSuccess = '[Topic/api] list',
+  TopicsFailure = '[Topic/list] error',
 
   Detail = '[Topic Detail Page] detail',
   DetailSuccess = '[Topic/api] detail',
