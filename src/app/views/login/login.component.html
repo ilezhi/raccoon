@@ -1,0 +1,25 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="login()">
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group nzPrefixIcon="anticon anticon-user">
+        <input type="text" formControlName="email" nz-input placeholder="Email">
+      </nz-input-group>
+      <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">请输入邮箱</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group nzPrefixIcon="anticon anticon-lock">
+        <input type="password" formControlName="password" nz-input placeholder="Password">
+      </nz-input-group>
+      <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">请输入密码</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button class="login-form-button" nzType="primary">登录</button>
+      <a class="login-form-forgot">忘记密码</a>
+      <a>注册</a>
+    </nz-form-control>
+  </nz-form-item>
+</form>

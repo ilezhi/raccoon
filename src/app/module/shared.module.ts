@@ -1,6 +1,6 @@
 import { NgModule }     from '@angular/core';
 import { CommonModule } from '@angular/common'
-import { FormsModule }  from '@angular/forms'
+import { FormsModule, ReactiveFormsModule }  from '@angular/forms'
 import { RouterModule } from '@angular/router'
 
 // 第三方模块
@@ -35,13 +35,15 @@ const comp = [
     CommonModule,
     RouterModule,
     NgZorroAntdModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: comp,
   exports: [
     CommonModule,
     NgZorroAntdModule,
     FormsModule,
+    ReactiveFormsModule,
     ...comp
   ],
   providers: [
