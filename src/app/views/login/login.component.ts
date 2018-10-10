@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core'
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators, } from '@angular/forms'
+import { Store } from '@ngrx/store'
+
+import * as UserAction from 'src/app/action/user.action'
 
 @Component({
   selector: 'app-login',
@@ -9,7 +12,10 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 export class LoginComponent implements OnInit {
   validateForm: FormGroup
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<any>
+  ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -27,7 +33,7 @@ export class LoginComponent implements OnInit {
 
     if (form.valid) {
       // TODO: 登录
-      console.log(form.value)
+      this.store.dispatch(new UserAction.Login(form.value))
     }
   }
 }

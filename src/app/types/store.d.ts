@@ -24,3 +24,8 @@ declare interface MySchema {
   entities: {[key: string]: any}
   result: any
 }
+
+declare interface LoginForm {
+  email: string
+  password: string
+}

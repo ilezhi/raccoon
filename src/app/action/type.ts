@@ -85,3 +85,12 @@ export enum TagTypes {
   Post  = '[Tag Create] post tag',
   PostSuccess = '[Tag/api] post tag',
 }
+
+export enum UserTypes {
+  Login = '[Login Page] login',
+  LoginSuccess = '[Login/api] success',
+  LoginFailure = '[Login/api] failure',
+
+  Info = '[User/Info] info',
+  InfoSuccess = '[User/api] info',
+}

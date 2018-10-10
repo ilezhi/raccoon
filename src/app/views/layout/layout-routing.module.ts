@@ -30,11 +30,6 @@ const routes: Routes = [
       },
       {
         path: 'draft', loadChildren: '../draft/draft.module#DraftModule'
-      },
-      {
-        path: 'topic',
-        loadChildren: '../topic/topic.module#TopicModule',
-        outlet: 'slide'
       }
     ]
   }

@@ -6,11 +6,16 @@ const routes: Routes = [
     path: '', redirectTo: '/all', pathMatch: 'full'
   },
   {
+    path: '', loadChildren: './views/layout/layout.module#LayoutModule',
+  },
+  {
     path: 'login',
     loadChildren: './views/login/login.module#LoginModule'
   },
   {
-    path: '', loadChildren: './views/layout/layout.module#LayoutModule',
+    path: 'topic',
+    loadChildren: './views/topic/topic.module#TopicModule',
+    outlet: 'slide'
   },
   {
     path: '**',

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core'
+import { Observable } from 'rxjs'
+import { map } from 'rxjs/operators'
 
 import { HttpService } from './http.service'
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,17 @@ import { Observable } from 'rxjs';
 export class UserService {
   constructor(private http: HttpService) {}
 
-  login(): Observable<any> {
-    const url = 'signin'
-    return this.http.get(url)
+  login(userInfo: LoginForm): Observable<any> {
+    return this.http.post('signin', userInfo)
+      .pipe(
+        map((res: Res) => res.data)
+      )
+  }
+
+  fetchInfo(): Observable<any> {
+    return this.http.get('user/info')
+      .pipe(
+        map((res: Res) => res.data)
+      )
   }
 }

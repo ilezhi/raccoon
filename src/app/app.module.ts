@@ -11,6 +11,7 @@ import { CoreModule } from './module/core.module'
 import { appReducer } from './reducers'
 import { TopicEffects } from './effects/topic.effects'
 import { TagEffects } from './effects/tag.effects'
+import { UserEffects } from './effects/user.effects'
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { TagEffects } from './effects/tag.effects'
   imports: [
     CoreModule,
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([TopicEffects, TagEffects]),
+    EffectsModule.forRoot([TopicEffects, TagEffects, UserEffects]),
     StoreRouterConnectingModule.forRoot(),
     AppRoutingModule,
   ],

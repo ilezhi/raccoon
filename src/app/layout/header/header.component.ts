@@ -13,9 +13,9 @@ export class HeaderComponent {
   ) {}
 
   login() {
-    this.userService.login()
-      .subscribe(data => {
-        console.log(data)
-      })
+    // this.userService.login()
+    //   .subscribe(data => {
+    //     console.log(data)
+    //   })
   }
 }
