@@ -17,6 +17,14 @@ declare interface Tag {
   [key: string]: any
 }
 
+declare interface Category {
+  id: number
+  name: string
+  userID: number
+  count: number
+  [key: string]: any
+}
+
 declare interface Entities<T> {
   [id: number]: T
 }

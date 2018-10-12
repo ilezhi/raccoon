@@ -93,4 +93,5 @@ export enum UserTypes {
 
   Info = '[User/Info] info',
   InfoSuccess = '[User/api] info',
+  InfoFailure = '[User/api] failure'
 }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms'
-import { Store } from '@ngrx/store'
+import { Observable } from 'rxjs'
+import { Store, select } from '@ngrx/store'
 
 import * as UserAction from 'src/app/action/user.action'
+import { getLoading } from 'src/app/reducers/user.reducer'
 
 @Component({
   selector: 'app-login',
@@ -11,11 +13,16 @@ import * as UserAction from 'src/app/action/user.action'
 })
 export class LoginComponent implements OnInit {
   validateForm: FormGroup
+  logining$: Observable<boolean>
 
   constructor(
     private fb: FormBuilder,
     private store: Store<any>
-  ) { }
+  ) {
+    this.logining$ = store.pipe(
+      select(getLoading)
+    )
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({

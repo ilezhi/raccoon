@@ -26,3 +26,8 @@ export class InfoSuccess implements Action {
   readonly type = UserTypes.InfoSuccess
   constructor(public payload: any) {}
 }
+
+export class InfoFailure implements Action {
+  readonly type = UserTypes.InfoFailure
+  constructor() {}
+}

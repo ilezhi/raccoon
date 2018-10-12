@@ -7,6 +7,7 @@ import {
   DraftTypes,
   TagTypes,
   TopicTypes,
+  UserTypes,
 } from '../action/type'
 
 const initState = {

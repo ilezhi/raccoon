@@ -7,6 +7,7 @@ import { map, switchMap, catchError } from 'rxjs/operators'
 import { UserTypes } from 'src/app/action/type'
 import * as UserAction from 'src/app/action/user.action'
 import { UserService } from '../services/user.service'
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UserEffects {
@@ -16,28 +17,33 @@ export class UserEffects {
       ofType<UserAction.Login>(UserTypes.Login),
       map(action => action.payload),
       switchMap((payload: LoginForm) => {
-        return this.userService.login(payload)
-          .pipe(
-            switchMap(user => {
-              return this.userService.fetchInfo()
-                .pipe(
-                  map(info => {
-                    return {info, user}
-                  })
-                )
-            }),
-            map(data => {
-              return new UserAction.LoginSuccess(data)
-            }),
-            catchError(_ => {
-              return of(new UserAction.LoginFailure())
-            })
-          )
+        return this.userService.login(payload).pipe(
+          map(user => {
+            this.router.navigate(['/'])
+            return new UserAction.LoginSuccess(user)
+          }),
+          catchError(_ => {
+            return of(new UserAction.LoginFailure())
+          })
+        )
+      })
+    )
+
+  @Effect()
+  info$ = (): Observable<Action> =>
+    this.action$.pipe(
+      ofType<UserAction.Info>(UserTypes.Info),
+      switchMap(() => {
+        return this.userService.fetchInfo().pipe(
+          map(data => new UserAction.InfoSuccess(data)),
+          catchError(_ => of(new UserAction.InfoFailure()))
+        )
       })
     )
 
   constructor(
     private action$: Actions,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 }

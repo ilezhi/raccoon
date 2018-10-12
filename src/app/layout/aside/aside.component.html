@@ -24,9 +24,9 @@
         <a routerLink="/solved/question">已解决</a>
       </div>
     </li>
-    <li toggle>
+    <li [toggle]="cCount">
       <div class="item" routerLinkActive="active">
-        <label class="arrow">
+        <label class="arrow" *ngIf="cCount">
           <i class="anticon anticon-caret-right"></i>
         </label>
         <i class="icon">star</i>
@@ -34,20 +34,10 @@
       </div>
     </li>
     <li class="dropdown">
-      <div class="item">
-        <i class="icon">J</i>
-        <a routerLink="/tag">nginx</a>
-        <strong>12</strong>
-      </div>
-      <div class="item">
-        <i class="icon">J</i>
-        <a routerLink="/tag">goweb</a>
-        <strong>12</strong>
-      </div>
-      <div class="item">
-        <i class="icon">J</i>
-          <a routerLink="/tag">算法</a>
-        <strong>12</strong>
+      <div class="item" *ngFor="let c of categories">
+        <!-- <i class="icon">J</i> -->
+        <a [routerLink]="['/category', c.name]">{{ c.name }}</a>
+        <!-- <strong>12</strong> -->
       </div>
     </li>
     <!-- <li toggle>
@@ -73,9 +63,9 @@
         <a routerLink="/shared">分享</a>
       </div>
     </li>
-    <li toggle>
+    <li [toggle]="tCount">
       <div class="item">
-        <label class="arrow">
+        <label class="arrow" *ngIf="tCount">
           <i class="anticon anticon-caret-right"></i>
         </label>
         <i class="icon">label</i>
@@ -83,15 +73,10 @@
       </div>
     </li>
     <li class="dropdown" [class.show]="showTags">
-      <div class="item">
-        <i class="icon">J</i>
-        <a routerLink="/tag">javascript</a>
-        <strong>12</strong>
-      </div>
-      <div class="item" routerLinkActive="active">
-        <i class="icon">J</i>
-        <a routerLink="/tag">javascript</a>
-        <strong>12</strong>
+      <div class="item" *ngFor="let tag of tags">
+        <!-- <i class="icon">J</i> -->
+        <a [routerLink]="['/tag', tag.name]">{{ tag.name }}</a>
+        <strong>{{ tag.count }}</strong>
       </div>
     </li>
     <li>
