@@ -93,5 +93,9 @@ export enum UserTypes {
 
   Info = '[User/Info] info',
   InfoSuccess = '[User/api] info',
-  InfoFailure = '[User/api] failure'
+  InfoFailure = '[User/api] failure',
+
+  Category = '[Category/api] new',
+  CategorySuccess = '[Category/api] success',
+  CategoryFailure = '[Category/api] failure'
 }

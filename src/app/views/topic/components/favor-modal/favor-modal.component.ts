@@ -1,15 +1,25 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Store, select } from '@ngrx/store'
+import { Subscription } from 'rxjs'
+import { getCategory } from 'src/app/reducers/user.reducer'
+import { ActivatedRoute } from '@angular/router'
+import { NzMessageService } from 'ng-zorro-antd'
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-favor-modal',
+  
   templateUrl: './favor-modal.component.html',
   styleUrls: ['./favor-modal.component.scss']
 })
-export class FavorModalComponent implements OnInit {
-  cid = 0
+export class FavorModalComponent implements OnInit, OnDestroy {
   category = ''
   editable = false
   show = false
+  topicID: number
+
+  categories: Array<Category>
+  sub: Subscription
 
   @Input()
   set visible(val) {
@@ -19,11 +29,26 @@ export class FavorModalComponent implements OnInit {
     }
   }
   @Output() cancel = new EventEmitter<void>()
-  @Output() submit = new EventEmitter<number>()
 
-  constructor() { }
+  constructor(
+    private store: Store<any>,
+    private route: ActivatedRoute,
+    private message: NzMessageService,
+    private userService: UserService
+  ) {
+    this.sub = store.pipe(
+      select(getCategory)
+    ).subscribe(data => {
+      this.categories = data
+    })
+  }
 
   ngOnInit() {
+    this.topicID = +this.route.snapshot.paramMap.get('id')
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe()
   }
 
   /**
@@ -36,13 +61,29 @@ export class FavorModalComponent implements OnInit {
   onHideInput() {
     this.editable = false
     this.category = ''
-    this.cid = 0
   }
 
   /**
    * 新增分类
    */
   onNewCategory() {
+    let { category, categories } = this
+    category = category.trim()
+    if (!category) {
+      this.message.info('分类名不能为空')
+      return
+    }
+
+    const isExist = categories.some(c => {
+      return c.name.toLowerCase() === category.toLowerCase()                  
+    })
+
+    if (isExist) {
+      this.message.info(`"${category}"已存在`)
+      return
+    }
+
+    this.userService.newCategory(category)
   }
 
   /**
@@ -50,9 +91,5 @@ export class FavorModalComponent implements OnInit {
    */
   onCancel() {
     this.cancel.emit()
-  }
-
-  onConfirm() {
-    this.submit.emit(this.cid)
   }
 }

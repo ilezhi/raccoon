@@ -1,34 +1,22 @@
 <nz-modal [nzVisible]="show" nzTitle="添加到分类" [nzFooter]="modalFooter" (nzOnCancel)="onCancel()">
-  <nz-radio-group [(ngModel)]="cid">
-    <div class="item">
-      <div class="title">
-        <strong>javascript</strong>
-        <span>10个内容</span>
-      </div>
-      <aside>
-        <label nz-radio [nzValue]="1"></label>
-      </aside>
+  <div class="item" *ngFor="let c of categories">
+    <div class="title">
+      <strong>{{ c.name }}</strong>
+      <span>{{ c.count }}个内容</span>
     </div>
-    <div class="item">
-      <div class="title">
-        <strong>javascript</strong>
-        <span>10个内容</span>
-      </div>
-      <aside>
-        <label nz-radio [nzValue]="2"></label>
-      </aside>
+    <aside>
+      <button nz-button>收藏</button>
+    </aside>
+  </div>
+  <div *ngIf="editable" class="item input">
+    <div>
+      <input nz-input type="text" placeholder="分类名称" [(ngModel)]="category">
+      <button nz-button (click)="onHideInput()">取消</button>
+      <button nz-button nzType="primary" (click)="onNewCategory()">确定</button>
     </div>
-    <div *ngIf="editable" class="item input">
-      <div>
-        <input nz-input type="text" placeholder="分类名称" [(ngModel)]="category">
-        <button nz-button (click)="onHideInput()">取消</button>
-        <button nz-button nzType="primary" (click)="onNewCategory()">确定</button>
-      </div>
-    </div>
-  </nz-radio-group>
+  </div>
   <ng-template #modalFooter>
     <button nz-button style="float:left;" (click)="onShowInput()">新建分类</button>
     <button nz-button (click)="onCancel()">取消</button>
-    <button nz-button nzType="primary" (click)="onConfirm()">确定</button>
   </ng-template>
 </nz-modal>

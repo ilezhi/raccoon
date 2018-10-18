@@ -31,3 +31,8 @@ export class InfoFailure implements Action {
   readonly type = UserTypes.InfoFailure
   constructor() {}
 }
+
+export class Category implements Action {
+  readonly type = UserTypes.Category
+  constructor(public payload: string) {}
+}
