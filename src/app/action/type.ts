@@ -15,6 +15,8 @@ export enum TopicTypes {
 
   Trash = '[Trash Topic Page] trash topic',
   TrashSuccess = '[Topic] trash topic success',
+
+  FavorSuccess = '[Topic/api] favor'
 }
 
 export enum HomeTypes {

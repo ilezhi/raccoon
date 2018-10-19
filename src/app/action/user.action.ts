@@ -36,3 +36,13 @@ export class Category implements Action {
   readonly type = UserTypes.Category
   constructor(public payload: string) {}
 }
+
+export class CategorySuccess implements Action {
+  readonly type = UserTypes.CategorySuccess
+  constructor(public payload: any) {}
+}
+
+export class CategoryFailure implements Action {
+  readonly type = UserTypes.CategoryFailure
+  constructor() {}
+}

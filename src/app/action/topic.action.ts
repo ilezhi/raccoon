@@ -51,3 +51,8 @@ export class DetailSuccess implements Action {
   readonly type = TopicTypes.DetailSuccess
   constructor(public payload: any) {}
 }
+
+export class FavorSuccess implements Action {
+  readonly type = TopicTypes.FavorSuccess
+  constructor(public payload: any) {}
+}

@@ -1,14 +1,22 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { Store, select } from '@ngrx/store'
-import { Subscription } from 'rxjs'
-import { getCategory } from 'src/app/reducers/user.reducer'
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnDestroy,
+  ChangeDetectionStrategy
+} from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
+import { Subscription } from 'rxjs'
 import { NzMessageService } from 'ng-zorro-antd'
-import { UserService } from '../../../../services/user.service';
+
+import { UserService } from 'src/app/services/user.service'
+import { TopicService } from 'src/app/services/topic.service'
 
 @Component({
   selector: 'app-favor-modal',
-  
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './favor-modal.component.html',
   styleUrls: ['./favor-modal.component.scss']
 })
@@ -17,6 +25,7 @@ export class FavorModalComponent implements OnInit, OnDestroy {
   editable = false
   show = false
   topicID: number
+  posting: boolean
 
   categories: Array<Category>
   sub: Subscription
@@ -31,14 +40,12 @@ export class FavorModalComponent implements OnInit, OnDestroy {
   @Output() cancel = new EventEmitter<void>()
 
   constructor(
-    private store: Store<any>,
     private route: ActivatedRoute,
     private message: NzMessageService,
-    private userService: UserService
+    private userService: UserService,
+    private topicService: TopicService
   ) {
-    this.sub = store.pipe(
-      select(getCategory)
-    ).subscribe(data => {
+    this.sub = this.userService.categories$.subscribe(data => {
       this.categories = data
     })
   }
@@ -83,13 +90,28 @@ export class FavorModalComponent implements OnInit, OnDestroy {
       return
     }
 
-    this.userService.newCategory(category)
+    this.posting = true
+    this.userService.postCategory(category)
+      .subscribe(done => {
+        this.posting = false
+        if (done) {
+          this.onHideInput()
+        }
+      })
   }
 
   /**
-   * 取消收藏
+   * 关闭modal
    */
   onCancel() {
     this.cancel.emit()
+  }
+
+  /**
+   * 收藏
+   * @param id 分类id
+   */
+  onFavor(id: number) {
+    
   }
 }

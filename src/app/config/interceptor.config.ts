@@ -29,16 +29,18 @@ export class RequestInterceptor implements HttpInterceptor {
       .pipe(
         tap((res: any) => {
           if (res instanceof HttpResponse) {
-            const { body: { code, msg } } = res
+            const { body: { code, message } } = res
 
             if (code !== 0) {
-              throw Error(msg)
+              throw Error(message)
             }
           }
         }),
+        map((res: Res) => res.data),
         catchError((error: HttpErrorResponse) => {
           const { ok, statusText } = error
           let msg = ''
+
           // 后端正常返回, code不是0
           if (ok === undefined) {
             msg = error.message

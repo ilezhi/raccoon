@@ -41,6 +41,19 @@ export class UserEffects {
       })
     )
 
+  @Effect()
+  category$ = (): Observable<Action> =>
+    this.action$.pipe(
+      ofType<UserAction.Category>(UserTypes.Category),
+      map(action => action.payload),
+      switchMap(name => {
+        return this.userService.postCategory(name).pipe(
+          map(data => new UserAction.CategorySuccess(data)),
+          catchError(_ => of(new UserAction.CategoryFailure())) 
+        )
+      })
+    )
+
   constructor(
     private action$: Actions,
     private userService: UserService,

@@ -33,7 +33,6 @@ export class TopicService {
     }
 
     return this.http.get(url, params)
-      .pipe(map((res: Res) => res.data))
   }
 
   post(params: TopicParams): Observable<boolean> {
@@ -41,9 +40,9 @@ export class TopicService {
     const { store, http } = this
     return http.post(url, params)
       .pipe(
-        map((res: Res) => {
-          const data = normalize(res.data, topicSchema)
-          store.dispatch(new TopicAction.PostSuccess(data))
+        map(data => {
+          const result = normalize(data, topicSchema)
+          store.dispatch(new TopicAction.PostSuccess(result))
           return true
         }),
         catchError(err => {
@@ -56,12 +55,31 @@ export class TopicService {
   detail(id: number): Observable<Topic> {
     const url = `topic/${id}`
     return this.http.get(url)
-      .pipe(
-        map((res: Res) => res.data)
-      )
   }
 
   close() {
     this.editor.next(true)
+  }
+
+  /**
+   * 收藏, 取消收藏
+   * @param topic id
+   * @param category id 
+   */
+  favor(topic: number, category: number) {
+    const { http, store } = this
+    const url = `topic/favor/${topic}`
+    return this.http.post(url, { category }).pipe(
+      map((favor: boolean) => {
+        const params = {
+          topic,
+          category,
+          favor
+        }
+        store.dispatch(new TopicAction.FavorSuccess(params))
+        return true
+      }),
+      catchError(_ => of(false))
+    )
   }
 }

@@ -24,6 +24,10 @@ const category = (state = [], action: Action) => {
       return [...payload.categories]
     }
 
+    case UserTypes.CategorySuccess: {
+      return [payload, ...state]
+    }
+
     default: {
       return state
     }
