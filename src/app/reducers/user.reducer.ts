@@ -28,6 +28,24 @@ const category = (state = [], action: Action) => {
       return [payload, ...state]
     }
 
+    case TopicTypes.FavorSuccess: {
+      let categories = state.map(item => {
+        if (item.id === payload.categoryID) {
+          if (payload.favor) {
+            item.count += 1
+          } else {
+            item.count -= 1
+          }
+        } 
+
+        return {
+          ...item
+        }
+      })
+
+      return categories
+    }
+
     default: {
       return state
     }
@@ -93,6 +111,10 @@ const loading = (state = false, action: Action) => {
       return state
     }
   }
+}
+
+export const getInfo = state => {
+  return state.user.info
 }
 
 export const getLoading = (state) => {

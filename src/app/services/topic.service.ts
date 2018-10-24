@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Observable, of, Subject } from 'rxjs'
+import { Observable, of, Subject, from } from 'rxjs'
 
 import { Store } from '@ngrx/store'
 import { normalize } from 'normalizr'
@@ -8,7 +8,7 @@ import { topicSchema } from 'src/app/normalizr/schema'
 
 import { HttpService } from './http.service'
 import { Topic } from 'src/app/models'
-import { catchError, tap, map } from 'rxjs/operators'
+import { catchError, map } from 'rxjs/operators'
 import * as TopicAction from 'src/app/action/topic.action'
 
 @Injectable({
@@ -32,7 +32,9 @@ export class TopicService {
       size
     }
 
-    return this.http.get(url, params)
+    return this.http.get(url, params).pipe(
+      map((res: Res) => res.data)
+    )
   }
 
   post(params: TopicParams): Observable<boolean> {
@@ -54,30 +56,58 @@ export class TopicService {
 
   detail(id: number): Observable<Topic> {
     const url = `topic/${id}`
-    return this.http.get(url)
+    return this.http.get(url).pipe(
+      map((res: Res) => res.data)
+    )
   }
 
   close() {
     this.editor.next(true)
   }
+  
+  comments(topicID: number): Observable<Array<Comment>> {
+    const url = `comments/${topicID}`
+    return this.http.get(url).pipe(
+      map((res: Res) => res.data),
+      catchError(_ => from([]))
+    )
+  }
+
+  /**
+   * 提交评论
+   * @param id topic id
+   * @param content comment
+   */
+  postComment(id: number, content: string): Observable<any> {
+    const { http, store } = this
+    const url = `comment/${id}`
+    return http.post(url, {content}).pipe(
+      map((res: Res) => {
+        store.dispatch(new TopicAction.PostComtSuccess(res.data))
+        return true
+      }),
+      catchError(_ => of(false))
+    )
+  }
 
   /**
    * 收藏, 取消收藏
-   * @param topic id
-   * @param category id 
+   * @param topicID
+   * @param categoryID 
    */
-  favor(topic: number, category: number) {
+  favor(topicID: number, categoryID: number): Observable<boolean> {
     const { http, store } = this
-    const url = `topic/favor/${topic}`
-    return this.http.post(url, { category }).pipe(
-      map((favor: boolean) => {
+    const url = `topic/favor/${topicID}`
+    return http.post(url, { categoryID }).pipe(
+      map((res: Res) => {
+        const favor = !!res.data
         const params = {
-          topic,
-          category,
+          topicID,
+          categoryID,
           favor
         }
         store.dispatch(new TopicAction.FavorSuccess(params))
-        return true
+        return favor
       }),
       catchError(_ => of(false))
     )

@@ -7,6 +7,7 @@ declare interface Topic {
   top: boolean
   awesome: boolean
   shared: boolean
+  isFull: boolean
 }
 
 declare interface Tag {
@@ -27,4 +28,18 @@ declare interface Category {
 
 declare interface Entities<T> {
   [id: number]: T
+}
+
+declare interface Comment {
+  content: string
+  topicID: number
+  authorID: number
+  nickname: string
+  avatar: string
+  updatedAt: number
+  replies: Array<Reply>
+}
+
+declare interface Reply {
+  [key: string]: any
 }

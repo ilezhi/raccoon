@@ -9,7 +9,7 @@ import { TopicTypes } from 'src/app/action/type'
 import * as TopicAction from 'src/app/action/topic.action'
 import { TopicService } from '../services/topic.service'
 
-import { topicsSchema, topicSchema } from 'src/app/normalizr/schema'
+import { topicsSchema, topicSchema, commentsSchema } from 'src/app/normalizr/schema'
 
 @Injectable()
 export class TopicEffects {
@@ -54,13 +54,27 @@ export class TopicEffects {
       ofType<TopicAction.Detail>(TopicTypes.Detail),
       map(action => action.payload),
       switchMap((id: number) => {
-        return this.topicService.detail(id)
-          .pipe(
-            map((topic: Topic) => {
-              const result = normalize(topic, topicSchema)
-              return new TopicAction.DetailSuccess(result)
-            })
-          )
+        return this.topicService.detail(id).pipe(
+          map((topic: Topic) => {
+            const result = normalize(topic, topicSchema)
+            return new TopicAction.DetailSuccess(result)
+          })
+        )
+      })
+    )
+
+  @Effect()
+  comments$ = ():Observable<Action> =>
+    this.action$.pipe(
+      ofType<TopicAction.Comments>(TopicTypes.Comments),
+      map(action => action.payload),
+      switchMap((id: number) => {
+        return this.topicService.comments(id).pipe(
+          map(data => {
+            const result = normalize(data, commentsSchema)
+            return new TopicAction.CommentsSuccess(result)
+          })
+        )
       })
     )
 

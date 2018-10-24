@@ -5,7 +5,6 @@ import {
   Output,
   EventEmitter,
   OnDestroy,
-  ChangeDetectionStrategy
 } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Subscription } from 'rxjs'
@@ -16,7 +15,6 @@ import { TopicService } from 'src/app/services/topic.service'
 
 @Component({
   selector: 'app-favor-modal',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './favor-modal.component.html',
   styleUrls: ['./favor-modal.component.scss']
 })
@@ -26,6 +24,8 @@ export class FavorModalComponent implements OnInit, OnDestroy {
   show = false
   topicID: number
   posting: boolean
+  favor: number
+  cid: number
 
   categories: Array<Category>
   sub: Subscription
@@ -112,6 +112,19 @@ export class FavorModalComponent implements OnInit, OnDestroy {
    * @param id 分类id
    */
   onFavor(id: number) {
-    
+    this.cid = id
+    this.topicService.favor(this.topicID, id)
+      .subscribe(favor => {
+        if (favor) {
+          this.favor = id
+        } else {
+          this.favor = -1
+        }
+        this.cid = -1
+      })
+  }
+
+  trackByFn(i, item): number {
+    return item.id
   }
 }

@@ -17,6 +17,7 @@ export class TagService {
     const url = `search/tag/${tag}`
     return this.http.get<Array<Tag>>(url)
       .pipe(
+        map((res: Res) => res.data),
         catchError(_ => of([]))
       )
   }

@@ -56,3 +56,18 @@ export class FavorSuccess implements Action {
   readonly type = TopicTypes.FavorSuccess
   constructor(public payload: any) {}
 }
+
+export class Comments implements Action {
+  readonly type = TopicTypes.Comments
+  constructor(public payload: number) {}
+}
+
+export class CommentsSuccess implements Action {
+  readonly type = TopicTypes.CommentsSuccess
+  constructor(public payload: any) {}
+}
+
+export class PostComtSuccess implements Action {
+  readonly type = TopicTypes.PostCommentSuccess
+  constructor(public payload: Comment) {}
+}

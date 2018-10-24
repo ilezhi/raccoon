@@ -37,7 +37,7 @@
       <div class="item" *ngFor="let c of categories">
         <!-- <i class="icon">J</i> -->
         <a [routerLink]="['/category', c.name]">{{ c.name }}</a>
-        <!-- <strong>12</strong> -->
+        <strong>{{ c.count }}</strong>
       </div>
     </li>
     <!-- <li toggle>

@@ -36,7 +36,6 @@ export class RequestInterceptor implements HttpInterceptor {
             }
           }
         }),
-        map((res: Res) => res.data),
         catchError((error: HttpErrorResponse) => {
           const { ok, statusText } = error
           let msg = ''

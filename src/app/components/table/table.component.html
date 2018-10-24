@@ -1,4 +1,4 @@
-<div class="wrapper" [loading]="loading$ | async">
+<div class="wrapper">
   <div *ngIf="!data?.length; else zero">
     暂无数据
   </div>
@@ -23,7 +23,7 @@
           <td class="title">
             <div class="text-ellipsis" [routerLink]="['', {outlets: {slide: ['topic', topic.id]}}]">
               <strong>{{ topic.title }}</strong>
-              <span>- {{ topic.content }}</span>
+              <span>- {{ topic.content.substring(0, 140) }}</span>
             </div>
           </td>
           <td class="comt">

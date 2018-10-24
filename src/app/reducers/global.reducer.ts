@@ -31,10 +31,11 @@ const global = (state = initState, action: Action): {} => {
     }
 
     default: {
-      return {
-        ...state,
-        loading: false
-      }
+      // return {
+      //   ...state,
+      //   loading: false
+      // }
+      return state
     }
   }
 }

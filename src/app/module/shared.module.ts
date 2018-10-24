@@ -18,6 +18,8 @@ import { MainComponent } from '../layout/main/main.component'
 import { TableComponent } from '../components/table/table.component'
 import { TagComponent } from '../components/tag/tag.component'
 
+import { Count } from 'src/app/pipes/count.pipe'
+
 const comp = [
   HeaderComponent,
   BodyComponent,
@@ -28,6 +30,7 @@ const comp = [
   ToggleDirective,
   LoadingDirective,
   TagComponent,
+  Count,
 ]
 
 @NgModule({

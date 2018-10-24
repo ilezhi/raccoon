@@ -19,13 +19,13 @@
       </li>
       <li>
         <nz-button-group>
-          <button class="active" nz-button>
+          <button nz-button>
             <i class="icon">thumb_up</i>
           </button>
           <button nz-button>12</button>
         </nz-button-group>
         <nz-button-group>
-          <button class="active" nz-button (click)="showFavorModal()">
+          <button nz-button (click)="showFavorModal()">
             <i class="icon">star</i>
           </button>
           <button nz-button>12</button>
@@ -33,11 +33,17 @@
       </li>
     </ul>
     <div class="comments">
-      <nz-card nzTitle="12 回复" [nzExtra]="comt" [nzBordered]="false">
-        <app-comment-list></app-comment-list>
+      <nz-card [nzTitle]="count" [nzExtra]="comt" [nzBordered]="false">
+        <p *ngIf="!total; else elseBlock;">暂无回复</p>
+        <ng-template #elseBlock>
+          <app-comment-list [data]="comments"></app-comment-list>
+        </ng-template>
       </nz-card>
     </div>
   </div>
+  <ng-template #count>
+    <span>{{ total }} 回复</span>
+  </ng-template>
   <ng-template #comt>
     <a href="javascript:;" (click)="toggleComtEditor()">{{ fade ? '取消' : '回复' }}</a>
   </ng-template>

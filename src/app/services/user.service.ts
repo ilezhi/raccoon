@@ -19,18 +19,22 @@ export class UserService {
   ) {}
 
   login(userInfo: LoginForm): Observable<any> {
-    return this.http.post('signin', userInfo)
+    return this.http.post('signin', userInfo).pipe(
+      map((res: Res) => res.data)
+    )
   }
 
   fetchInfo(): Observable<any> {
-    return this.http.get('user/info')
+    return this.http.get('user/info').pipe(
+      map((res: Res) => res.data)
+    )
   }
 
   postCategory(name: string): Observable<boolean> {
     const { http, store } = this
     return http.post('category/create', {name}).pipe(
-      map(data => {
-        store.dispatch(new CategorySuccess(data))
+      map((res: Res) => {
+        store.dispatch(new CategorySuccess(res.data))
         return true
       }),
       catchError(_ => of(false))

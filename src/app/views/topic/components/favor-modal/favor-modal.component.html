@@ -1,11 +1,11 @@
 <nz-modal [nzVisible]="show" nzTitle="添加到分类" [nzFooter]="modalFooter" (nzOnCancel)="onCancel()">
-  <div class="item" *ngFor="let c of categories">
+  <div class="item" *ngFor="let c of categories; trackBy: trackByFn">
     <div class="title">
       <strong>{{ c.name }}</strong>
       <span>{{ c.count }}个内容</span>
     </div>
     <aside>
-      <button nz-button (click)="onFavor(c.id)">收藏</button>
+      <button nz-button (click)="onFavor(c.id)" [disabled]="favor > 0 && favor !== c.id" [nzLoading]="cid === c.id">{{ favor === c.id ? '已收藏' : '收藏' }}</button>
     </aside>
   </div>
   <div *ngIf="editable" class="item input">

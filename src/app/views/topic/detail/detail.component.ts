@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, ParamMap } from '@angular/router'
-import { map, switchMap, concatMap, combineAll, take } from 'rxjs/operators'
+import { map, switchMap, concatMap, combineAll, take, tap } from 'rxjs/operators'
 import { EMPTY as empty, of } from 'rxjs'
 import { Store, select } from '@ngrx/store'
 
-import { getTopic } from '../../../reducers/entities.reducer'
-import { TopicService } from '../../../services/topic.service'
+import { getFullTopic } from 'src/app/reducers/entities.reducer'
+import { TopicService } from 'src/app/services/topic.service'
 import * as TopicAction from 'src/app/action/topic.action'
 import { slideComt } from 'src/app/animations/slide'
 import { fade } from 'src/app/animations/fade'
@@ -23,6 +23,9 @@ export class DetailComponent implements OnInit {
   isParse = true
   fade: string
   visible = false
+  tid: number
+  comments = []
+  total: number // 评论数量
 
   constructor(
     private route: ActivatedRoute,
@@ -34,15 +37,16 @@ export class DetailComponent implements OnInit {
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         const id = +params.get('id')
+        this.tid = id
         return this.store.pipe(
-          select(getTopic(id)),
-          switchMap((topic: Topic) => {
-            if (topic) {
-              return of(topic)
+          select(getFullTopic(id)),
+          tap(topic => {
+            if (topic){
+              return
             }
 
-            // this.store.dispatch(new TopicAction.Detail(id))
-            return empty
+            this.store.dispatch(new TopicAction.Detail(id))
+            this.store.dispatch(new TopicAction.Comments(id))
           })
         )
       })
@@ -60,6 +64,9 @@ export class DetailComponent implements OnInit {
     this.done = !!this.hide
   }
 
+  /**
+   * 关闭topic page
+   */
   close() {
     this.topicService.close()
   }
@@ -72,7 +79,11 @@ export class DetailComponent implements OnInit {
    * 提交评论
    */
   onSubmit(text: string) {
-    console.log(text)
+    const { topicService, tid } = this
+    topicService.postComment(tid, text)
+      .subscribe(done => {
+        done && this.toggleComtEditor()
+      })
   }
 
   showFavorModal() {
