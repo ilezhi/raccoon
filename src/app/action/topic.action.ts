@@ -71,3 +71,13 @@ export class PostComtSuccess implements Action {
   readonly type = TopicTypes.PostCommentSuccess
   constructor(public payload: Comment) {}
 }
+
+export class PostReplySuccess implements Action {
+  readonly type = TopicTypes.PostReplySuccess
+  constructor(public payload: Reply) {}
+}
+
+export class LikeSuccess implements Action {
+  readonly type = TopicTypes.LikeSuccess
+  constructor(public payload: any) {}
+}

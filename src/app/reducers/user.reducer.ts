@@ -36,7 +36,7 @@ const category = (state = [], action: Action) => {
           } else {
             item.count -= 1
           }
-        } 
+        }
 
         return {
           ...item

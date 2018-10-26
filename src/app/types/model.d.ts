@@ -8,6 +8,7 @@ declare interface Topic {
   awesome: boolean
   shared: boolean
   isFull: boolean
+  [key: string]: any
 }
 
 declare interface Tag {
@@ -31,6 +32,7 @@ declare interface Entities<T> {
 }
 
 declare interface Comment {
+  id: number
   content: string
   topicID: number
   authorID: number

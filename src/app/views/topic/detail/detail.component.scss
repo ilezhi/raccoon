@@ -3,12 +3,25 @@
   height: 100%;
 }
 
-article {
+section {
   flex: 1;
   height: 100%;
   padding: 10px;
   overflow-x: hidden;
   overflow-y: scroll;
+}
+
+header {
+  margin-bottom: 30px;
+
+  h1 {
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  ul {
+    display: flex;
+  }
 }
 
 aside {
@@ -27,6 +40,11 @@ aside {
     border: none;
     background: transparent;
   }
+}
+
+.like,
+.favor {
+  color: #40a9ff;
 }
 
 .inner {

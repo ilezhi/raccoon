@@ -40,8 +40,15 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
+    case TopicTypes.PostSuccess: {
+      const { topics } = payload.entities
+      return {
+        ...state,
+        ...topics
+      }
+    }
+
     case TopicTypes.DetailSuccess:
-    case TopicTypes.PostSuccess:
     case TopicTypes.UpdateSuccess: {
       const { topics } = payload.entities
       const id = Object.keys(topics)[0]
@@ -88,12 +95,39 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
     }
 
     case TopicTypes.FavorSuccess: {
-      const { topic: id, favor } = payload
-      const topic = {...state[id], favor}
+      const { topicID: id, favor, categoryID } = payload
+      const topic = {...state[id]}
+      topic.isFavor = favor
+      if (favor) {
+        topic.favorCount += 1
+        topic.categoryID = categoryID
+      } else {
+        topic.favorCount -= 1
+        topic.categoryID = 0
+      }
 
       return {
         ...state,
         [id]: topic,
+      }
+    }
+
+    case TopicTypes.LikeSuccess: {
+      const { id, type, like } = payload
+      if (type !== 'topic') {
+        return state
+      }
+      const topic = {...state[id]}
+      topic.isLike = like
+      if (like) {
+        topic.likeCount += 1
+      } else {
+        topic.likeCount -= 1
+      }
+
+      return {
+        ...state,
+        [id]: topic
       }
     }
 
@@ -227,6 +261,16 @@ const comments = (state: KeyMap = {}, action) => {
       }
     }
 
+    case TopicTypes.PostReplySuccess: {
+      const { commentID, id } = payload
+      const comt = { ...state[commentID] }
+      comt.replies = comt.replies.concat(id)
+      return {
+        ...state,
+        [commentID]: comt
+      }
+    }
+
     default: {
       return state
     }
@@ -281,9 +325,14 @@ export const getTags = (state) => {
 
 export const getFullTopic = id => createSelector(
   getTopics,
-  topics => {
-    const topic = topics[id]
+  getTags,
+  (topics, tags) => {
+    let topic = topics[id]
     if (topic && topic.isFull) {
+      topic = { ...topic }
+      topic.tags = topic.tags.map(id => {
+        return tags[id]
+      })
       return topic
     }
 
@@ -291,7 +340,7 @@ export const getFullTopic = id => createSelector(
   }
 )
 
-export const getCommentsByTopicID = id => {
+export const getCommentsByTopicID = id => createSelector(
   getTopic(id),
   getComments,
   getReplies,
@@ -302,10 +351,13 @@ export const getCommentsByTopicID = id => {
 
     return topic.comments.map(cid => {
       const comt = { ...comments[cid] }
-      comt.replies = comt.replies.map(rid => replies[rid])
+
+      if (comt.replies) {
+        comt.replies = comt.replies.map(rid => replies[rid])
+      }
       return comt
     })
   }
-}
+)
 
 export default combineReducers({topics, draft, tags, comments, replies})

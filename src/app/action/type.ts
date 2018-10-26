@@ -17,6 +17,7 @@ export enum TopicTypes {
   TrashSuccess = '[Topic] trash topic success',
 
   FavorSuccess = '[Topic/api] favor',
+  LikeSuccess = '[Topic/api] like',
 
   Comments = '[Topic/Comments] comments',
   CommentsSuccess = '[Topic/api] comments',

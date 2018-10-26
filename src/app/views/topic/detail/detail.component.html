@@ -1,6 +1,18 @@
-<article class="markdown-preview">
-  <div [innerHTML]="topic?.content | parseMD: isParse"></div>
-</article>
+<section>
+  <header>
+    <h1>
+      {{ topic?.title }}
+    </h1>
+    <ul>
+      <li *ngFor="let tag of topic?.tags">
+        <nz-tag>{{ tag.name }}</nz-tag>
+      </li>
+    </ul>
+  </header>
+  <article class="markdown-preview">
+    <div [innerHTML]="topic?.content | parseMD"></div>
+  </article>
+</section>
 <aside [@slideComt]="hide" (@slideComt.done)="toggleDone()">
   <div class="inner">
     <div class="header">
@@ -13,22 +25,22 @@
     </div>
     <ul class="statistic">
       <li>
-        作者: <span>weels</span> /
-        发布: <span>21分钟前</span> /
-        浏览: <span>123</span>
+        作者: <span>{{ topic?.nickName }}</span> /
+        发布: <span>{{ topic?.updatedAt }}</span> /
+        浏览: <span>{{ topic?.view }}</span>
       </li>
       <li>
         <nz-button-group>
-          <button nz-button>
+          <button [nzLoading]="liking" [class.like]="topic?.isLike" nz-button (click)="onLike()">
             <i class="icon">thumb_up</i>
           </button>
-          <button nz-button>12</button>
+          <button nz-button>{{ topic?.likeCount }}</button>
         </nz-button-group>
         <nz-button-group>
-          <button nz-button (click)="showFavorModal()">
+          <button [nzLoading]="favoring" [class.favor]="topic?.isFavor" nz-button (click)="showFavorModal()">
             <i class="icon">star</i>
           </button>
-          <button nz-button>12</button>
+          <button nz-button>{{ topic?.favorCount }}</button>
         </nz-button-group>
       </li>
     </ul>

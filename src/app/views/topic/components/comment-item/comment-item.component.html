@@ -1,20 +1,20 @@
 <article class="comment-item">
   <div class="meta">
     <div class="title">
-      <img src="https://avatars1.githubusercontent.com/u/11797281?s=24&v=4">
-      <span>这是一个人</span>
+      <img [src]="comment.avatar">
+      <span>{{ comment.authorID }}</span>
       <ng-container *ngIf="comment.reciver">
         <i class="anticon anticon-caret-right"></i>
         <span>{{ comment.reciver }}</span>
       </ng-container>
     </div>
     <div>
-      <span>12小时前</span>
+      <span>{{ comment.updatedAt }}</span>
     </div>
   </div>
   <div class="text">
     <div class="markdown-preview">
-      这是一条有味道的评论
+      <div [innerHTML]="comment.content | parseMD"></div>
     </div>
   </div>
   <aside class="extra" *ngIf="!isReply; else edit">
@@ -26,17 +26,17 @@
       <i class="icon">reply</i>
       回复
     </button>
-    <button>
+    <button *ngIf="comment.replies" >
       <i class="icon">done</i>
       采纳
     </button>
   </aside>
   <ng-template #edit>
     <div class="reply-edit" *ngIf="isReply">
-      <div class="textarea" contentEditable></div>
+      <div class="textarea" #reply  contentEditable></div>
       <div class="reply-footer">
-        <button nz-button (click)="cancel()">取消</button>
-        <button nz-button nzType="primary" (click)="submit()">回复</button>
+        <button nz-button (click)="cancel()" [disabled]="loading">取消</button>
+        <button nz-button nzType="primary" (click)="submit()" [nzLoading]="loading">回复</button>
       </div>
     </div>
   </ng-template>

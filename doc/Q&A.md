@@ -60,3 +60,6 @@ router.event.pipe(
   filter(ev => ev instanceof NavigationEnd)
 ).subscribe()
 ```
+
+## Q5: 获取dom元素
+A: 

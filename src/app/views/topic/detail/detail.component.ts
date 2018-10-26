@@ -4,11 +4,12 @@ import { map, switchMap, concatMap, combineAll, take, tap } from 'rxjs/operators
 import { EMPTY as empty, of } from 'rxjs'
 import { Store, select } from '@ngrx/store'
 
-import { getFullTopic } from 'src/app/reducers/entities.reducer'
+import { getFullTopic, getCommentsByTopicID } from 'src/app/reducers/entities.reducer'
 import { TopicService } from 'src/app/services/topic.service'
 import * as TopicAction from 'src/app/action/topic.action'
 import { slideComt } from 'src/app/animations/slide'
 import { fade } from 'src/app/animations/fade'
+import * as utils from 'src/app/tools/util'
 
 @Component({
   selector: 'app-detail',
@@ -25,13 +26,17 @@ export class DetailComponent implements OnInit {
   visible = false
   tid: number
   comments = []
-  total: number // 评论数量
+  total = 0 // 评论数量
+  favoring = false
+  liking = false
 
   constructor(
     private route: ActivatedRoute,
     private store: Store<Entities<Topic>>,
     private topicService: TopicService
-  ) {}
+  ) {
+
+  }
 
   ngOnInit() {
     this.route.paramMap.pipe(
@@ -52,6 +57,13 @@ export class DetailComponent implements OnInit {
       })
     ).subscribe((topic: Topic) => {
       this.topic = topic
+    })
+
+    this.store.pipe(
+      select(getCommentsByTopicID(this.tid))
+    ).subscribe(comts => {
+      this.comments = comts
+      this.total = utils.getNodeCount(comts, 'replies')
     })
   }
 
@@ -87,14 +99,31 @@ export class DetailComponent implements OnInit {
   }
 
   showFavorModal() {
-    this.visible = true
+    const { topic, topicService } = this
+    if (topic.isFavor) {
+      this.favoring = true
+      topicService.favor(topic.id, topic.categoryID)
+        .subscribe(_ => {
+          this.favoring = false
+        })
+    } else {
+      this.visible = true
+    }
   }
 
   onClose() {
     this.visible = false
   }
 
-  onFavorSubmit() {
-
+  /**
+   * 点赞
+   */
+  onLike() {
+    const { topic, topicService } = this
+    this.liking = true
+    topicService.like(topic.id, 'topic')
+      .subscribe(_ => {
+        this.liking = false
+      })
   }
 }

@@ -1,4 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core'
+import { map } from 'rxjs/operators'
+
+import { TopicService } from 'src/app/services/topic.service'
 
 @Component({
   selector: 'app-comment-item',
@@ -6,12 +9,17 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./comment-item.component.scss']
 })
 export class CommentItemComponent implements OnInit {
-  reciver = true
   isReply = false
+  loading = false
 
-  @Input() comment: any
+  @ViewChild('reply')
+  $reply: ElementRef
 
-  constructor() { }
+  @Input() comment: Comment
+
+  constructor(
+    private topicService: TopicService
+  ) { }
 
   ngOnInit() {
   }
@@ -22,9 +30,29 @@ export class CommentItemComponent implements OnInit {
 
   cancel() {
     this.isReply = false
+    this.$reply.nativeElement.innerText = ''
   }
 
   submit() {
+    const { comment: { topicID, id, authorID }, $reply, topicService } = this
+    const content = $reply.nativeElement.innerText.trim()
+    if (content === '') {
+      return
+    }
 
+    const params = {
+      content,
+      commentID: id,
+      receiverID: authorID
+    }
+
+    this.loading = true
+    topicService.postReply(topicID, params)
+      .subscribe(done => {
+        this.loading = false
+        if (done) {
+          this.cancel()
+        }
+      })
   }
 }

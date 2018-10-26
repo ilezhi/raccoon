@@ -25,7 +25,7 @@ export class FavorModalComponent implements OnInit, OnDestroy {
   topicID: number
   posting: boolean
   favor: number
-  cid: number
+  cid: number // 当前选中收藏类型
 
   categories: Array<Category>
   sub: Subscription
@@ -104,6 +104,8 @@ export class FavorModalComponent implements OnInit, OnDestroy {
    * 关闭modal
    */
   onCancel() {
+    this.favor = -1
+
     this.cancel.emit()
   }
 

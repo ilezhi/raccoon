@@ -112,4 +112,40 @@ export class TopicService {
       catchError(_ => of(false))
     )
   }
+
+  /**
+   * 
+   * @param id id
+   * @param type 点赞类型, 文章, 评论, 回复
+   */
+  like(id: number, type: string): Observable<boolean> {
+    const { http, store } = this
+    const url = `like/${id}`
+
+    return http.post(url, { type }).pipe(
+      map((res: Res) => {
+        const like = !!res.data
+        const params = { id, type, like }
+        store.dispatch(new TopicAction.LikeSuccess(params))
+        return like
+      }),
+      catchError(_ => of(false))
+    )
+  }
+
+  /**
+   * 回复评论
+   * @param id topicID
+   */
+  postReply(id: number, params: any): Observable<boolean> {
+    const url = `comment/reply/${id}`
+    const { http, store } = this
+    return http.post(url, params).pipe(
+      map((res: Res) => {
+        store.dispatch(new TopicAction.PostReplySuccess(res.data))
+        return true
+      }),
+      catchError(_ => of(false))
+    )
+  }
 }

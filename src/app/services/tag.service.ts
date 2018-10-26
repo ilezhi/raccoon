@@ -29,6 +29,7 @@ export class TagService {
     }
     return this.http.post<Tag>(url, params)
       .pipe(
+        map((res: Res) => res.data),
         catchError(_ => of(null))
       )
   }

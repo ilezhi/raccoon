@@ -37,7 +37,7 @@ MD.renderer.rules.fence = function (tokens, idx) {
 
 @Pipe({name: 'parseMD'})
 export class ParseMD implements PipeTransform {
-  transform(value: string, isParse: boolean) {
+  transform(value: string, isParse: boolean = true) {
     if (!value) {
       return value;
     }

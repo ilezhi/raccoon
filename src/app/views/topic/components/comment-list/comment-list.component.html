@@ -1,10 +1,10 @@
 <section class="comment-list">
-  <ng-template #comment let-comments>
-    <app-comment-item *ngFor="let comt of comments" [comment]="comt" class="comment-item">
-      <div *ngIf="comt.reply" class="reply">
-        <ng-container *ngTemplateOutlet="comment; context:{ $implicit: comt.reply }"></ng-container>
+  <ng-template #comment let-data>
+    <app-comment-item *ngFor="let comt of data" [comment]="comt" class="comment-item">
+      <div *ngIf="comt.replies" class="reply">
+        <ng-container *ngTemplateOutlet="comment; context:{ $implicit: comt.replies }"></ng-container>
       </div>
     </app-comment-item>
   </ng-template>
-  <ng-container *ngTemplateOutlet="comment; context:{ $implicit: comments }"></ng-container>
+  <ng-container *ngTemplateOutlet="comment; context:{ $implicit: data }"></ng-container>
 </section>
