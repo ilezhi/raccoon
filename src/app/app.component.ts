@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 
 import { getState } from 'src/app/reducers'
@@ -9,11 +9,12 @@ import { getState } from 'src/app/reducers'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  private name = 'app'
+
   constructor(store: Store<any>) {
     store.select(getState)
       .subscribe(data => {
         console.log('app', data)
       })
   }
-  private name = 'app'
 }

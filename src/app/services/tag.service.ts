@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import { Subject, Observable, of } from 'rxjs'
-import { debounceTime, distinctUntilChanged, switchMap, catchError, tap, map } from 'rxjs/operators'
+import { Observable, of } from 'rxjs'
+import { catchError, map } from 'rxjs/operators'
 
 import { Tag } from '../models'
 import { HttpService } from './http.service'
