@@ -4,7 +4,7 @@ import { map, catchError } from 'rxjs/operators'
 import { Store, select } from '@ngrx/store'
 
 import { HttpService } from './http.service'
-import { CategorySuccess } from 'src/app/action/user.action'
+import { CategorySuccess, LoginSuccess } from 'src/app/action/user.action'
 import { getCategory } from 'src/app/reducers/user.reducer'
 
 @Injectable({
@@ -35,6 +35,17 @@ export class UserService {
     return http.post('category/create', {name}).pipe(
       map((res: Res) => {
         store.dispatch(new CategorySuccess(res.data))
+        return true
+      }),
+      catchError(_ => of(false))
+    )
+  }
+
+  fetchLoginUser(): Observable<boolean> {
+    const { http, store } = this
+    return http.get('user').pipe(
+      map((res: Res) => {
+        store.dispatch(new LoginSuccess(res.data))
         return true
       }),
       catchError(_ => of(false))

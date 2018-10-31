@@ -42,8 +42,8 @@ export class TopicService {
     const { store, http } = this
     return http.post(url, params)
       .pipe(
-        map(data => {
-          const result = normalize(data, topicSchema)
+        map((res: Res) => {
+          const result = normalize(res.data, topicSchema)
           store.dispatch(new TopicAction.PostSuccess(result))
           return true
         }),

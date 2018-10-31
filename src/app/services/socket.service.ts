@@ -9,10 +9,13 @@ export class WSService {
   public topic$: Observable<any>
   public tag$: Observable<any>
   public conn: any
+  private id: number
 
-  constructor(
-  ) {
-    this.conn = webSocket('ws://127.0.0.1:9000/ws')
+  constructor() {}
+
+  connect(id) {
+    this.id = id
+    this.conn = webSocket(`ws://127.0.0.1:9000/ws/${id}`)
 
     this.topic$ = this.conn.multiplex(
       () => ({type: 'subscribe', tag: 'topic'}),

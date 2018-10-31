@@ -4,7 +4,8 @@ import { Observable } from 'rxjs'
 import { Store, select } from '@ngrx/store'
 
 import * as UserAction from 'src/app/action/user.action'
-import { getLoading } from 'src/app/reducers/user.reducer'
+import { getLoading, getInfo } from 'src/app/reducers/user.reducer'
+import { WSService } from 'src/app/services/socket.service'
 
 @Component({
   selector: 'app-login',
