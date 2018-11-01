@@ -1,6 +1,5 @@
 
 import { combineReducers, createSelector } from '@ngrx/store'
-
 import {
   topicListCase,
   topicPostCase,
@@ -18,16 +17,12 @@ const question = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
   
   switch(type) {
-    case SolvedTypes.QTopicsSuccess: {
+    case SolvedTypes.QTopics: {
       return topicListCase(state, payload)
     }
 
-    case TopicTypes.UpdateSuccess: {
+    case TopicTypes.Update: {
       return topicUpdateCase(state, payload)
-    }
-
-    case TopicTypes.TrashSuccess: {
-      return topicTrashCase(state, payload)
     }
 
     default: {
@@ -40,16 +35,12 @@ const answer = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
   switch(type) {
-    case SolvedTypes.ATopicsSuccess: {
+    case SolvedTypes.ATopics: {
       return topicListCase(state, payload)
     }
 
-    case TopicTypes.UpdateSuccess: {
+    case TopicTypes.Update: {
       return topicUpdateCase(state, payload)
-    }
-
-    case TopicTypes.TrashSuccess: {
-      return topicTrashCase(state, payload)
     }
 
     default: {
@@ -66,13 +57,13 @@ export const answerState = (state) => {
   return state.solved.answer
 }
 
-export const getQTopics = createSelector(
+export const getQuestion = createSelector(
   getTopics,
   questionState,
   utils.getPageTopics
 )
 
-export const getATopics = createSelector(
+export const getAnswer = createSelector(
   getTopics,
   answerState,
   utils.getPageTopics

@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
-import { Store, select } from '@ngrx/store'
 
-import { Topics } from 'src/app/action/topic.action'
-import { ATopicsSuccess } from 'src/app/action/solved.action'
-import { getATopics } from 'src/app/reducers/solved.reducer'
+import { TopicService } from 'src/app/services/topic.service'
 
 @Component({
   selector: 'app-answer',
@@ -14,14 +11,12 @@ import { getATopics } from 'src/app/reducers/solved.reducer'
 })
 export class AnswerComponent implements OnInit {
   topics$: Observable<Topic[]>
+  loading: boolean
 
-  constructor(store: Store<any>) {
-    this.topics$ = store.pipe(
-      select(getATopics),
-      tap(data => {
-        if (!data) {
-          store.dispatch(new Topics({type: 'answer', Action: ATopicsSuccess}))
-        }
+  constructor(private ts: TopicService) {
+    this.topics$ = this.ts.answer$.pipe(
+      tap((topics: Topic[]) => {
+        !topics && this.fetchTopics()
       })
     )
   }
@@ -29,4 +24,11 @@ export class AnswerComponent implements OnInit {
   ngOnInit() {
   }
 
+  fetchTopics(lastID?: number, size = 20) {
+    this.loading = true
+    this.ts.getAnswer(lastID, size)
+      .subscribe(_ => {
+        this.loading = false
+      })
+  }
 }

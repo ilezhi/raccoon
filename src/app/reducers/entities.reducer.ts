@@ -6,25 +6,22 @@ import {
   HomeTypes,
   MyTypes,
   SolvedTypes,
-  TagTypes
+  TagTypes,
+  SharedTypes
 } from '../action/type'
 
 const topics = (state: KeyMap = {}, action: Action): KeyMap => {
   const { type, payload } = action
 
   switch(type) {
-    case HomeTypes.AllSuccess:
-    case HomeTypes.DeptSuccess:
-    case HomeTypes.TeamSuccess:
-    case HomeTypes.AwesomeSuccess:
-    case TopicTypes.TopicsSuccess:
-    case MyTypes.TopicsSuccess:
-    case SolvedTypes.QTopicsSuccess:
-    case SolvedTypes.ATopicsSuccess: {
-
-      if (typeof payload === 'number') {
-        return state
-      }
+    case HomeTypes.All:
+    case HomeTypes.Dept:
+    case HomeTypes.Team:
+    case HomeTypes.Awesome:
+    case MyTypes.Topics:
+    case SolvedTypes.QTopics:
+    case SolvedTypes.ATopics:
+    case SharedTypes.Topics: {
 
       const { topics } = payload.entities
       for (const id in topics) {
@@ -40,7 +37,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
-    case TopicTypes.PostSuccess: {
+    case TopicTypes.Post: {
       const { topics } = payload.entities
       return {
         ...state,
@@ -48,8 +45,8 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
-    case TopicTypes.DetailSuccess:
-    case TopicTypes.UpdateSuccess: {
+    case TopicTypes.Detail:
+    case TopicTypes.Update: {
       const { topics } = payload.entities
       const id = Object.keys(topics)[0]
       const comts = state[id].comments
@@ -63,7 +60,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
-    case TopicTypes.CommentsSuccess: {
+    case TopicTypes.Comments: {
       const { result, entities: { comments } } = payload
       if (!result.length) {
         return state
@@ -79,7 +76,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
-    case TopicTypes.PostCommentSuccess: {
+    case TopicTypes.PostComment: {
       const { topicID, id } = payload
       const topic = { ...state[topicID] }
       if (topic.comments) {
@@ -94,7 +91,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
-    case TopicTypes.FavorSuccess: {
+    case TopicTypes.Favor: {
       const { topicID: id, favor, categoryID } = payload
       const topic = {...state[id]}
       topic.isFavor = favor
@@ -112,7 +109,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
-    case TopicTypes.LikeSuccess: {
+    case TopicTypes.Like: {
       const { id, type, like } = payload
       if (type !== 'topic') {
         return state
@@ -131,14 +128,6 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
-    case TopicTypes.TrashSuccess: {
-      const { id } = payload
-      delete state[id]
-      return {
-        ...state
-      }
-    }
-
     default: {
       return state
     }
@@ -149,7 +138,7 @@ const draft = (state: KeyMap = {}, action: Action): KeyMap => {
   const { type, payload } = action
 
   switch(type) {
-    case DraftTypes.TopicsSuccess: {
+    case DraftTypes.Topics: {
       const { entities } = payload
       return {
         ...state,
@@ -157,9 +146,9 @@ const draft = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
-    case DraftTypes.TopicSuccess:
-    case DraftTypes.PostSuccess:
-    case DraftTypes.UpdateSuccess: {
+    case DraftTypes.Topic:
+    case DraftTypes.Post:
+    case DraftTypes.Update: {
       const { id } = payload
       return {
         ...state,
@@ -167,7 +156,7 @@ const draft = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
-    case DraftTypes.TrashSuccess: {
+    case DraftTypes.Trash: {
       const { id } = payload
       delete state[id]
       return {
@@ -189,18 +178,13 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
   }
 
   switch(type) {
-    case HomeTypes.AllSuccess:
-    case HomeTypes.DeptSuccess:
-    case HomeTypes.TeamSuccess:
-    case HomeTypes.AwesomeSuccess:
-    case TopicTypes.TopicsSuccess:
-    case TopicTypes.DetailSuccess:
-    case TopicTypes.PostSuccess:
-    case TopicTypes.UpdateSuccess: {
-      if (typeof payload === 'number') {
-        return state
-      }
-
+    case HomeTypes.All:
+    case HomeTypes.Dept:
+    case HomeTypes.Team:
+    case HomeTypes.Awesome:
+    case TopicTypes.Detail:
+    case TopicTypes.Post:
+    case TopicTypes.Update: {
       const { tags } = payload.entities
       
       if (!tags) {
@@ -223,7 +207,7 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
-    case TagTypes.PostSuccess: {
+    case TagTypes.Post: {
       const { id } = payload
 
       if (state[id]) {
@@ -245,7 +229,7 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
 const comments = (state: KeyMap = {}, action) => {
   const { type, payload } = action
   switch(type) {
-    case TopicTypes.CommentsSuccess: {
+    case TopicTypes.Comments: {
       const { comments } = payload.entities
       return {
         ...state,
@@ -253,7 +237,7 @@ const comments = (state: KeyMap = {}, action) => {
       }
     }
 
-    case TopicTypes.PostCommentSuccess: {
+    case TopicTypes.PostComment: {
       const id = payload.id
       return {
         ...state,
@@ -261,7 +245,7 @@ const comments = (state: KeyMap = {}, action) => {
       }
     }
 
-    case TopicTypes.PostReplySuccess: {
+    case TopicTypes.PostReply: {
       const { commentID, id } = payload
       const comt = { ...state[commentID] }
       comt.replies = comt.replies.concat(id)
@@ -280,7 +264,7 @@ const comments = (state: KeyMap = {}, action) => {
 const replies = (state: KeyMap = {}, action) => {
   const { type, payload } = action
   switch(type) {
-    case TopicTypes.CommentsSuccess: {
+    case TopicTypes.Comments: {
       const { replies } = payload.entities
       return {
         ...state,
@@ -288,7 +272,7 @@ const replies = (state: KeyMap = {}, action) => {
       }
     }
 
-    case TopicTypes.PostReplySuccess: {
+    case TopicTypes.PostReply: {
       const id = payload.id
       return {
         ...state,

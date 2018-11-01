@@ -4,7 +4,7 @@ const tag = (state: DState = {}, action: Action): DState => {
   const { type, payload } = action
 
   switch(type) {
-    case TagTypes.TopicsSuccess: {
+    case TagTypes.Topics: {
       const { tagID, total, page, tids } = payload
       let { ids, ...rest } = state[tagID]
       let unique = new Set(ids.concat(tids))
@@ -21,8 +21,8 @@ const tag = (state: DState = {}, action: Action): DState => {
       }
     }
 
-    case TopicTypes.PostSuccess:
-    case TopicTypes.UpdateSuccess: {
+    case TopicTypes.Post:
+    case TopicTypes.Update: {
       const { tags, id } = payload
       let st = JSON.parse(JSON.stringify(state))
 
@@ -46,22 +46,6 @@ const tag = (state: DState = {}, action: Action): DState => {
             size: 50,
             ids: [id]
           }
-        }
-      })
-
-      return st
-    }
-
-    case TopicTypes.TrashSuccess: {
-      const { tags, id } = payload
-      let st = JSON.parse(JSON.stringify(state))
-
-      tags.forEach(tid => {
-        let { ids } = st[tid]
-        const i = ids.indexOf(id)
-
-        if (i !== -1) {
-          ids.splice(i, 1)
         }
       })
 

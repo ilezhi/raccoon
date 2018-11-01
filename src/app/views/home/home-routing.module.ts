@@ -7,11 +7,6 @@ import { AwesomeComponent } from './awesome/awesome.component'
 import { DeptComponent } from './dept/dept.component'
 import { TeamComponent } from './team/team.component'
 
-import {
-  AllSuccess,
-  AwesomeSuccess
-} from 'src/app/action/home.action'
-
 const routes: Routes = [
   {
     path: '',
@@ -19,33 +14,19 @@ const routes: Routes = [
     children: [
       {
         path: 'all',
-        component: AllComponent,
-        data: {
-          page: 'home@all',
-          action: AllSuccess
-        }
+        component: AllComponent
       },
       {
         path: 'awesome',
-        component: AwesomeComponent,
-        data: {
-          page: 'home@awesome',
-          action: AwesomeSuccess
-        }
+        component: AwesomeComponent
       },
       {
         path: 'department',
-        component: DeptComponent,
-        data: {
-          page: 'home@dept'
-        }
+        component: DeptComponent
       },
       {
         path: 'team',
-        component: TeamComponent,
-        data: {
-          page: 'home@team'
-        }
+        component: TeamComponent
       }
     ]
   }

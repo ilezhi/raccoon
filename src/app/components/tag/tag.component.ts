@@ -10,7 +10,10 @@ export class TagComponent {
   @Input()
   set topic(topic: Topic) {
     let status: string
-    if (topic.top) {
+
+    if (!topic) {
+      status = 'q&a' 
+    } else if (topic.top) {
       status = 'top'
     } else if (topic.awesome) {
       status = 'awesome'

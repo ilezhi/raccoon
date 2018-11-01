@@ -2,12 +2,12 @@ import { Action } from "@ngrx/store"
 
 import { SolvedTypes } from './type'
 
-export class QTopicsSuccess implements Action {
-  readonly type = SolvedTypes.QTopicsSuccess
-  constructor(public payload: any) {}
+export class Question implements Action {
+  readonly type = SolvedTypes.QTopics
+  constructor(public payload: MySchema) {}
 }
 
-export class ATopicsSuccess implements Action {
-  readonly type = SolvedTypes.ATopicsSuccess
-  constructor(public payload: any) {}
+export class Answer implements Action {
+  readonly type = SolvedTypes.ATopics
+  constructor(public payload: MySchema) {}
 }

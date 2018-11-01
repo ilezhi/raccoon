@@ -1,4 +1,4 @@
-import { combineReducers, createSelector } from '@ngrx/store'
+import { combineReducers } from '@ngrx/store'
 
 import { UserTypes, TopicTypes } from '../action/type'
 
@@ -6,7 +6,7 @@ const info = (state = {}, action: Action) => {
   const { type, payload } = action
 
   switch(type) {
-    case UserTypes.LoginSuccess: {
+    case UserTypes.Login: {
       return payload
     }
 
@@ -20,15 +20,15 @@ const category = (state = [], action: Action) => {
   const { type, payload } = action
   
   switch(type) {
-    case UserTypes.InfoSuccess: {
+    case UserTypes.Info: {
       return [...payload.categories]
     }
 
-    case UserTypes.CategorySuccess: {
+    case UserTypes.PostCategory: {
       return [payload, ...state]
     }
 
-    case TopicTypes.FavorSuccess: {
+    case TopicTypes.Favor: {
       let categories = state.map(item => {
         if (item.id === payload.categoryID) {
           if (payload.favor) {
@@ -56,12 +56,12 @@ const tags = (state = [], action: Action) => {
   const { type, payload } = action
 
   switch(type) {
-    case UserTypes.InfoSuccess: {
+    case UserTypes.Info: {
       return [ ...payload.tags ]
     }
 
-    case TopicTypes.PostSuccess:
-    case TopicTypes.UpdateSuccess: {
+    case TopicTypes.Post:
+    case TopicTypes.Update: {
       const { tags } = payload.entities
       const tids = Object.keys(tags)
 
@@ -94,31 +94,8 @@ const tags = (state = [], action: Action) => {
   }
 }
 
-const loading = (state = false, action: Action) => {
-  const { type } = action
-
-  switch(type) {
-    case UserTypes.Login: {
-      return true
-    }
-
-    case UserTypes.LoginSuccess:
-    case UserTypes.LoginFailure: {
-      return false
-    }
-
-    default: {
-      return state
-    }
-  }
-}
-
 export const getInfo = state => {
   return state.user.info
-}
-
-export const getLoading = (state) => {
-  return state.user.loading
 }
 
 export const getTags = (state) => {
@@ -129,4 +106,4 @@ export const getCategory = state => {
   return state.user.category
 }
 
-export default combineReducers({info, category, tags, loading})
+export default combineReducers({info, category, tags})

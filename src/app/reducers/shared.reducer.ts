@@ -1,33 +1,32 @@
+import { createSelector } from '@ngrx/store'
+
+import { getTopics } from './entities.reducer'
 import {
   topicListCase,
   topicPostCase,
   topicUpdateCase,
-  topicTrashCase,
 } from '../tools/create-reducer'
 import {
   SharedTypes,
   TopicTypes
 } from '../action/type'
+import * as utils from 'src/app/tools/util'
 
 const shared = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
   
   switch(type) {
-    case SharedTypes.TopicsSuccess: {
+    case SharedTypes.Topics: {
       return topicListCase(state, payload)
     }
 
-    case TopicTypes.PostSuccess: {
+    case TopicTypes.Post: {
       const { shared } = payload
       return shared ? topicPostCase(state, payload) : state
     }
 
-    case TopicTypes.UpdateSuccess: {
+    case TopicTypes.Update: {
       return topicUpdateCase(state, payload)
-    }
-
-    case TopicTypes.TrashSuccess: {
-      return topicTrashCase(state, payload)
     }
 
     default: {
@@ -35,5 +34,15 @@ const shared = (state: PageState, action: Action): PageState => {
     }
   }
 }
+
+export const sharedState = (state) => {
+  return state.shared
+}
+
+export const getShared = createSelector(
+  getTopics,
+  sharedState,
+  utils.getPageTopics
+)
 
 export default shared

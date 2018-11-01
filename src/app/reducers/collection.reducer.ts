@@ -6,7 +6,7 @@ const collection = (state: DState = {}, action: Action): DState => {
   const { type, payload } = action
 
   switch(type) {
-    case CollectTypes.TopicsSuccess: {
+    case CollectTypes.Topics: {
       const { folderID, total, page, tids } = payload
       let { ids, ...rest } = state[folderID]
       let unique = new Set(ids.concat(tids))

@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core'
-import { FormGroup, FormBuilder, Validators, } from '@angular/forms'
-import { Observable } from 'rxjs'
-import { Store, select } from '@ngrx/store'
+import { Router } from '@angular/router'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 
-import * as UserAction from 'src/app/action/user.action'
-import { getLoading, getInfo } from 'src/app/reducers/user.reducer'
-import { WSService } from 'src/app/services/socket.service'
+import { UserService } from 'src/app/services/user.service'
 
 @Component({
   selector: 'app-login',
@@ -14,16 +11,13 @@ import { WSService } from 'src/app/services/socket.service'
 })
 export class LoginComponent implements OnInit {
   validateForm: FormGroup
-  logining$: Observable<boolean>
+  loading: boolean
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
-    private store: Store<any>
-  ) {
-    this.logining$ = store.pipe(
-      select(getLoading)
-    )
-  }
+    private us: UserService
+  ) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -39,9 +33,17 @@ export class LoginComponent implements OnInit {
       form.controls[i].updateValueAndValidity()
     }
 
-    if (form.valid) {
-      // TODO: 登录
-      this.store.dispatch(new UserAction.Login(form.value))
+    if (!form.valid) {
+      return
     }
+    this.loading = true
+    this.us.login(form.value)
+      .subscribe(done => {
+        this.loading = false
+
+        if (done) {
+          this.router.navigate(['/'])
+        }
+      })
   }
 }

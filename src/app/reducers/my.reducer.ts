@@ -17,20 +17,16 @@ const my = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
   
   switch(type) {
-    case MyTypes.TopicsSuccess: {
+    case MyTypes.Topics: {
       return topicListCase(state, payload)
     }
 
-    case TopicTypes.PostSuccess: {
+    case TopicTypes.Post: {
       return topicPostCase(state, payload)
     }
 
-    case TopicTypes.UpdateSuccess: {
+    case TopicTypes.Update: {
       return topicUpdateCase(state, payload)
-    }
-
-    case TopicTypes.TrashSuccess: {
-      return topicTrashCase(state, payload)
     }
 
     default: {
@@ -43,7 +39,7 @@ export const myState = (state) => {
   return state.my
 }
 
-export const getMyTopics = createSelector(
+export const getMy = createSelector(
   getTopics,
   myState,
   utils.getPageTopics

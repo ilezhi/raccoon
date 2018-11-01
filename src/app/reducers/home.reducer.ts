@@ -5,7 +5,6 @@ import {
   topicListCase,
   topicPostCase,
   topicUpdateCase,
-  topicTrashCase,
 } from '../tools/create-reducer'
 import {
   HomeTypes,
@@ -17,20 +16,16 @@ const all = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
   switch(type) {
-    case HomeTypes.AllSuccess: {
+    case HomeTypes.All: {
       return topicListCase(state, payload)
     }
 
-    case TopicTypes.PostSuccess: {
+    case TopicTypes.Post: {
       return topicPostCase(state, payload)
     }
 
-    case TopicTypes.UpdateSuccess: {
+    case TopicTypes.Update: {
       return topicUpdateCase(state, payload)
-    }
-
-    case TopicTypes.TrashSuccess: {
-      return topicTrashCase(state, payload)
     }
 
     default: {
@@ -43,18 +38,13 @@ const awesome = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
   switch(type) {
-    case HomeTypes.AwesomeSuccess: {
+    case HomeTypes.Awesome: {
       return topicListCase(state, payload)
     }
 
-    case TopicTypes.UpdateSuccess: {
+    case TopicTypes.Update: {
       const { good } = payload
       return good ? topicUpdateCase(state, payload) : state
-    }
-
-    case TopicTypes.TrashSuccess: {
-      const { good } = payload
-      return good ? topicTrashCase(state, payload) : state
     }
 
     default: {
@@ -67,20 +57,16 @@ const dept = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
   switch(type) {
-    case HomeTypes.DeptSuccess: {
+    case HomeTypes.Dept: {
       return topicListCase(state, payload)
     }
  
-    case TopicTypes.PostSuccess: {
+    case TopicTypes.Post: {
       return topicPostCase(state, payload)
     }
 
-    case TopicTypes.UpdateSuccess: {
+    case TopicTypes.Update: {
       return topicUpdateCase(state, payload)
-    }
-
-    case TopicTypes.TrashSuccess: {
-      return topicTrashCase(state, payload)
     }
 
     default: {
@@ -93,20 +79,16 @@ const team = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
   switch(type) {
-    case HomeTypes.TeamSuccess: {
+    case HomeTypes.Team: {
       return topicListCase(state, payload)
     }
 
-    case TopicTypes.PostSuccess: {
+    case TopicTypes.Post: {
       return topicPostCase(state, payload)
     }
 
-    case TopicTypes.UpdateSuccess: {
+    case TopicTypes.Update: {
       return topicUpdateCase(state, payload)
-    }
-
-    case TopicTypes.TrashSuccess: {
-      return topicTrashCase(state, payload)
     }
 
     default: {

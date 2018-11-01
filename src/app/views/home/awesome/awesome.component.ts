@@ -1,11 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core'
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
-import { Store } from '@ngrx/store'
 
-import { Topics } from 'src/app/action/topic.action'
-import { getAwesome } from 'src/app/reducers/home.reducer'
-import { AwesomeSuccess } from 'src/app/action/home.action'
+import { TopicService } from 'src/app/services/topic.service'
+
 @Component({
   selector: 'app-awesome',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -14,18 +12,24 @@ import { AwesomeSuccess } from 'src/app/action/home.action'
 })
 export class AwesomeComponent implements OnInit {
   topics$: Observable<Topic[]>
+  loading: boolean
 
-  constructor(private store: Store<any>) {
-    this.topics$ = store.select(getAwesome)
-      .pipe(
-        tap(data => {
-          if (!data) {
-            store.dispatch(new Topics({type: 'awesome', Action: AwesomeSuccess}))
-          }
-        })
-      )
+  constructor(private ts: TopicService) {
+    this.topics$ = this.ts.awesome$.pipe(
+      tap((topics: Topic[]) => {
+        !topics && this.fetchTopics()
+      })
+    )
   }
 
   ngOnInit() {
+  }
+
+  fetchTopics(lastID?: number, size = 20) {
+    this.loading = true
+    this.ts.getAwesome(lastID, size)
+      .subscribe(_ => {
+        this.loading = false
+      })
   }
 }

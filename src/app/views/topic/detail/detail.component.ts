@@ -33,7 +33,7 @@ export class DetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private store: Store<Entities<Topic>>,
-    private topicService: TopicService
+    private ts: TopicService
   ) {
 
   }
@@ -43,28 +43,19 @@ export class DetailComponent implements OnInit {
       switchMap((params: ParamMap) => {
         const id = +params.get('id')
         this.tid = id
-        return this.store.pipe(
-          select(getFullTopic(id)),
-          tap(topic => {
-            if (topic){
-              return
-            }
-
-            this.store.dispatch(new TopicAction.Detail(id))
-            this.store.dispatch(new TopicAction.Comments(id))
-          })
-        )
+        return this.ts.topic$(id)
       })
     ).subscribe((topic: Topic) => {
-      this.topic = topic
+      console.log('**********', topic)
+      // this.topic = topic
     })
 
-    this.store.pipe(
-      select(getCommentsByTopicID(this.tid))
-    ).subscribe(comts => {
-      this.comments = comts
-      this.total = utils.getNodeCount(comts, 'replies')
-    })
+    // this.store.pipe(
+    //   select(getCommentsByTopicID(this.tid))
+    // ).subscribe(comts => {
+    //   this.comments = comts
+    //   this.total = utils.getNodeCount(comts, 'replies')
+    // })
   }
 
   toggle() {
@@ -80,7 +71,7 @@ export class DetailComponent implements OnInit {
    * 关闭topic page
    */
   close() {
-    this.topicService.close()
+    this.ts.close()
   }
 
   toggleComtEditor() {
@@ -91,18 +82,18 @@ export class DetailComponent implements OnInit {
    * 提交评论
    */
   onSubmit(text: string) {
-    const { topicService, tid } = this
-    topicService.postComment(tid, text)
+    const { ts, tid } = this
+    ts.postComment(tid, text)
       .subscribe(done => {
         done && this.toggleComtEditor()
       })
   }
 
   showFavorModal() {
-    const { topic, topicService } = this
+    const { topic, ts } = this
     if (topic.isFavor) {
       this.favoring = true
-      topicService.favor(topic.id, topic.categoryID)
+      ts.favor(topic.id, topic.categoryID)
         .subscribe(_ => {
           this.favoring = false
         })
@@ -119,9 +110,9 @@ export class DetailComponent implements OnInit {
    * 点赞
    */
   onLike() {
-    const { topic, topicService } = this
+    const { topic, ts } = this
     this.liking = true
-    topicService.like(topic.id, 'topic')
+    ts.like(topic.id, 'topic')
       .subscribe(_ => {
         this.liking = false
       })

@@ -18,19 +18,19 @@ const draft = (state: PageState = {...initState, ids: []}, action: Action): Page
   const { type, payload } = action
   
   switch(type) {
-    case DraftTypes.TopicsSuccess: {
+    case DraftTypes.Topics: {
       return topicListCase(state, payload)
     }
 
-    case DraftTypes.PostSuccess: {
+    case DraftTypes.Post: {
       return topicPostCase(state, payload)
     }
 
-    case DraftTypes.UpdateSuccess: {
+    case DraftTypes.Update: {
       return topicUpdateCase(state, payload)
     }
 
-    case DraftTypes.TrashSuccess: {
+    case DraftTypes.Trash: {
       return topicTrashCase(state, payload)
     }
 

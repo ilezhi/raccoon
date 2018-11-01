@@ -8,6 +8,6 @@ export class Post implements Action {
 }
 
 export class PostSuccess implements Action {
-  readonly type = TagTypes.PostSuccess
+  readonly type = TagTypes.Post
   constructor(public payload: Tag) {}
 }

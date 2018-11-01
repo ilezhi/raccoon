@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router'
 import { SolvedComponent } from './solved.component'
 import { QuestionComponent } from './question/question.component'
 import { AnswerComponent } from './answer/answer.component'
-import { QTopicsSuccess, ATopicsSuccess} from 'src/app/action/solved.action'
 
 const routes: Routes = [
   {
@@ -12,19 +11,11 @@ const routes: Routes = [
     children: [
       {
         path: 'question',
-        component: QuestionComponent,
-        data: {
-          page: 'solved@question',
-          action: QTopicsSuccess
-        }
+        component: QuestionComponent
       },
       {
         path: 'answer',
-        component: AnswerComponent,
-        data: {
-          page: 'solved@answer',
-          action: ATopicsSuccess
-        }
+        component: AnswerComponent
       }
     ]
   }

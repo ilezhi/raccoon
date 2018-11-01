@@ -10,12 +10,10 @@ import sharedReducer from './shared.reducer'
 import draftReducer from './draft.reducer'
 import tagReducer from './tag.reducer'
 // import projectReducer from './project.reducer'
-import global from './global.reducer'
 import user from './user.reducer'
 
 export const appReducer: ActionReducerMap<any, any> = {
   entities,
-  global,
   user,
   router: routerReducer
 }

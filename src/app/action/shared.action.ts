@@ -2,7 +2,7 @@ import { Action } from "@ngrx/store"
 
 import { SharedTypes } from './type'
 
-export class SharedTopicsAction implements Action {
+export class Shared implements Action {
   readonly type = SharedTypes.Topics
-  constructor(public payload: PageState) {}
+  constructor(public payload: MySchema) {}
 }

@@ -18,42 +18,32 @@ export class LayoutComponent implements OnInit {
   constructor(
     private store: Store<any>,
     private wss: WSService,
-    private userService: UserService
+    private us: UserService
   ) {
     store.pipe(
       select(getInfo),
       switchMap(user => {
         if (!user || !user.id) {
-          return this.userService.fetchLoginUser()
+          return this.us.fetchLoginUser()
         }
 
         return of(user)
       })
     ).subscribe((user:any) => {
       if (user && user.id) {
-        this.wss.connect(user.id)
-        this.watch()
+        // this.wss.connect(user.id)
+        // this.watch()
       }
     })
   }
 
   ngOnInit() {
-    this.store.dispatch(new UserAction.Info())
+    this.us.fetchInfo().subscribe()
   }
 
   watch() {
     this.wss.topic$.subscribe(data => {
       console.log('subscribe', data)
     })
-
-    this.wss.tag$.subscribe(data => {
-      console.log('tag', data)
-    })
-
-    this.wss.conn.next({num: 9527})
-  }
-
-  onClick() {
-    this.wss.conn.next("abc")
   }
 }

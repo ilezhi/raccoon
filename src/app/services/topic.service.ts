@@ -1,31 +1,67 @@
 import { Injectable } from '@angular/core'
-import { Observable, of, Subject, from } from 'rxjs'
-
-import { Store } from '@ngrx/store'
+import { Observable, of, Subject, ObservableLike} from 'rxjs'
+import { catchError, map, last } from 'rxjs/operators'
+import { Store, select } from '@ngrx/store'
 import { normalize } from 'normalizr'
 
-import { topicSchema } from 'src/app/normalizr/schema'
-
 import { HttpService } from './http.service'
-import { Topic } from 'src/app/models'
-import { catchError, map } from 'rxjs/operators'
+import { topicsSchema, topicSchema, commentsSchema } from 'src/app/normalizr/schema'
+import { getFullTopic } from '../reducers/entities.reducer'
+import { getAll, getAwesome } from 'src/app/reducers/home.reducer'
+import { getMy } from 'src/app/reducers/my.reducer'
+import { getQuestion, getAnswer } from 'src/app/reducers/solved.reducer'
+import { getShared } from 'src/app/reducers/shared.reducer'
+
 import * as TopicAction from 'src/app/action/topic.action'
+import * as HomeAction from 'src/app/action/home.action'
+import * as MyAction from 'src/app/action/my.action'
+import * as SolvedAction from 'src/app/action/solved.action'
+import * as SharedAction from 'src/app/action/shared.action'
 
 @Injectable({
   providedIn: 'root'
 })
 export class TopicService {
-
-  private editor = new Subject<boolean>()
-
-  editor$ = this.editor.asObservable()
-
   constructor(
     private store: Store<any>,
     private http: HttpService
   ) {}
 
-  topics(type = 'all', lastID?: number, size = 2): Observable<any> {
+  private editor = new Subject<boolean>()
+
+  get editor$() {
+    return this.editor.asObservable()
+  }
+
+  get all$(): Observable<Topic[]> {
+    return this.store.pipe(select(getAll))
+  }
+
+  get awesome$(): Observable<Topic[]> {
+    return this.store.pipe(select(getAwesome))
+  }
+
+  get my$(): Observable<Topic[]> {
+    return this.store.pipe(select(getMy))
+  }
+
+  get question$(): Observable<Topic[]> {
+    return this.store.pipe(select(getQuestion))
+  }
+
+  get answer$(): Observable<Topic[]> {
+    return this.store.pipe(select(getAnswer))
+  }
+
+  get shared$(): Observable<Topic[]> {
+    return this.store.pipe(select(getShared))
+  }
+
+  topic$(id: number): Observable<Topic> {
+    return this.store.pipe(select(getFullTopic(id)))
+  }
+
+  topics(Action: any, type = 'all', lastID?: number, size = 2): Observable<any> {
     const url = `topics/${type}`
     const params = {
       lastID,
@@ -33,31 +69,63 @@ export class TopicService {
     }
 
     return this.http.get(url, params).pipe(
-      map((res: Res) => res.data)
+      map((res: Res) => {
+        let result = normalize(res.data, topicsSchema)
+        this.store.dispatch(new Action(result))
+        return true
+      }),
+      catchError(_ => of(false))
     )
   }
 
+  getAll(lastID: number, size = 20): Observable<boolean> {
+    return this.topics(HomeAction.All, 'all', lastID, size)
+  }
+
+  getAwesome(lastID: number, size = 20): Observable<boolean> {
+    return this.topics(HomeAction.Awesome, 'awesome', lastID, size)
+  }
+
+  getMy(lastID: number, size = 20): Observable<boolean> {
+    return this.topics(MyAction.My, 'my', lastID, size)
+  }
+
+  getQuestion(lastID: number, size = 20): Observable<boolean> {
+    return this.topics(SolvedAction.Question, 'question', lastID, size)
+  }
+
+  getAnswer(lastID: number, size = 20): Observable<boolean> {
+    return this.topics(SolvedAction.Answer, 'answer', lastID, size)
+  }
+
+  getShared(lastID: number, size = 20): Observable<boolean> {
+    return this.topics(SharedAction.Shared, 'shared', lastID, size)
+  }
+
   post(params: TopicParams): Observable<boolean> {
-    const url = 'topic/create'
     const { store, http } = this
+    const url = 'topic/create'
     return http.post(url, params)
       .pipe(
         map((res: Res) => {
           const result = normalize(res.data, topicSchema)
-          store.dispatch(new TopicAction.PostSuccess(result))
+          store.dispatch(new TopicAction.Post(result))
           return true
         }),
-        catchError(err => {
-          store.dispatch(new TopicAction.PostFailure(err))
-          return of(false)
-        })
+        catchError(_ => of(false))
       )
   }
 
-  detail(id: number): Observable<Topic> {
+  detail(id: number): Observable<boolean> {
+    const { store, http } = this
     const url = `topic/${id}`
-    return this.http.get(url).pipe(
-      map((res: Res) => res.data)
+    return http.get(url).pipe(
+      map((res: Res) => {
+        const result = normalize(res.data, topicSchema)
+        store.dispatch(new TopicAction.Detail(result))
+        return true
+      }),
+      catchError(_ => of(false))
     )
   }
 
@@ -65,11 +133,16 @@ export class TopicService {
     this.editor.next(true)
   }
   
-  comments(topicID: number): Observable<Array<Comment>> {
+  comments(topicID: number): Observable<boolean> {
+    const { http, store } = this
     const url = `comments/${topicID}`
-    return this.http.get(url).pipe(
-      map((res: Res) => res.data),
-      catchError(_ => from([]))
+    return http.get(url).pipe(
+      map((res: Res) => {
+        const result = normalize(res.data, commentsSchema)
+        store.dispatch(new TopicAction.Comments(result))
+        return true
+      }),
+      catchError(_ => of(false))
     )
   }
 
@@ -83,7 +156,7 @@ export class TopicService {
     const url = `comment/${id}`
     return http.post(url, {content}).pipe(
       map((res: Res) => {
-        store.dispatch(new TopicAction.PostComtSuccess(res.data))
+        store.dispatch(new TopicAction.PostComment(res.data))
         return true
       }),
       catchError(_ => of(false))
@@ -106,7 +179,7 @@ export class TopicService {
           categoryID,
           favor
         }
-        store.dispatch(new TopicAction.FavorSuccess(params))
+        store.dispatch(new TopicAction.Favor(params))
         return favor
       }),
       catchError(_ => of(false))
@@ -126,7 +199,7 @@ export class TopicService {
       map((res: Res) => {
         const like = !!res.data
         const params = { id, type, like }
-        store.dispatch(new TopicAction.LikeSuccess(params))
+        store.dispatch(new TopicAction.Like(params))
         return like
       }),
       catchError(_ => of(false))
@@ -142,7 +215,7 @@ export class TopicService {
     const { http, store } = this
     return http.post(url, params).pipe(
       map((res: Res) => {
-        store.dispatch(new TopicAction.PostReplySuccess(res.data))
+        store.dispatch(new TopicAction.PostReply(res.data))
         return true
       }),
       catchError(_ => of(false))

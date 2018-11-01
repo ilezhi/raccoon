@@ -1,109 +1,72 @@
 export enum TopicTypes {
-  Topics = '[Topic List Page] list',
-  TopicsSuccess = '[Topic/api] list',
-  TopicsFailure = '[Topic/list] error',
+  Detail = '[Detail page] topic',
 
-  Detail = '[Topic Detail Page] detail',
-  DetailSuccess = '[Topic/api] detail',
+  Post = '[Post page] topic',
 
-  Post = '[Post Topic Page] post topic',
-  PostSuccess = '[Topic/api] success post topic',
-  PostFailure = '[Topic/api] fail post topic',
+  Update = '[Edit page] topic',
 
-  Update = '[Edit Topic Page] update topic',
-  UpdateSuccess = '[Topic/api] update topic success',
+  Favor = '[Detail page] favor',
+  Like = '[Detail page] like',
 
-  Trash = '[Trash Topic Page] trash topic',
-  TrashSuccess = '[Topic] trash topic success',
-
-  FavorSuccess = '[Topic/api] favor',
-  LikeSuccess = '[Topic/api] like',
-
-  Comments = '[Topic/Comments] comments',
-  CommentsSuccess = '[Topic/api] comments',
-  PostCommentSuccess = '[Topic/api] post comment',
-  PostReplySuccess = '[Topic/api] post reply'
+  Comments = '[Detail page] comments',
+  PostComment = '[Detail page] post comment',
+  PostReply = '[Detail page] post reply'
 }
 
 export enum HomeTypes {
-  All = '[All/api] topics',
-  AllSuccess = '[All Page] topics',
+  All = '[All page] topics',
 
-  Awesome = '[Awesome Page] topics',
-  AwesomeSuccess = '[Awesome/api] topics',
+  Awesome = '[Awesome page] topics',
 
-  Dept = '[Dept Page] topics',
-  DeptSuccess = '[Dept/api] topics',
+  Dept = '[Dept page] topics',
 
-  Team = '[Team Page] topics',
-  TeamSuccess = '[Team/api] topics'
+  Team = '[Team page] topics',
 }
 
 export enum MyTypes {
-  Topics = '[My Page] topics',
-  TopicsSuccess = '[My/api] topics',
+  Topics = '[My page] topics',
 }
 
 export enum SolvedTypes {
-  QTopics = '[Solved Question Page] topics',
-  QTopicsSuccess = '[Question/api] topics',
+  QTopics = '[Solved Question page] topics',
 
-  ATopics = '[Solved Answer Page] topics',
-  ATopicsSuccess = '[Answer/api] topics',
+  ATopics = '[Solved Answer page] topics',
 }
 
 export enum CollectTypes {
-  Topics = '[Collection Page] topics',
-  TopicsSuccess = '[Collection/api] topics',
-
-  // 收藏帖子/取消收藏
-  Collect = '[Collect/api] topic',
+  Topics = '[Collection page] topics',
 }
 
 export enum SharedTypes {
-  Topics = '[Shared Page] topics',
-  TopicsSuccess = '[Shared/api] topics',
+  Topics = '[Shared page] topics',
 }
 
 export enum DraftTypes {
-  Topics = '[Draft Page] topics',
-  TopicsSuccess = '[Draft/api] topics',
+  Topics = '[Draft page] topics',
 
-  Topic = '[Draft Page] topic',
-  TopicSuccess = '[Draft/api] topic',
+  Topic = '[Draft page] topic',
 
-  Post = '[Draft Page] post topic',
-  PostSuccess = '[Draft/api] post topic',
+  Post = '[Draft page] post topic',
 
-  Update = '[Draft Page] update topic',
-  UpdateSuccess = '[Draft/api] update topic',
+  Update = '[Draft page] update topic',
 
-  Trash = '[Draft Page] trash topic',
-  TrashSuccess = '[Draft/api] trash topic',
+  Trash = '[Draft page] trash topic',
 }
 
 export enum ProjectTypes {
-  Topics = '[Project] project topics',
+  Topics = '[Project page] topics',
 }
 
 export enum TagTypes {
-  Topics = '[Tag Page] topics',
-  TopicsSuccess = '[Tag/api] topics',
+  Topics = '[Tag page] topics',
 
   Post  = '[Tag Create] post tag',
-  PostSuccess = '[Tag/api] post tag',
 }
 
 export enum UserTypes {
-  Login = '[Login Page] login',
-  LoginSuccess = '[Login/api] success',
-  LoginFailure = '[Login/api] failure',
+  Login = '[Login page] login',
 
-  Info = '[User/Info] info',
-  InfoSuccess = '[User/api] info',
-  InfoFailure = '[User/api] failure',
+  Info = '[Home page] info',
 
-  Category = '[Category/api] new',
-  CategorySuccess = '[Category/api] success',
-  CategoryFailure = '[Category/api] failure'
+  PostCategory = '[Detail page] post category',
 }

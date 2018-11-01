@@ -2,34 +2,9 @@ import { Action } from '@ngrx/store'
 
 import { TopicTypes } from './type'
 
-export class Topics implements Action {
-  readonly type = TopicTypes.Topics
-  constructor(public payload?: any) {}
-}
-
-export class TopicsSuccess implements Action {
-  readonly type = TopicTypes.TopicsSuccess
-  constructor(public payload: MySchema) {}
-}
-
-export class TopicsFailure implements Action {
-  readonly type = TopicTypes.TopicsFailure
-  constructor(public payload: any) {}
-}
-
 export class Post implements Action {
   readonly type = TopicTypes.Post
   constructor(public payload: MySchema) {}
-}
-
-export class PostSuccess implements Action {
-  readonly type = TopicTypes.PostSuccess
-  constructor(public payload: MySchema) {}
-}
-
-export class PostFailure implements Action {
-  readonly type = TopicTypes.PostFailure
-  constructor(public payload: any) {}
 }
 
 export class Update implements Action {
@@ -37,47 +12,32 @@ export class Update implements Action {
   constructor() {}
 }
 
-export class UpdateSuccess implements Action {
-  readonly type = TopicTypes.UpdateSuccess
+export class Detail implements Action {
+  readonly type = TopicTypes.Detail
   constructor(public payload: MySchema) {}
 }
 
-export class Detail implements Action {
-  readonly type = TopicTypes.Detail
-  constructor(public payload: number) {}
-}
-
-export class DetailSuccess implements Action {
-  readonly type = TopicTypes.DetailSuccess
-  constructor(public payload: any) {}
-}
-
-export class FavorSuccess implements Action {
-  readonly type = TopicTypes.FavorSuccess
+export class Favor implements Action {
+  readonly type = TopicTypes.Favor
   constructor(public payload: any) {}
 }
 
 export class Comments implements Action {
   readonly type = TopicTypes.Comments
-  constructor(public payload: number) {}
+  constructor(public payload: MySchema) {}
 }
 
-export class CommentsSuccess implements Action {
-  readonly type = TopicTypes.CommentsSuccess
-  constructor(public payload: any) {}
-}
-
-export class PostComtSuccess implements Action {
-  readonly type = TopicTypes.PostCommentSuccess
+export class PostComment implements Action {
+  readonly type = TopicTypes.PostComment
   constructor(public payload: Comment) {}
 }
 
-export class PostReplySuccess implements Action {
-  readonly type = TopicTypes.PostReplySuccess
+export class PostReply implements Action {
+  readonly type = TopicTypes.PostReply
   constructor(public payload: Reply) {}
 }
 
-export class LikeSuccess implements Action {
-  readonly type = TopicTypes.LikeSuccess
+export class Like implements Action {
+  readonly type = TopicTypes.Like
   constructor(public payload: any) {}
 }

@@ -1,12 +1,8 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core'
-import { select, Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
 
-import { Topic } from 'src/app/models'
-import { getAll } from 'src/app/reducers/home.reducer'
-import { Topics } from 'src/app/action/topic.action'
-import { AllSuccess } from 'src/app/action/home.action'
+import { TopicService } from 'src/app/services/topic.service'
 
 @Component({
   selector: 'app-all',
@@ -16,18 +12,24 @@ import { AllSuccess } from 'src/app/action/home.action'
 })
 export class AllComponent implements OnInit {
   topics$: Observable<Topic[]>
+  loading: boolean
 
-  constructor(private store: Store<any>) {
-    this.topics$ = store.pipe(
-      select(getAll),
-      tap(data => {
-        if (!data) {
-          store.dispatch(new Topics({type: 'all', Action: AllSuccess}))
-        }
+  constructor(private ts: TopicService) {
+    this.topics$ = this.ts.all$.pipe(
+      tap((topics: Topic[]) => {
+        !topics && this.fetchTopics()
       })
     )
   }
-  
+
   ngOnInit() {
+  }
+
+  fetchTopics(lastID?: number, size = 20) {
+    this.loading = true
+    this.ts.getAll(lastID, size)
+      .subscribe(_ => {
+        this.loading = false
+      })
   }
 }
