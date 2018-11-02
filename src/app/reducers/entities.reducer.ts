@@ -306,6 +306,11 @@ export const getTags = (state) => {
   return state.entities.tags
 }
 
+export const getTagList = createSelector(
+  getTags,
+  tags => Object.values(tags)
+)
+
 export const getFullTopic = id => createSelector(
   getTopics,
   getTags,

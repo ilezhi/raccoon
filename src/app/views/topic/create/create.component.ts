@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { Store } from '@ngrx/store'
 import { NzMessageService } from 'ng-zorro-antd'
 
 import { SelectedTagComponent } from '../components/selected-tag/selected-tag.component'
-import { TopicService } from 'src/app/services/topic.service';
+import { TopicService } from 'src/app/services/topic.service'
 
 @Component({
   selector: 'app-create',
@@ -32,21 +31,21 @@ export class CreateComponent implements OnInit {
    * 3. 获取project
    */
   onSave(text: string) {
-    let { title, shared, $tag, topicService } = this
+    let { title, shared, $tag, topicService, notify } = this
     title = title.trim()
 
     if (title === '') {
-      return this.message.warning('标题不能为空')
+      return notify(1)
     }
 
     const len = title.length
     if (len < 10 || len > 30) {
-      return this.message.warning('标题长度需限制在10~30个字符')
+      return notify(2)
     }
 
     const tags = $tag.tags.map(t => t.id)
     if (tags.length === 0) {
-      return this.message.warning('至少添加一个标签')
+      return notify(3)
     }
 
     const params = {
@@ -62,12 +61,29 @@ export class CreateComponent implements OnInit {
         this.loading = false
         if (done) {
           this.message.success('发布成功')
-          topicService.close()
+          this.onClose()
         }
       })
   }
 
   onClose() {
     this.topicService.close()
+  }
+
+  notify(code) {
+    let msg = ''
+    switch(code) {
+      case 1:
+        msg = '标题不能为空'
+        break
+      case 2:
+        msg = '标题长度需限制在10~30个字符'
+        break
+      case 3:
+        msg = '至少添加一个标签'
+        break
+    }
+
+    this.message.warning(msg)
   }
 }

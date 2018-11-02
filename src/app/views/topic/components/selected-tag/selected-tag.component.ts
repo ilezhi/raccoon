@@ -1,9 +1,7 @@
-import { Component, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnDestroy } from '@angular/core'
 import { Subscription } from 'rxjs'
-import { Store, select } from '@ngrx/store'
 
-import { getTags } from 'src/app/reducers/entities.reducer'
-import * as TagAction from 'src/app/action/tag.action'
+import { TagService } from 'src/app/services/tag.service'
 
 @Component({
   selector: 'app-selected-tag',
@@ -20,11 +18,11 @@ export class SelectedTagComponent implements OnDestroy {
   @ViewChild('input') $tag: ElementRef
 
   constructor(
-    private store: Store<Entities<Tag>>
+    private ts: TagService
   ) {
-    this.sub = store.pipe(select(getTags))
-      .subscribe((tags: Entities<Tag>) => {
-        this.list = Object.keys(tags).map(id => tags[id])
+    this.sub = this.ts.tags$
+      .subscribe((tags: Tag[]) => {
+        this.list = tags
       })
   }
 
@@ -54,24 +52,28 @@ export class SelectedTagComponent implements OnDestroy {
    */
   post(e: KeyboardEvent): void {
     const { keyCode } = e
+    const { tag: t, tags, list } = this
 
     if (keyCode === 13) {
       // 是否已添加
-      let tag = this.isTagExist(this.tag, this.tags)
+      let tag = this.isTagExist(t, tags)
       if (tag) {
         return
       }
 
       // 本地是否存在
-      tag = this.isTagExist(this.tag, this.list)
+      tag = this.isTagExist(t, list)
       if (tag) {
         this.tags.push(tag)
         return
       }
 
       // 新增
-      this.store.dispatch(new TagAction.Post(this.tag))
-      this.close()
+      this.ts.post(t)
+        .subscribe((data: Tag) => {
+          this.tags.push(data)
+          this.close()
+        })
     }
 
     if (keyCode === 27) {

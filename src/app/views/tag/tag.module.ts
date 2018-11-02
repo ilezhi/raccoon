@@ -4,8 +4,8 @@ import { StoreModule } from '@ngrx/store'
 import { TagRoutingModule } from './tag-routing.module'
 import { TagComponent } from './tag.component'
 
-import { SharedModule } from '../../module/shared.module'
-import { tagReducer } from '../../reducers'
+import { SharedModule } from 'src/app/module/shared.module'
+import { tagReducer } from 'src/app/reducers'
 
 @NgModule({
   imports: [

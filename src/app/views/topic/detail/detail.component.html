@@ -63,7 +63,8 @@
     <app-md-editor [simple]="true" (save)="onSubmit($event)"></app-md-editor>
   </div>
 </aside>
-<div class="btn-menu" *ngIf="done" (click)="toggle()">
-  <i class="icon ripple">menu</i>
+<div class="btn-menu" *ngIf="done">
+  <i class="icon ripple" (click)="toggle()">menu</i><br><br>
+  <i class="icon ripple" (click)="close()">close</i>
 </div>
 <app-favor-modal [visible]="visible" (cancel)="onClose()"></app-favor-modal>
