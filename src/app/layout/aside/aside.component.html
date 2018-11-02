@@ -34,29 +34,12 @@
       </div>
     </li>
     <li class="dropdown">
-      <div class="item" *ngFor="let c of categories">
+      <div class="item" *ngFor="let c of categories" routerLinkActive="active">
         <!-- <i class="icon">J</i> -->
-        <a [routerLink]="['/category', c.name]">{{ c.name }}</a>
+        <a [routerLink]="['/collection', c.name]">{{ c.name }}</a>
         <strong>{{ c.count }}</strong>
       </div>
     </li>
-    <!-- <li toggle>
-      <div class="item">
-        <label class="arrow">
-          <i class="anticon anticon-caret-right"></i>
-        </label>
-        <i class="icon">group</i>
-        <a routerLink="/project">项目</a>
-        <strong>12</strong>
-      </div>
-    </li>
-    <li class="dropdown">
-      <div class="item">
-        <i class="icon">指</i>
-          <a routerLink="/tag">raccon</a>
-        <strong>12</strong>
-      </div>
-    </li> -->
     <li>
       <div class="item" routerLinkActive="active">
         <i class="icon">share</i>

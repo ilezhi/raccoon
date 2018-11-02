@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core'
 import { StoreModule } from '@ngrx/store'
 
-import { SharedModule } from '../../module/shared.module'
+import { SharedModule } from 'src/app/module/shared.module'
 import { CollectionRoutingModule } from './collection-routing.module'
 import { CollectionComponent } from './collection.component'
-import { collectionReducer } from '../../reducers'
+import { collectionReducer } from 'src/app/reducers'
+import { ListComponent } from './list/list.component'
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { collectionReducer } from '../../reducers'
     StoreModule.forFeature('collection', collectionReducer),
     CollectionRoutingModule
   ],
-  declarations: [CollectionComponent]
+  declarations: [CollectionComponent, ListComponent]
 })
 export class CollectionModule { }

@@ -1,8 +1,7 @@
 import { Component, OnDestroy } from '@angular/core'
-import { Store, select } from '@ngrx/store'
 import { Observable, Subscription } from 'rxjs'
 
-import { getTags, getCategory } from 'src/app/reducers/user.reducer'
+import { UserService } from 'src/app/services/user.service'
 
 @Component({
   selector: 'app-aside',
@@ -19,15 +18,15 @@ export class AsideComponent implements OnDestroy {
   private sub: Subscription
 
   constructor(
-    private store: Store<any>
+    private us: UserService
   ) {
-    this.sub = store.pipe(select(getTags))
-      .subscribe(tags => {
+    this.sub = us.tags$
+      .subscribe((tags: Tag[]) => {
         this.tags = tags
         this.tCount = tags.length
       })
 
-    const childSub = store.pipe(select(getCategory))
+    const childSub = us.categories$
       .subscribe(categories => {
         this.categories = categories
         this.cCount = categories.length

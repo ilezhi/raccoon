@@ -5,19 +5,29 @@ import { Store, select } from '@ngrx/store'
 
 import { HttpService } from './http.service'
 import * as UserAction from 'src/app/action/user.action'
-import { getCategory } from 'src/app/reducers/user.reducer'
+import { getCategories, getCategoryByName, getTags } from 'src/app/reducers/user.reducer'
 import * as utils from 'src/app/tools/util'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  categories$ = this.store.pipe(select(getCategory))
-
   constructor(
     private http: HttpService,
     private store: Store<any>
   ) {}
+
+  get tags$() {
+    return this.store.pipe(select(getTags))
+  }
+
+  get categories$() {
+    return this.store.pipe(select(getCategories))
+  }
+
+  category$(name: string) {
+    return this.store.pipe(select(getCategoryByName(name)))
+  }
 
   login(userInfo: LoginForm): Observable<any> {
     const { http, store } = this

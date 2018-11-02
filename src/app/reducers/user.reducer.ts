@@ -1,4 +1,4 @@
-import { combineReducers } from '@ngrx/store'
+import { combineReducers, createSelector } from '@ngrx/store'
 
 import { UserTypes, TopicTypes } from '../action/type'
 
@@ -102,8 +102,15 @@ export const getTags = (state) => {
   return state.user.tags
 }
 
-export const getCategory = state => {
+export const getCategories = state => {
   return state.user.category
 }
+
+export const getCategoryByName = (name: string) => createSelector(
+  getCategories,
+  categories => categories.find(c => {
+    return c.name.toLowerCase() === name.toLowerCase()
+  })
+)
 
 export default combineReducers({info, category, tags})
