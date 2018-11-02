@@ -29,6 +29,7 @@
     "@ngrx/store-devtools": "^6.1.0",
     "code-prettify": "^0.1.0",
     "core-js": "^2.5.4",
+    "github-markdown-css": "^2.10.0",
     "highlight.js": "^9.12.0",
     "markdown-it": "^8.4.2",
     "markdown-it-emoji": "^1.4.0",

@@ -1,9 +1,3 @@
-$d: 16px;
-$line: 1px solid #eaecef;
-$link-color: #0366d6;
-$bar-color: #dfe2e5;
-$code-bg-color: #f6f8fa;
-
 $kwd: #d73a49;
 $str: #032f62;
 $num: #005cc5;
@@ -11,120 +5,9 @@ $cmt: #6a737d;
 $title: #6f42c1;
 $name: #22863a;
 
-.markdown-preview {
-  word-wrap: break-word;
-
-  h1,
-  h2 {
-    border-bottom: $line;
-  }
-
-  h2, h3, h4 {
-    margin-top: 24px;
-  }
-  
-  h1 {
-    font-size: 32px;
-    padding-bottom: 9px;
-  }
-
-  h2 {
-    font-size: 24px;
-    padding-bottom: 7px;
-  }
-
-  h3 {
-    font-size: 20px;
-  }
-
-  h4 {
-    font-size: 16px;
-  }
-
-  .highlight,
-  h1,
-  h2,
-  h3,
-  h4,
-  p,
-  ul,
-  ol,
+.markdown-body {
   table {
-    margin-bottom: $d;
-  }
-
-  a {
-    color: $link-color;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  code {
-    background-color: $code-bg-color;
-    font-size: 12px;
-    padding: 2px 4px;
-  }
-
-  pre {
-    padding: $d;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
-    background-color: $code-bg-color;
-    border-radius: 3px;
-
-    code {
-      padding: 0;
-    }
-  }
-
-  blockquote {
-    padding: 0 $d;
-    color: #6a737d;
-    border-left: 4px solid $bar-color;
-  }
-
-  ul {
-    padding-left: 32px;
-    list-style-type: disc;
-  }
-
-  ol {
-    padding-left: 32px;
-    list-style-type: decimal;
-  }
-
-  table {
-    width: 100%;
-    overflow: auto;
-    border-spacing: 0;
-    border-collapse: collapse;
-
-    th,
-    td {
-      padding: 6px 13px;
-      border: 1px solid #dfe2e5;
-    }
-
-    th {
-      font-weight: 600;
-      text-align: center;
-    }
-
-    tr {
-      background-color: #fff;
-      border-top: 1px solid #c6cbd1;
-    }
-
-    tr:nth-child(2n) {
-      background-color: #f6f8fa;
-    }
-  }
-
-  mark {
-    background: yellow;
+    display: table;
   }
 }
 

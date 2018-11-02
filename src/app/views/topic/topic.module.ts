@@ -12,8 +12,8 @@ import { CommentItemComponent } from './components/comment-item/comment-item.com
 
 import { TopicComponent } from './topic.component'
 import { CreateComponent } from './create/create.component'
-import { DetailComponent } from './detail/detail.component';
-import { FavorModalComponent } from './components/favor-modal/favor-modal.component';
+import { DetailComponent } from './detail/detail.component'
+import { FavorModalComponent } from './components/favor-modal/favor-modal.component'
 
 @NgModule({
   imports: [
