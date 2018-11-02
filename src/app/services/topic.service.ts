@@ -6,7 +6,7 @@ import { normalize } from 'normalizr'
 
 import { HttpService } from './http.service'
 import { topicsSchema, topicSchema, commentsSchema } from 'src/app/normalizr/schema'
-import { getFullTopic } from '../reducers/entities.reducer'
+import { getFullTopic, getCommentsByTopicID } from '../reducers/entities.reducer'
 import { getAll, getAwesome } from 'src/app/reducers/home.reducer'
 import { getMy } from 'src/app/reducers/my.reducer'
 import { getQuestion, getAnswer } from 'src/app/reducers/solved.reducer'
@@ -59,6 +59,10 @@ export class TopicService {
 
   topic$(id: number): Observable<Topic> {
     return this.store.pipe(select(getFullTopic(id)))
+  }
+
+  comments$(id: number): Observable<Comment[]> {
+    return this.store.pipe(select(getCommentsByTopicID(id)))
   }
 
   topics(Action: any, type = 'all', lastID?: number, size = 2): Observable<any> {

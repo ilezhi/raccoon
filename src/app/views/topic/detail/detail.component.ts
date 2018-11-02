@@ -1,14 +1,11 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { ActivatedRoute, ParamMap } from '@angular/router'
-import { map, switchMap, concatMap, combineAll, take, tap } from 'rxjs/operators'
-import { EMPTY as empty, of } from 'rxjs'
-import { Store, select } from '@ngrx/store'
+import { Subscription, of, zip } from 'rxjs'
+import { switchMap, tap } from 'rxjs/operators'
 
-import { getFullTopic, getCommentsByTopicID } from 'src/app/reducers/entities.reducer'
-import { TopicService } from 'src/app/services/topic.service'
-import * as TopicAction from 'src/app/action/topic.action'
-import { slideComt } from 'src/app/animations/slide'
 import { fade } from 'src/app/animations/fade'
+import { slideComt } from 'src/app/animations/slide'
+import { TopicService } from 'src/app/services/topic.service'
 import * as utils from 'src/app/tools/util'
 
 @Component({
@@ -17,7 +14,7 @@ import * as utils from 'src/app/tools/util'
   styleUrls: ['./detail.component.scss'],
   animations: [slideComt, fade]
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit, OnDestroy {
   topic: Topic
   hide: string
   done: boolean
@@ -27,35 +24,60 @@ export class DetailComponent implements OnInit {
   tid: number
   comments = []
   total = 0 // 评论数量
+
   favoring = false
   liking = false
+  detailLoading = false
+  commentsLoading = false
+
+  sub: Subscription
 
   constructor(
     private route: ActivatedRoute,
-    private store: Store<Entities<Topic>>,
     private ts: TopicService
-  ) {
+  ) {}
 
+  ngOnDestroy() {
+    this.sub.unsubscribe()
   }
 
   ngOnInit() {
-    this.route.paramMap.pipe(
+    const { route, ts } = this
+    this.sub = route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         const id = +params.get('id')
         this.tid = id
-        return this.ts.topic$(id)
+        return ts.topic$(id).pipe(
+          tap(topic => {
+            if (!topic) {
+              this.fetchDetail(id)
+              this.fetchComments(id)
+            }
+          }),
+          switchMap(topic => zip(of(topic), ts.comments$(id)))
+        )
       })
-    ).subscribe((topic: Topic) => {
-      console.log('**********', topic)
-      // this.topic = topic
+    ).subscribe(([topic, comts]: any) => {
+      this.topic = topic
+      this.comments = comts
+      this.total = utils.getNodeCount(comts, 'replies')
     })
+  }
 
-    // this.store.pipe(
-    //   select(getCommentsByTopicID(this.tid))
-    // ).subscribe(comts => {
-    //   this.comments = comts
-    //   this.total = utils.getNodeCount(comts, 'replies')
-    // })
+  fetchDetail(id) {
+    this.detailLoading = true
+    this.ts.detail(id)
+      .subscribe(_ => {
+        this.detailLoading = false
+      })
+  }
+
+  fetchComments(id) {
+    this.commentsLoading = true
+    this.ts.comments(id)
+      .subscribe(_ => {
+        this.commentsLoading = false
+      })
   }
 
   toggle() {

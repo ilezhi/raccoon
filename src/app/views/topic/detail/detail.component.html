@@ -1,4 +1,4 @@
-<section>
+<section [loading]="detailLoading">
   <header>
     <h1>
       {{ topic?.title }}
@@ -44,7 +44,7 @@
         </nz-button-group>
       </li>
     </ul>
-    <div class="comments">
+    <div class="comments" [loading]="commentsLoading">
       <nz-card [nzTitle]="count" [nzExtra]="comt" [nzBordered]="false">
         <p *ngIf="!total; else elseBlock;">暂无回复</p>
         <ng-template #elseBlock>

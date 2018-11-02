@@ -49,10 +49,8 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
     case TopicTypes.Update: {
       const { topics } = payload.entities
       const id = Object.keys(topics)[0]
-      const comts = state[id].comments
-      if (comts) {
-        topics[id].comments = comts
-      }
+      const comts = state[id].comments || []
+      topics[id].comments = comts
 
       return {
         ...state,
@@ -85,6 +83,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
         topic.comments = [id]
       }
 
+      topic.comtCount += 1
       return {
         ...state,
         [topicID]: topic
@@ -332,7 +331,6 @@ export const getCommentsByTopicID = id => createSelector(
     if (!topic || !topic.comments) {
       return []
     }
-
     return topic.comments.map(cid => {
       const comt = { ...comments[cid] }
 
