@@ -31,21 +31,21 @@ export class CreateComponent implements OnInit {
    * 3. 获取project
    */
   onSave(text: string) {
-    let { title, shared, $tag, topicService, notify } = this
+    let { title, shared, $tag, topicService } = this
     title = title.trim()
 
     if (title === '') {
-      return notify(1)
+      return this.notify(1)
     }
 
     const len = title.length
     if (len < 10 || len > 30) {
-      return notify(2)
+      return this.notify(2)
     }
 
     const tags = $tag.tags.map(t => t.id)
     if (tags.length === 0) {
-      return notify(3)
+      return this.notify(3)
     }
 
     const params = {

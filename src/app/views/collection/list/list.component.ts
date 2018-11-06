@@ -29,12 +29,10 @@ export class ListComponent implements OnInit {
 
         return us.category$(name).pipe(
           switchMap((c: Category) => {
-            console.log(c)
             return empty
           })
         )
       })
     )
   }
-
 }

@@ -8,7 +8,8 @@ import {
 } from '../tools/create-reducer'
 import {
   HomeTypes,
-  TopicTypes
+  TopicTypes,
+  SocketTypes
 } from '../action/type'
 import { getTopics } from './entities.reducer'
 
@@ -20,7 +21,8 @@ const all = (state: PageState, action: Action): PageState => {
       return topicListCase(state, payload)
     }
 
-    case TopicTypes.Post: {
+    case TopicTypes.Post:
+    case SocketTypes.PostTopic: {
       return topicPostCase(state, payload)
     }
 

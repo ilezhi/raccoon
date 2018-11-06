@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core'
-import { map } from 'rxjs/operators'
 
 import { TopicService } from 'src/app/services/topic.service'
 
@@ -18,7 +17,7 @@ export class CommentItemComponent implements OnInit {
   @Input() comment: Comment
 
   constructor(
-    private topicService: TopicService
+    private ts: TopicService
   ) { }
 
   ngOnInit() {
@@ -34,7 +33,7 @@ export class CommentItemComponent implements OnInit {
   }
 
   submit() {
-    const { comment: { topicID, id, authorID }, $reply, topicService } = this
+    const { comment: { topicID, id, authorID }, $reply, ts, } = this
     const content = $reply.nativeElement.innerText.trim()
     if (content === '') {
       return
@@ -43,11 +42,14 @@ export class CommentItemComponent implements OnInit {
     const params = {
       content,
       commentID: id,
-      receiverID: authorID
+      receiverID: authorID,
+      title: ts.topic.title,
+      shared: ts.topic.shared,
+      rid: ts.topic.authorID
     }
 
     this.loading = true
-    topicService.postReply(topicID, params)
+    ts.postReply(topicID, params)
       .subscribe(done => {
         this.loading = false
         if (done) {

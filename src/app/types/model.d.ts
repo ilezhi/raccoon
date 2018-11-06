@@ -40,8 +40,15 @@ declare interface Comment {
   avatar: string
   updatedAt: number
   replies: Array<Reply>
+  title: string
+  rid: number
+  [key: string]: any
 }
 
 declare interface Reply {
+  [key: string]: any
+}
+
+declare interface User {
   [key: string]: any
 }

@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core'
-import { Store, select } from '@ngrx/store'
-import { EMPTY as empty, of } from 'rxjs'
-import { switchMap } from 'rxjs/operators'
+import { normalize } from 'normalizr'
 
-import * as UserAction from 'src/app/action/user.action'
 import { WSService } from 'src/app/services/socket.service'
-import { getInfo } from 'src/app/reducers/user.reducer'
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user.service'
+import { TopicService } from 'src/app/services/topic.service'
 
 @Component({
   selector: 'app-layout',
@@ -16,23 +13,14 @@ import { UserService } from 'src/app/services/user.service';
 export class LayoutComponent implements OnInit {
 
   constructor(
-    private store: Store<any>,
     private wss: WSService,
-    private us: UserService
+    private us: UserService,
+    private ts: TopicService
   ) {
-    store.pipe(
-      select(getInfo),
-      switchMap(user => {
-        if (!user || !user.id) {
-          return this.us.fetchLoginUser()
-        }
-
-        return of(user)
-      })
-    ).subscribe((user:any) => {
+    us.user$.subscribe((user:any) => {
       if (user && user.id) {
-        // this.wss.connect(user.id)
-        // this.watch()
+        this.wss.connect(user)
+        this.watch()
       }
     })
   }
@@ -43,7 +31,15 @@ export class LayoutComponent implements OnInit {
 
   watch() {
     this.wss.topic$.subscribe(data => {
-      console.log('subscribe', data)
+      this.ts.dispatch(data)
+    })
+
+    this.wss.comment$.subscribe(data => {
+      this.ts.dispatchComment(data)
+    })
+
+    this.wss.reply$.subscribe(data => {
+      this.ts.dispatchReply(data)
     })
   }
 }

@@ -28,6 +28,7 @@ export class TopicService {
   ) {}
 
   private editor = new Subject<boolean>()
+  public topic: Topic
 
   get editor$() {
     return this.editor.asObservable()
@@ -107,13 +108,11 @@ export class TopicService {
   }
 
   post(params: TopicParams): Observable<boolean> {
-    const { store, http } = this
     const url = 'topic/create'
-    return http.post(url, params)
+    return this.http.post(url, params)
       .pipe(
         map((res: Res) => {
-          const result = normalize(res.data, topicSchema)
-          store.dispatch(new TopicAction.Post(result))
+          this.dispatch(res.data)
           return true
         }),
         catchError(_ => of(false))
@@ -131,6 +130,19 @@ export class TopicService {
       }),
       catchError(_ => of(false))
     )
+  }
+
+  dispatch(topic: Topic) {
+    const result = normalize(topic, topicSchema)
+    this.store.dispatch(new TopicAction.Post(result))
+  }
+
+  dispatchComment(comment: Comment) {
+    this.store.dispatch(new TopicAction.PostComment(comment))
+  }
+
+  dispatchReply(reply: Reply) {
+    this.store.dispatch(new TopicAction.PostReply(reply))
   }
 
   close() {
@@ -152,13 +164,11 @@ export class TopicService {
 
   /**
    * 提交评论
-   * @param id topic id
-   * @param content comment
    */
-  postComment(id: number, content: string): Observable<any> {
+  postComment(id: number, params: any): Observable<any> {
     const { http, store } = this
     const url = `comment/${id}`
-    return http.post(url, {content}).pipe(
+    return http.post(url, params).pipe(
       map((res: Res) => {
         store.dispatch(new TopicAction.PostComment(res.data))
         return true
@@ -169,8 +179,6 @@ export class TopicService {
 
   /**
    * 收藏, 取消收藏
-   * @param topicID
-   * @param categoryID 
    */
   favor(topicID: number, categoryID: number): Observable<boolean> {
     const { http, store } = this

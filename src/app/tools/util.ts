@@ -29,13 +29,13 @@ export const getNodeCount = (nodes: Array<any>, children: string, count: number 
   return count
 }
 
-export const storage = (key: string, val: any): any => {
+export const storage = (key: string, val?: any): any => {
   const sess = window.sessionStorage
   if (!val) {
     try {
       val = JSON.parse(sess.getItem(key))
     } catch (err) {
-      console.log('解析成json格式失败')
+      console.error('解析成json格式失败')
       return
     }
 
@@ -44,3 +44,8 @@ export const storage = (key: string, val: any): any => {
 
   sess.setItem(key, JSON.stringify(val))
 }
+
+export const toFirstUpperCase = (str: string): string => {
+  str = 'on' + str.replace(/^\S/, s => s.toUpperCase())
+  return str
+}  

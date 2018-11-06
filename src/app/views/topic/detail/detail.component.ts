@@ -59,6 +59,7 @@ export class DetailComponent implements OnInit, OnDestroy {
       })
     ).subscribe(([topic, comts]: any) => {
       this.topic = topic
+      this.ts.topic = topic
       this.comments = comts
       this.total = utils.getNodeCount(comts, 'replies')
     })
@@ -104,8 +105,15 @@ export class DetailComponent implements OnInit, OnDestroy {
    * 提交评论
    */
   onSubmit(text: string) {
-    const { ts, tid } = this
-    ts.postComment(tid, text)
+    const { ts, tid, topic } = this
+    const params = {
+      content: text,
+      rid: topic.authorID,
+      title: topic.title,
+      shared: topic.shared
+    }
+
+    ts.postComment(tid, params)
       .subscribe(done => {
         done && this.toggleComtEditor()
       })

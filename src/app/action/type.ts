@@ -70,3 +70,14 @@ export enum UserTypes {
 
   PostCategory = '[Detail page] post category',
 }
+
+export enum SocketTypes {
+  PostTopic = '[RT post] topic',
+  PutTopic = '[RT put] topic',
+
+  Comment = '[RT post] comment',
+  Reply = '[RT post] reply',
+
+  Like = '[RT like] like',
+  Favor = '[RT favor] topic',
+}

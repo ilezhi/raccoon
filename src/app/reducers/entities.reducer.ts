@@ -7,7 +7,8 @@ import {
   MyTypes,
   SolvedTypes,
   TagTypes,
-  SharedTypes
+  SharedTypes,
+  SocketTypes
 } from '../action/type'
 
 const topics = (state: KeyMap = {}, action: Action): KeyMap => {
@@ -37,7 +38,8 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
-    case TopicTypes.Post: {
+    case TopicTypes.Post:
+    case SocketTypes.PostTopic: {
       const { topics } = payload.entities
       return {
         ...state,
@@ -183,7 +185,8 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
     case HomeTypes.Awesome:
     case TopicTypes.Detail:
     case TopicTypes.Post:
-    case TopicTypes.Update: {
+    case TopicTypes.Update:
+    case SocketTypes.PostTopic: {
       const { tags } = payload.entities
       
       if (!tags) {
