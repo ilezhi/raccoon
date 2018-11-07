@@ -1,5 +1,7 @@
 import { combineReducers, createSelector } from '@ngrx/store'
 
+import * as moment from 'moment'
+
 import {
   TopicTypes,
   DraftTypes,
@@ -39,9 +41,6 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
 
     case TopicTypes.Post: {
       const { topics } = payload.entities
-      for (const key in topics) {
-        topics[key].isFull = true
-      }
       return {
         ...state,
         ...topics
@@ -51,13 +50,20 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
     case TopicTypes.Detail:
     case TopicTypes.Update: {
       const { topics } = payload.entities
-      const id = Object.keys(topics)[0]
-      const comts = state[id].comments || []
-      topics[id].comments = comts
+      const obj = {}
+      for (const key in topics) {
+        let t = topics[key]
+        const ot = state[key]
+        t.isFull = true
+        t.lastNickname = ot.lastNickname
+        t.lastAvatar = ot.lastAvatar
+
+        obj[key] = t
+      }
 
       return {
         ...state,
-        ...topics
+        ...obj
       }
     }
 
@@ -78,7 +84,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
     }
 
     case TopicTypes.PostComment: {
-      const { topicID, id } = payload
+      const { topicID, id, avatar, nickname, createdAt } = payload
       const topic = { ...state[topicID] }
       if (topic.comments) {
         topic.comments.push(id)
@@ -87,6 +93,9 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
 
       topic.comtCount += 1
+      topic.lastAvatar = avatar
+      topic.lastNickname = nickname
+      topic.activeAt = moment(createdAt).unix()
       return {
         ...state,
         [topicID]: topic

@@ -36,6 +36,7 @@
     "markdown-it-ins": "^2.0.0",
     "markdown-it-mark": "^2.0.0",
     "material-design-icons": "^3.0.1",
+    "moment": "^2.22.2",
     "ng-zorro-antd": "^1.2.0",
     "normalizr": "^3.2.4",
     "rxjs": "^6.0.0",

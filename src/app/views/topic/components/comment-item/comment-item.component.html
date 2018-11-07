@@ -1,7 +1,7 @@
 <article class="comment-item">
   <div class="meta">
     <div class="title">
-      <img [src]="comment.avatar">
+      <img [src]="comment.avatar" [alt]="comment.nickname">
       <span>{{ comment.nickname }}</span>
       <ng-container *ngIf="comment.receiverID">
         <i class="anticon anticon-caret-right"></i>
@@ -9,7 +9,7 @@
       </ng-container>
     </div>
     <div>
-      <span>{{ comment.updatedAt }}</span>
+      <span>{{ comment.updatedAt | ago }}</span>
     </div>
   </div>
   <div class="text">

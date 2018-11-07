@@ -27,9 +27,9 @@
             </div>
           </td>
           <td class="comt">
-            <img src="https://avatars1.githubusercontent.com/u/11797281?s=24&v=4" alt="">
+            <img *ngIf="topic.lastAvatar" [src]="topic.lastAvatar" [alt]="topic.lastNickname">
           </td>
-          <td class="date">12分钟前</td>
+          <td class="date">{{ topic.activeAt | ago }}</td>
         </tr>
       </tbody>
     </table>

@@ -26,7 +26,7 @@
     <ul class="statistic">
       <li>
         作者: <span>{{ topic?.nickname }}</span> /
-        发布: <span>{{ topic?.createdAt }}</span> /
+        发布: <span>{{ topic?.createdAt | ago }}</span> /
         浏览: <span>{{ topic?.view }}</span>
       </li>
       <li>
