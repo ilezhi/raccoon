@@ -8,7 +8,6 @@ import {
   SolvedTypes,
   TagTypes,
   SharedTypes,
-  SocketTypes
 } from '../action/type'
 
 const topics = (state: KeyMap = {}, action: Action): KeyMap => {
@@ -38,9 +37,11 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
-    case TopicTypes.Post:
-    case SocketTypes.PostTopic: {
+    case TopicTypes.Post: {
       const { topics } = payload.entities
+      for (const key in topics) {
+        topics[key].isFull = true
+      }
       return {
         ...state,
         ...topics
@@ -185,8 +186,7 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
     case HomeTypes.Awesome:
     case TopicTypes.Detail:
     case TopicTypes.Post:
-    case TopicTypes.Update:
-    case SocketTypes.PostTopic: {
+    case TopicTypes.Update: {
       const { tags } = payload.entities
       
       if (!tags) {
@@ -250,7 +250,8 @@ const comments = (state: KeyMap = {}, action) => {
     case TopicTypes.PostReply: {
       const { commentID, id } = payload
       const comt = { ...state[commentID] }
-      comt.replies = comt.replies.concat(id)
+      comt.replies = (comt.replies || []).concat(id)
+
       return {
         ...state,
         [commentID]: comt
@@ -337,7 +338,7 @@ export const getCommentsByTopicID = id => createSelector(
   getReplies,
   (topic, comments, replies) => {
     if (!topic || !topic.comments) {
-      return []
+      return null
     }
     return topic.comments.map(cid => {
       const comt = { ...comments[cid] }

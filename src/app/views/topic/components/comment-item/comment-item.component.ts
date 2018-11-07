@@ -33,7 +33,7 @@ export class CommentItemComponent implements OnInit {
   }
 
   submit() {
-    const { comment: { topicID, id, authorID }, $reply, ts, } = this
+    const { comment: { topicID, id, authorID, commentID }, $reply, ts, } = this
     const content = $reply.nativeElement.innerText.trim()
     if (content === '') {
       return
@@ -41,7 +41,7 @@ export class CommentItemComponent implements OnInit {
 
     const params = {
       content,
-      commentID: id,
+      commentID: commentID || id,
       receiverID: authorID,
       title: ts.topic.title,
       shared: ts.topic.shared,

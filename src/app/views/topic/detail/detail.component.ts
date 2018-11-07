@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { ActivatedRoute, ParamMap } from '@angular/router'
-import { Subscription, of, zip } from 'rxjs'
-import { switchMap, tap } from 'rxjs/operators'
+import { ActivatedRoute } from '@angular/router'
+import { Subscription } from 'rxjs'
+import { tap } from 'rxjs/operators'
 
 import { fade } from 'src/app/animations/fade'
 import { slideComt } from 'src/app/animations/slide'
@@ -43,26 +43,33 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const { route, ts } = this
-    this.sub = route.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-        const id = +params.get('id')
-        this.tid = id
-        return ts.topic$(id).pipe(
-          tap(topic => {
-            if (!topic) {
-              this.fetchDetail(id)
-              this.fetchComments(id)
-            }
-          }),
-          switchMap(topic => zip(of(topic), ts.comments$(id)))
-        )
+    const tid = +route.snapshot.paramMap.get('id')
+  
+    this.tid = tid
+
+    this.sub = ts.topic$(tid).pipe(
+      tap(topic => {
+        if (!topic) {
+          this.fetchDetail(tid)
+        }
       })
-    ).subscribe(([topic, comts]: any) => {
+    ).subscribe(topic => {
       this.topic = topic
       this.ts.topic = topic
+    })
+
+    const childSub = ts.comments$(tid).pipe(
+      tap(comts => {
+        if (!comts) {
+          this.fetchComments(tid)
+        }
+      })
+    ).subscribe(comts => {
       this.comments = comts
       this.total = utils.getNodeCount(comts, 'replies')
     })
+
+    this.sub.add(childSub)
   }
 
   fetchDetail(id) {

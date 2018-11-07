@@ -2,10 +2,10 @@
   <div class="meta">
     <div class="title">
       <img [src]="comment.avatar">
-      <span>{{ comment.authorID }}</span>
-      <ng-container *ngIf="comment.reciver">
+      <span>{{ comment.nickname }}</span>
+      <ng-container *ngIf="comment.receiverID">
         <i class="anticon anticon-caret-right"></i>
-        <span>{{ comment.reciver }}</span>
+        <span>{{ comment.receiverName }}</span>
       </ng-container>
     </div>
     <div>

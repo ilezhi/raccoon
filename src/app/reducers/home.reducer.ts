@@ -9,7 +9,6 @@ import {
 import {
   HomeTypes,
   TopicTypes,
-  SocketTypes
 } from '../action/type'
 import { getTopics } from './entities.reducer'
 
@@ -21,8 +20,7 @@ const all = (state: PageState, action: Action): PageState => {
       return topicListCase(state, payload)
     }
 
-    case TopicTypes.Post:
-    case SocketTypes.PostTopic: {
+    case TopicTypes.Post: {
       return topicPostCase(state, payload)
     }
 
