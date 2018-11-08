@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule} from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
+
+import { AuthGuard } from 'src/app/auth/auth.guard'
 
 const routes: Routes = [
   {
     path: '', redirectTo: '/all', pathMatch: 'full'
-  },
-  {
-    path: '', loadChildren: './views/layout/layout.module#LayoutModule',
   },
   {
     path: 'login',
@@ -15,7 +14,14 @@ const routes: Routes = [
   {
     path: 'topic',
     loadChildren: './views/topic/topic.module#TopicModule',
-    outlet: 'slide'
+    outlet: 'slide',
+    data: {
+      preload: true
+    }
+  },
+  {
+    path: '', loadChildren: './views/layout/layout.module#LayoutModule',
+    canLoad: [AuthGuard]
   },
   {
     path: '**',
@@ -24,7 +30,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes)],
+  imports: [ RouterModule.forRoot(routes) ],
   exports: [ RouterModule ]
 })
 export class AppRoutingModule { }

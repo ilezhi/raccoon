@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs'
-import { map, catchError, switchMap } from 'rxjs/operators'
+import { map, catchError, switchMap, tap } from 'rxjs/operators'
 import { Store, select } from '@ngrx/store'
 
 import { HttpService } from './http.service'
@@ -12,6 +12,8 @@ import * as utils from 'src/app/tools/util'
   providedIn: 'root'
 })
 export class UserService {
+  isLoggedIn = false
+
   constructor(
     private http: HttpService,
     private store: Store<any>
@@ -55,6 +57,7 @@ export class UserService {
       map((res: Res) => {
         store.dispatch(new UserAction.Login(res.data))
         utils.storage('user', res.data)
+        this.isLoggedIn = true
         return true
       }),
       catchError(_ => of(false))

@@ -1,1 +1,1 @@
-export const API_HOST = '/ajax/'
+export const API_HOST = '/ajax/v1/'

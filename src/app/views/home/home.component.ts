@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core'
-import { Observable } from 'rxjs'
 import { Store, select } from '@ngrx/store'
 
 import { getUrl } from 'src/app/reducers'
@@ -8,7 +7,7 @@ import { getUrl } from 'src/app/reducers'
   selector: 'app-home',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   url: string
@@ -23,5 +22,4 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
