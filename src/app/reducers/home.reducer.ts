@@ -24,6 +24,23 @@ const all = (state: PageState, action: Action): PageState => {
       return topicPostCase(state, payload)
     }
 
+    case TopicTypes.PostReply:
+    case TopicTypes.PostComment: {
+      if (!state) {
+        return
+      }
+    
+      let ids = [...state.ids]
+      const { topicID } = payload
+      const i = state.ids.indexOf(topicID)
+      if (i !== -1) {
+        ids.splice(i, 1)
+      }
+    
+      ids.unshift(topicID)
+      return { ids }
+    }
+
     case TopicTypes.Update: {
       return topicUpdateCase(state, payload)
     }

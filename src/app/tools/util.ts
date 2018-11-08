@@ -17,15 +17,15 @@ export const getNodeCount = (nodes: Array<any>, children: string, count: number 
   if (len === 0) {
     return len
   }
-
   for (let i = 0; i < len; i++) {
-    count += 1
     const data = nodes[i][children]
-
+    
     if (data) {
       count += getNodeCount(data, children, count)
     }
+    count += 1
   }
+
   return count
 }
 

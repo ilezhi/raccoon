@@ -51,7 +51,7 @@ export const topicTrashCase = (state: PageState, payload: any): PageState => {
   let ids = [...state.ids]
   const { id } = payload
 
-  const i = ids.indexOf(id)
+  const i = state.ids.indexOf(id)
   if (i !== -1) {
     ids.splice(i, 1)
   }

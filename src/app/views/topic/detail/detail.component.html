@@ -46,7 +46,7 @@
     </ul>
     <div class="comments" [loading]="commentsLoading">
       <nz-card [nzTitle]="count" [nzExtra]="comt" [nzBordered]="false">
-        <p *ngIf="!total; else elseBlock;">暂无回复</p>
+        <p *ngIf="!topic?.comtCount; else elseBlock;">暂无回复</p>
         <ng-template #elseBlock>
           <app-comment-list [data]="comments"></app-comment-list>
         </ng-template>
@@ -54,7 +54,7 @@
     </div>
   </div>
   <ng-template #count>
-    <span>{{ total }} 回复</span>
+    <span>{{ topic?.comtCount }} 回复</span>
   </ng-template>
   <ng-template #comt>
     <a href="javascript:;" (click)="toggleComtEditor()">{{ fade ? '取消' : '回复' }}</a>

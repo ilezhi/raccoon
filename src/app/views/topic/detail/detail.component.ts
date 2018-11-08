@@ -23,7 +23,6 @@ export class DetailComponent implements OnInit, OnDestroy {
   visible = false
   tid: number
   comments = []
-  total = 0 // 评论数量
 
   favoring = false
   liking = false
@@ -66,7 +65,6 @@ export class DetailComponent implements OnInit, OnDestroy {
       })
     ).subscribe(comts => {
       this.comments = comts
-      this.total = utils.getNodeCount(comts, 'replies')
     })
 
     this.sub.add(childSub)
