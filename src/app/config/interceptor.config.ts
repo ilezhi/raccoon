@@ -12,12 +12,17 @@ import { Observable, throwError } from 'rxjs'
 import { map, catchError, retry, tap } from 'rxjs/operators'
 import { NzMessageService } from 'ng-zorro-antd'
 
+import { Router } from '@angular/router'
 import { API_HOST } from 'src/app/config/global.config'
+import * as utils from 'src/app/tools/util'
 
 // 请求, 响应拦截器
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
-  constructor(private message: NzMessageService) {}
+  constructor(
+    private message: NzMessageService,
+    private router: Router
+  ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const secureReq = req.clone({
@@ -32,7 +37,9 @@ export class RequestInterceptor implements HttpInterceptor {
             const { body: { code, message } } = res
 
             if (code !== 0) {
-              throw Error(message)
+              const err: any = new Error(message)
+              err.code = code
+              throw err
             }
           }
         }),
@@ -43,6 +50,11 @@ export class RequestInterceptor implements HttpInterceptor {
           // 后端正常返回, code不是0
           if (ok === undefined) {
             msg = error.message
+
+            if ((error as any).code === 407) {
+              utils.clearStorage('user')
+              this.router.navigate(['/login'])
+            }
           }
 
           // 网络问题或后端没能正常返回

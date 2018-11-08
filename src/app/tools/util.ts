@@ -45,6 +45,10 @@ export const storage = (key: string, val?: any): any => {
   sess.setItem(key, JSON.stringify(val))
 }
 
+export const clearStorage = (key: string): void => {
+  window.sessionStorage.removeItem(key)
+}
+
 export const toFirstUpperCase = (str: string): string => {
   str = 'on' + str.replace(/^\S/, s => s.toUpperCase())
   return str
