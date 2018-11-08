@@ -26,6 +26,7 @@
               "node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css",
               "src/styles.scss",
               "node_modules/github-markdown-css/github-markdown.css",
+              "node_modules/nprogress/nprogress.css",
               "src/assets/sass/markdown.scss"
             ],
             "scripts": [
