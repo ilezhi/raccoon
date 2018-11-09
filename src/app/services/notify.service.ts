@@ -30,7 +30,11 @@ export class NotifyService {
     }
 
     const handle = utils.toFirstUpperCase(tag)
-    const { avatar, body } = this[handle](data)
+    const { avatar, body, cancel } = this[handle](data)
+    if (cancel) {
+      return
+    }
+
     const { title } = this
 
     new Notification(title, {
@@ -93,11 +97,33 @@ export class NotifyService {
     return { avatar, body }
   }
 
-  onFavor() {
-    return {}
+  onFavor(data: any) {
+    const { user: { id } } = this
+    const { authorID, title, isFavor, shared, nickname, avatar } = data
+
+    if (id !== authorID) {
+      return { cancel: true }
+    }
+
+    const tag = shared ? '分享' : '提问'
+    const action = isFavor ? '收藏了' : '已取消收藏'
+    const body = `${nickname}${action}您的${tag}<<${title}>>`
+
+    return { avatar, body }
   }
 
-  onLike() {
-    return {}
+  onLike(data: any) {
+    const { user: { id } } = this
+    const { authorID, title, isLike, shared, nickname, avatar } = data
+
+    if (id !== authorID) {
+      return { cancel: true }
+    }
+
+    const tag = shared ? '分享' : '提问'
+    const action = isLike ? '点赞了' : '已取消点赞'
+    const body = `${nickname}${action}您的${tag}<<${title}>>`
+
+    return { avatar, body }
   }
 }

@@ -31,7 +31,7 @@ const category = (state = [], action: Action) => {
     case TopicTypes.Favor: {
       let categories = state.map(item => {
         if (item.id === payload.categoryID) {
-          if (payload.favor) {
+          if (payload.isFavor) {
             item.count += 1
           } else {
             item.count -= 1

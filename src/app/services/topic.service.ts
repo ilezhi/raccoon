@@ -17,6 +17,7 @@ import * as HomeAction from 'src/app/action/home.action'
 import * as MyAction from 'src/app/action/my.action'
 import * as SolvedAction from 'src/app/action/solved.action'
 import * as SharedAction from 'src/app/action/shared.action'
+import * as SocketAction from 'src/app/action/socket.action'
 
 @Injectable({
   providedIn: 'root'
@@ -145,10 +146,18 @@ export class TopicService {
     this.store.dispatch(new TopicAction.PostReply(reply))
   }
 
+  dispatchFavor(data: any) {
+    this.store.dispatch(new SocketAction.Favor(data))
+  }
+
+  dispatchLike(data: any) {
+    this.store.dispatch(new SocketAction.Like(data))
+  }
+
   close() {
     this.editor.next(true)
   }
-  
+
   comments(topicID: number): Observable<boolean> {
     const { http, store } = this
     const url = `comments/${topicID}`
@@ -180,39 +189,34 @@ export class TopicService {
   /**
    * 收藏, 取消收藏
    */
-  favor(topicID: number, categoryID: number): Observable<boolean> {
+  favor(topicID: number, params: any): Observable<boolean> {
     const { http, store } = this
     const url = `topic/favor/${topicID}`
-    return http.post(url, { categoryID }).pipe(
+    return http.post(url, params).pipe(
       map((res: Res) => {
-        const favor = !!res.data
-        const params = {
-          topicID,
-          categoryID,
-          favor
-        }
-        store.dispatch(new TopicAction.Favor(params))
-        return favor
+        const isFavor = res.data
+        const data = { topicID, categoryID: params.categoryID, isFavor }
+        store.dispatch(new TopicAction.Favor(data))
+        return isFavor
       }),
       catchError(_ => of(false))
     )
   }
 
   /**
-   * 
-   * @param id id
+   * 点赞
    * @param type 点赞类型, 文章, 评论, 回复
    */
-  like(id: number, type: string): Observable<boolean> {
+  like(topicID: number, params: any): Observable<boolean> {
     const { http, store } = this
-    const url = `like/${id}`
+    const url = `like/${topicID}`
 
-    return http.post(url, { type }).pipe(
+    return http.post(url, params).pipe(
       map((res: Res) => {
-        const like = !!res.data
-        const params = { id, type, like }
-        store.dispatch(new TopicAction.Like(params))
-        return like
+        const isLike = res.data
+        const data = { topicID, type: params.type, isLike }
+        store.dispatch(new TopicAction.Like(data))
+        return isLike
       }),
       catchError(_ => of(false))
     )

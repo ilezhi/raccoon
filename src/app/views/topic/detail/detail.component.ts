@@ -125,10 +125,17 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   showFavorModal() {
-    const { topic, ts } = this
-    if (topic.isFavor) {
+    const { topic: { isFavor, id, authorID, shared, categoryID, title }, ts } = this
+    if (isFavor) {
       this.favoring = true
-      ts.favor(topic.id, topic.categoryID)
+      const params = {
+        categoryID,
+        title,
+        shared,
+        authorID,
+        type: 'topic'
+      }
+      ts.favor(id, params)
         .subscribe(_ => {
           this.favoring = false
         })
@@ -145,9 +152,15 @@ export class DetailComponent implements OnInit, OnDestroy {
    * 点赞
    */
   onLike() {
-    const { topic, ts } = this
+    const { topic: { id, title, shared, authorID }, ts } = this
     this.liking = true
-    ts.like(topic.id, 'topic')
+    const params = {
+      title,
+      shared,
+      type: 'topic',
+      authorID
+    }
+    ts.like(id, params)
       .subscribe(_ => {
         this.liking = false
       })

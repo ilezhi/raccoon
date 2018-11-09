@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core'
-import { Store, select } from '@ngrx/store'
+import { Component } from '@angular/core'
+import { Store } from '@ngrx/store'
 
-import { getState, getUrl } from 'src/app/reducers'
+import { getState } from 'src/app/reducers'
 import { Router, NavigationStart, NavigationEnd } from '@angular/router'
 
 import NProgress from 'nprogress'

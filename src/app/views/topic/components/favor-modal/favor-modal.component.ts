@@ -6,7 +6,6 @@ import {
   EventEmitter,
   OnDestroy,
 } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
 import { Subscription } from 'rxjs'
 import { NzMessageService } from 'ng-zorro-antd'
 
@@ -22,10 +21,11 @@ export class FavorModalComponent implements OnInit, OnDestroy {
   category = ''
   editable = false
   show = false
-  topicID: number
   posting: boolean
   favor: number
   cid: number // 当前选中收藏类型
+
+  @Input() topic: Topic
 
   categories: Array<Category>
   sub: Subscription
@@ -40,7 +40,6 @@ export class FavorModalComponent implements OnInit, OnDestroy {
   @Output() cancel = new EventEmitter<void>()
 
   constructor(
-    private route: ActivatedRoute,
     private message: NzMessageService,
     private userService: UserService,
     private topicService: TopicService
@@ -50,9 +49,7 @@ export class FavorModalComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnInit() {
-    this.topicID = +this.route.snapshot.paramMap.get('id')
-  }
+  ngOnInit() {}
 
   ngOnDestroy() {
     this.sub.unsubscribe()
@@ -113,9 +110,18 @@ export class FavorModalComponent implements OnInit, OnDestroy {
    * 收藏
    * @param id 分类id
    */
-  onFavor(id: number) {
-    this.cid = id
-    this.topicService.favor(this.topicID, id)
+  onFavor(cid: number) {
+    this.cid = cid
+    const { topic: { id, title, shared, authorID } } = this
+    const params = {
+      categoryID: cid,
+      title,
+      shared,
+      authorID,
+      type: 'topic'
+    }
+
+    this.topicService.favor(id, params)
       .subscribe(favor => {
         if (favor) {
           this.favor = id

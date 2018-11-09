@@ -10,6 +10,7 @@ import {
   SolvedTypes,
   TagTypes,
   SharedTypes,
+  SocketTypes,
 } from '../action/type'
 
 const topics = (state: KeyMap = {}, action: Action): KeyMap => {
@@ -26,16 +27,18 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
     case SharedTypes.Topics: {
 
       const { topics } = payload.entities
+      const obj = {}
+
       for (const id in topics) {
         const topic = state[id]
-        if (topic && topic.isFull) {
-          delete topics[id]
+        if (!topic || !topic.isFull) {
+          obj[id] = topics[id]
         }
       }
 
       return {
         ...state,
-        ...topics
+        ...obj
       }
     }
 
@@ -103,10 +106,16 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
     }
 
     case TopicTypes.Favor: {
-      const { topicID: id, favor, categoryID } = payload
-      const topic = {...state[id]}
-      topic.isFavor = favor
-      if (favor) {
+      const { topicID: id, isFavor, categoryID } = payload
+      let topic = {...state[id]}
+
+      if (!topic.isFull) {
+        return state
+      }
+
+      topic.isFavor = isFavor
+
+      if (isFavor) {
         topic.favorCount += 1
         topic.categoryID = categoryID
       } else {
@@ -120,14 +129,41 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
+    case SocketTypes.Favor: {
+      const { id, isFavor } = payload
+      let topic = {...state[id]}
+
+      if (!topic || !topic.isFull) {
+        return state
+      }
+
+      if (isFavor) {
+        topic.favorCount += 1
+      } else {
+        topic.favorCount -= 1
+      }
+
+      return {
+        ...state,
+        [id]: topic
+      }
+    }
+
     case TopicTypes.Like: {
-      const { id, type, like } = payload
+      const { topicID: id, type, isLike} = payload
       if (type !== 'topic') {
         return state
       }
+
       const topic = {...state[id]}
-      topic.isLike = like
-      if (like) {
+
+      // 只有获取过详情才会有此信息
+      if (!topic.isFull) {
+        return state
+      }
+
+      topic.isLike = isLike
+      if (isLike) {
         topic.likeCount += 1
       } else {
         topic.likeCount -= 1
@@ -137,6 +173,29 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
         ...state,
         [id]: topic
       }
+    }
+
+    case SocketTypes.Like: {
+      const { id, type, isLike } = payload
+      if (type !== 'topic') {
+        return state
+      }
+
+      let topic = {...state[id]}
+      if (!topic || !topic.isFull) {
+        return state
+      }
+
+      if (isLike) {
+        topic.likeCount += 1
+      } else {
+        topic.likeCount -= 1
+      }
+
+      return {
+        ...state,
+        [id]: topic
+      }      
     }
 
     default: {
