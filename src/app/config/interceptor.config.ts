@@ -51,7 +51,7 @@ export class RequestInterceptor implements HttpInterceptor {
           if (ok === undefined) {
             msg = error.message
 
-            if ((error as any).code === 407) {
+            if ((error as any).code === 409) {
               utils.clearStorage('user')
               this.router.navigate(['/login'])
             }
