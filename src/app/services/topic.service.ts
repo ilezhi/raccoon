@@ -113,11 +113,25 @@ export class TopicService {
     return this.http.post(url, params)
       .pipe(
         map((res: Res) => {
-          this.dispatch(res.data)
+          const result: MySchema = normalize(res.data, topicSchema)
+          this.store.dispatch(new TopicAction.Post(result))
           return true
         }),
         catchError(_ => of(false))
       )
+  }
+
+  put(id: number, tags: Tag[], params: TopicParams): Observable<boolean> {
+    const url = `topic/update/${id}`
+    return this.http.put(url, params).pipe(
+      map((res: Res) => {
+        const result: MySchema = normalize(res.data, topicSchema)
+        result.tags = tags
+        this.store.dispatch(new TopicAction.Update(result))
+        return true
+      }),
+      catchError(_ => of(false))
+    )
   }
 
   detail(id: number): Observable<boolean> {

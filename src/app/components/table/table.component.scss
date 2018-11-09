@@ -18,6 +18,15 @@ tr {
 
   &:hover {
     box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+
+    .comt,
+    .date {
+      display: none;
+    }
+
+    .editable {
+      display: initial;
+    }
   }
 }
 
@@ -51,7 +60,8 @@ td {
 }
 
 .title {
-  width: calc(100% - 280px);
+  flex: 1;
+  overflow: hidden;
 
   &:hover {
     text-decoration: underline;
@@ -71,6 +81,7 @@ td {
 .comt {
   width: 24px;
   height: 24px;
+  margin-left: 10px;
 
   img {
     width: 24px;
@@ -81,4 +92,17 @@ td {
 .date {
   width: 70px;
   text-align: right;
+}
+
+.editable {
+  display: none;
+  padding: 0 10px;
+
+  button {
+    border: none;
+    background: transparent;
+    padding: 6px 12px;
+    overflow: hidden;
+    border-radius: 4px;
+  }
 }

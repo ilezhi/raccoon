@@ -12,7 +12,6 @@ import { Subscription } from 'rxjs';
   animations: slidePanel
 })
 export class MdEditorComponent implements OnInit, OnDestroy {
-  text = ''
   fullscreen = false
   preview = 'preview'
   history: string[] = []
@@ -20,6 +19,8 @@ export class MdEditorComponent implements OnInit, OnDestroy {
   isParse = true // 是否解析markdown语法
   thin = false
   sub: Subscription
+  
+  _content: string
 
   @Input()
   set simple(isSimple: boolean) {
@@ -31,6 +32,13 @@ export class MdEditorComponent implements OnInit, OnDestroy {
   }
   get simple() {
     return this.thin
+  }
+
+  @Input()
+  set content(val) {
+    this._content = val
+    this.history.push(val)
+    this.cursor = 1
   }
 
   @Output() save = new EventEmitter<string>()

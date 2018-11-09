@@ -3,6 +3,7 @@ import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
 
 import { TopicService } from 'src/app/services/topic.service'
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-all',
@@ -14,7 +15,10 @@ export class AllComponent implements OnInit {
   topics$: Observable<Topic[]>
   loading: boolean
 
-  constructor(private ts: TopicService) {
+  constructor(
+    private ts: TopicService,
+    private router: Router
+  ) {
     this.topics$ = this.ts.all$.pipe(
       tap((topics: Topic[]) => {
         !topics && this.fetchTopics()
@@ -31,5 +35,18 @@ export class AllComponent implements OnInit {
       .subscribe(_ => {
         this.loading = false
       })
+  }
+
+  onEdit() {
+    this.router.navigate(['', {outlets: {slide: 'topic/edit/14'}}])
+  }
+
+  onSetTop() {
+  }
+
+  onSetAwesome() {
+  }
+
+  onTrash() {
   }
 }

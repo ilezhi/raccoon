@@ -23,6 +23,7 @@ declare interface KeyMap {
 declare interface MySchema {
   entities: {[key: string]: any}
   result: any
+  [key: string]: any
 }
 
 declare interface LoginForm {

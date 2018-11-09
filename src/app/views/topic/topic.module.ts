@@ -13,7 +13,8 @@ import { CommentItemComponent } from './components/comment-item/comment-item.com
 import { TopicComponent } from './topic.component'
 import { CreateComponent } from './create/create.component'
 import { DetailComponent } from './detail/detail.component'
-import { FavorModalComponent } from './components/favor-modal/favor-modal.component'
+import { FavorModalComponent } from './components/favor-modal/favor-modal.component';
+import { EditComponent } from './edit/edit.component'
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { FavorModalComponent } from './components/favor-modal/favor-modal.compon
     CommentListComponent,
     CommentItemComponent,
     FavorModalComponent,
+    EditComponent,
   ]
 })
 export class TopicModule { }

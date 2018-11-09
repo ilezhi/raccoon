@@ -1,4 +1,4 @@
-import { Component, Renderer2, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, Renderer2, OnInit, OnDestroy, ViewChild, ElementRef, Input } from '@angular/core';
 import { EditorService } from '../../services/editor.service';
 import { Subscription } from 'rxjs';
 
@@ -7,10 +7,15 @@ import { Subscription } from 'rxjs';
   templateUrl: './panel-edit.component.html',
   styleUrls: ['./panel-edit.component.scss']
 })
-export class PanelEditComponent implements OnInit, OnDestroy  {
+export class PanelEditComponent implements OnInit, OnDestroy{
   data = '';
 
   private sub: Subscription
+
+  @Input()
+  set content(val) {
+    this.data = val
+  }
 
   @ViewChild('md')
   $textarea: ElementRef;

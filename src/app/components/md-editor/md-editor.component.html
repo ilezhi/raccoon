@@ -9,7 +9,7 @@
     <app-toolbar-right [simple]="simple"></app-toolbar-right>
   </div>
   <div class="panel">
-    <app-panel-edit [@stateEdit]="preview"></app-panel-edit>
-    <app-panel-view [isParse]="isParse" [@statePreview]="preview"></app-panel-view>
+    <app-panel-edit [@stateEdit]="preview" [content]="_content"></app-panel-edit>
+    <app-panel-view [isParse]="isParse" [@statePreview]="preview" [content]="_content"></app-panel-view>
   </div>
 </div>

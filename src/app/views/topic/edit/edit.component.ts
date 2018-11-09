@@ -1,37 +1,70 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { Subscription } from 'rxjs'
+import { tap } from 'rxjs/operators'
 import { NzMessageService } from 'ng-zorro-antd'
 
 import { SelectedTagComponent } from '../components/selected-tag/selected-tag.component'
 import { TopicService } from 'src/app/services/topic.service'
 
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss']
+  selector: 'app-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss']
 })
-export class CreateComponent implements OnInit {
+export class EditComponent implements OnInit, OnDestroy {
   title = ''
+  content = ''
   shared = false
   loading = false
+  tid: number
+  tags: any
+
+  sub: Subscription
 
   @ViewChild(SelectedTagComponent) $tag: SelectedTagComponent
 
   constructor(
     private message: NzMessageService,
+    private route: ActivatedRoute,
     private ts: TopicService
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const { route, ts} = this
+    const tid = +route.snapshot.paramMap.get('id')
+  
+    this.tid = tid
 
-  /**
-   * 保存topic
-   * @param text markdonw
-   * 1. 获取title
-   * 2. 获取tag
-   * 3. 获取project
-   */
+    this.sub = ts.topic$(tid).pipe(
+      tap(topic => {
+        if (!topic) {
+          this.fetchDetail(tid)
+        }
+      })
+    ).subscribe(topic => {
+      if (topic) {
+        this.title = topic.title
+        this.content = topic.content
+        this.tags = topic.tags
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe()
+  }
+
+  fetchDetail(id: number) {
+    this.loading = true
+    this.ts.detail(id)
+      .subscribe(_ => {
+        this.loading = false
+      })
+  }
+
   onSave(text: string) {
-    let { title, shared, $tag, ts } = this
+    let { title, shared, $tag, ts, tid } = this
     title = title.trim()
 
     if (title === '') {
@@ -56,7 +89,7 @@ export class CreateComponent implements OnInit {
     }
 
     this.loading = true
-    ts.post(params)
+    ts.put(tid, this.tags, params)
       .subscribe(done => {
         this.loading = false
         if (done) {

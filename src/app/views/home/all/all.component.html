@@ -1,1 +1,7 @@
-<app-table [data]="topics$ | async"></app-table>
+<app-table
+  [data]="topics$ | async"
+  (edit)="onEdit()"
+  (setTop)="onSetTop()"
+  (setAwesome)="onSetAwesome()"
+  (trash)="onTrash()">
+</app-table>

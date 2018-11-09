@@ -1,0 +1,22 @@
+<div class="post" [loading]="loading">
+  <aside>
+    <i class="icon close ripple" (click)="onClose()">
+      close
+    </i>
+    <ul>
+      <li>
+        <input nz-input [(ngModel)]="title" type="text" readonly placeholder="标题, 10~30个字符">
+      </li>
+      <li>
+        <label nz-checkbox [(ngModel)]="shared">分享</label>
+      </li>
+      <li>
+        <app-selected-tag [data]="tags"></app-selected-tag>
+      </li>
+    </ul>
+  </aside>
+  <div class="md">
+    <app-md-editor
+      (save)="onSave($event)" [content]="content"></app-md-editor>
+  </div>
+</div>

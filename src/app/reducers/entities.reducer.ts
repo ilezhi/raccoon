@@ -51,8 +51,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
-    case TopicTypes.Detail:
-    case TopicTypes.Update: {
+    case TopicTypes.Detail: {
       const { topics } = payload.entities
       const obj = {}
       for (const key in topics) {
@@ -63,6 +62,26 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
         t.lastAvatar = ot.lastAvatar
 
         obj[key] = t
+      }
+
+      return {
+        ...state,
+        ...obj
+      }
+    }
+
+    case TopicTypes.Update: {
+      const { topics } = payload.entities
+      const obj = {}
+      for (const key in topics) {
+        let t = topics[key]
+        const ot = { ...state[key] }
+        ot.tags = t.tags
+        ot.content = t.content
+        ot.activeAt = t.activeAt
+        ot.shared = t.shared
+
+        obj[key] = ot
       }
 
       return {

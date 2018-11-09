@@ -16,6 +16,10 @@ export class PanelViewComponent implements OnInit, OnDestroy {
   data: string;
   sub: Subscription
   @Input() isParse: boolean;
+  @Input()
+  set content(val) {
+    this.data = val
+  }
 
   constructor(
     private editorService: EditorService

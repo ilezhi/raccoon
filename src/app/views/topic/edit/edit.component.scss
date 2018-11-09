@@ -1,0 +1,31 @@
+.post {
+  display: flex;
+  height: 100%;
+}
+
+aside {
+  flex-shrink: 0;
+  position: relative;
+}
+
+aside {
+  width: 400px;
+}
+
+ul {
+  padding: 50px 10px 10px;
+}
+
+li {
+  margin: 0 0 10px;
+}
+
+.md {
+  flex: 1;
+}
+
+.close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+}

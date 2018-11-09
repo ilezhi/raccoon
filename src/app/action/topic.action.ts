@@ -9,7 +9,7 @@ export class Post implements Action {
 
 export class Update implements Action {
   readonly type = TopicTypes.Update
-  constructor() {}
+  constructor(public payload: MySchema) {}
 }
 
 export class Detail implements Action {

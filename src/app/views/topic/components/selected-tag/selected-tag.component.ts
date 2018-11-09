@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnDestroy } from '@angular/core'
+import { Component, ElementRef, ViewChild, OnDestroy, Input } from '@angular/core'
 import { Subscription } from 'rxjs'
 
 import { TagService } from 'src/app/services/tag.service'
@@ -14,6 +14,13 @@ export class SelectedTagComponent implements OnDestroy {
   tag = ''          // 搜索输入
   list: Tag[]
   private sub: Subscription
+
+  @Input()
+  set data(tags: Tag[]) {
+    if (tags) {
+      this.tags = tags.map(item => ({...item}))
+    }
+  }
 
   @ViewChild('input') $tag: ElementRef
 
