@@ -133,9 +133,9 @@ export class TopicService {
     )
   }
 
-  dispatch(topic: Topic) {
-    const result = normalize(topic, topicSchema)
-    this.store.dispatch(new TopicAction.Post(result))
+  dispatch(topic: Topic){
+    const result: MySchema = normalize(topic, topicSchema)
+    this.store.dispatch(new SocketAction.PostTopic(result))
   }
 
   dispatchComment(comment: Comment) {

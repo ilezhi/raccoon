@@ -42,6 +42,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
+    case SocketTypes.PostTopic:
     case TopicTypes.Post: {
       const { topics } = payload.entities
       return {
@@ -254,7 +255,8 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
     case HomeTypes.Awesome:
     case TopicTypes.Detail:
     case TopicTypes.Post:
-    case TopicTypes.Update: {
+    case TopicTypes.Update:
+    case SocketTypes.PostTopic: {
       const { tags } = payload.entities
       
       if (!tags) {

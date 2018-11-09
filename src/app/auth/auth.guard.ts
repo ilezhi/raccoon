@@ -13,15 +13,16 @@ export class AuthGuard implements CanLoad {
   canLoad(route: Route): boolean {
     let url = `/${route.path}`
 
-    return this.checkLogin(url)
+    return this.checkLogin()
   }
 
-  checkLogin(url: string): boolean {
+  checkLogin(): boolean {
     if (this.us.isLoggedIn) {
       return true
     }
 
-    if (!!utils.storage('user')) {
+    const user = utils.storage('user')
+    if (user) {
       return true
     }
 
