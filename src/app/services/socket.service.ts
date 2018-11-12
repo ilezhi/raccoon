@@ -46,10 +46,10 @@ export class WSService {
     this.ns.user = user
     const conn = this.conn = webSocket(`ws://172.18.2.231:9000/ws/${user.id}`)
     conn.subscribe((res: any) => {
-      const { data, type } = res
+      const { data, type, action } = res
 
       const handle = utils.toFirstUpperCase(type)
-      this[handle](data)
+      this[handle](data, action)
     })
   }
 

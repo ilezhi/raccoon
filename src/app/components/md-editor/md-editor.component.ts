@@ -38,7 +38,7 @@ export class MdEditorComponent implements OnInit, OnDestroy {
   set content(val) {
     this._content = val
     this.history.push(val)
-    this.cursor = 1
+    this.cursor = 0
   }
 
   @Output() save = new EventEmitter<string>()

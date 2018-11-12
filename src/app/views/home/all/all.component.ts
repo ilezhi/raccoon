@@ -37,8 +37,8 @@ export class AllComponent implements OnInit {
       })
   }
 
-  onEdit() {
-    this.router.navigate(['', {outlets: {slide: 'topic/edit/14'}}])
+  onEdit(id: number) {
+    this.router.navigate(['', {outlets: {slide: `topic/edit/${id}`}}])
   }
 
   onSetTop() {

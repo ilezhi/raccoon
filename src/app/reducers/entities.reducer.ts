@@ -70,16 +70,18 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
+    case SocketTypes.UpdateTopic:
     case TopicTypes.Update: {
       const { topics } = payload.entities
       const obj = {}
       for (const key in topics) {
         let t = topics[key]
         const ot = { ...state[key] }
-        ot.tags = t.tags
+
         ot.content = t.content
         ot.activeAt = t.activeAt
         ot.shared = t.shared
+        ot.tags = t.tags
 
         obj[key] = ot
       }

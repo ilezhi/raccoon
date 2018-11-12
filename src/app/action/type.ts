@@ -73,7 +73,8 @@ export enum UserTypes {
 
 export enum SocketTypes {
   PostTopic = '[RT post] topic',
-  PutTopic = '[RT put] topic',
+  UpdateTopic = '[RT put] topic',
+  TrashTopic = '[RT trash] topic',
 
   Comment = '[RT post] comment',
   Reply = '[RT post] reply',

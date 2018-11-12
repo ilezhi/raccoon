@@ -9,15 +9,15 @@ import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from 
 export class TableComponent {
   @Input() data: Array<Topic>
 
-  @Output() edit = new EventEmitter<any>()
+  @Output() edit = new EventEmitter<number>()
   @Output() setTop = new EventEmitter<any>()
   @Output() setAwesome = new EventEmitter<any>()
   @Output() trash = new EventEmitter<any>()
 
   constructor() {}
 
-  onEdit() {
-    this.edit.emit()
+  onEdit(id: number) {
+    this.edit.emit(id)
   }
 
   onSetTop() {

@@ -1,6 +1,6 @@
 <app-table
   [data]="topics$ | async"
-  (edit)="onEdit()"
+  (edit)="onEdit($event)"
   (setTop)="onSetTop()"
   (setAwesome)="onSetAwesome()"
   (trash)="onTrash()">

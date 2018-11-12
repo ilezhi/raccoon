@@ -7,8 +7,13 @@ export class PostTopic implements Action {
   constructor(public payload: MySchema) {}
 }
 
-export class PutTopic implements Action {
-  readonly type = SocketTypes.PutTopic
+export class UpdateTopic implements Action {
+  readonly type = SocketTypes.UpdateTopic
+  constructor(public payload: MySchema) {}
+}
+
+export class TrashTopic implements Action {
+  readonly type = SocketTypes.TrashTopic
   constructor(public payload: MySchema) {}
 }
 

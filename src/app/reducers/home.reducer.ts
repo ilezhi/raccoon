@@ -43,6 +43,7 @@ const all = (state: PageState, action: Action): PageState => {
       return { ids }
     }
 
+    case SocketTypes.UpdateTopic:
     case TopicTypes.Update: {
       return topicUpdateCase(state, payload)
     }

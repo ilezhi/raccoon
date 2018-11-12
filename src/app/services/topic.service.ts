@@ -126,7 +126,7 @@ export class TopicService {
     return this.http.put(url, params).pipe(
       map((res: Res) => {
         const result: MySchema = normalize(res.data, topicSchema)
-        result.tags = tags
+        result.oldTags = tags
         this.store.dispatch(new TopicAction.Update(result))
         return true
       }),
@@ -148,8 +148,16 @@ export class TopicService {
   }
 
   dispatch(topic: Topic){
+    const { store } = this
     const result: MySchema = normalize(topic, topicSchema)
-    this.store.dispatch(new SocketAction.PostTopic(result))
+    const action = topic.createdAt === topic.updatedAt ? 'create' : 'update'
+    switch (action) {
+      case 'update':
+        store.dispatch(new SocketAction.UpdateTopic(result))
+        break
+      default:
+        store.dispatch(new SocketAction.PostTopic(result))
+    }
   }
 
   dispatchComment(comment: Comment) {

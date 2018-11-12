@@ -31,7 +31,7 @@
           </td>
           <td class="date">{{ topic.activeAt | ago }}</td>
           <td class="editable">
-            <button class="ripple" (click)="onEdit()">编辑</button>
+            <button class="ripple" (click)="onEdit(topic.id)">编辑</button>
             <button class="ripple" (click)="onSetTop()">置顶</button>
             <button class="ripple" (click)="onSetAwesome()">精华</button>
             <button class="ripple" nz-popconfirm nzTitle="确认删除吗?" (nzOnConfirm)="onTrash()">删除</button>

@@ -45,22 +45,26 @@ export class NotifyService {
   }
 
   onTopic(topic: Topic) {
-    const { avatar, createdAt, updatedAt, favor, nickname, title } = topic
+    const { avatar, createdAt, updatedAt, shared, nickname, title } = topic
     let body = nickname
+
+    let type = shared ? '分享' : '提问'
+
     if (createdAt === updatedAt) {
       // 新增
-      if (favor) {
-        body += `分享了文章<<${title}>>`
+      if (shared) {
+        body += `${type}了文章<<${title}>>`
       } else {
-        body += `有一个提问<<${title}>>等您来回答`
+        body += `有一个${type}<<${title}>>等您来回答`
       }
     } else {
-      if (favor) {
-        body += `更新了文章<<${title}>>`
+      if (shared) {
+        body += `更新了分享<<${title}>>`
       } else {
         body += `更新了提问<<${title}>>`
       }
     }
+
 
     return {
       avatar, body
