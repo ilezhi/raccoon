@@ -9,8 +9,8 @@ import { NotifyService } from './notify.service'
 })
 export class WSService {
   private topic   = new Subject<Topic>()
-  private comment = new Subject<Comment>()
-  private reply   = new Subject<Reply>()
+  private comment = new Subject<TopicData>()
+  private reply   = new Subject<TopicData>()
   private like    = new Subject<any>()
   private favor   = new Subject<any>()
   private top     = new Subject<Topic>()
@@ -23,11 +23,11 @@ export class WSService {
     return this.topic.asObservable()
   }
 
-  get comment$(): Observable<Comment> {
+  get comment$(): Observable<TopicData> {
     return this.comment.asObservable()
   }
 
-  get reply$(): Observable<Reply> {
+  get reply$(): Observable<TopicData> {
     return this.reply.asObservable()
   }
 
@@ -68,14 +68,14 @@ export class WSService {
     this.ns.notify('topic', topic)
   }
 
-  onComment(comment: Comment) {
-    this.comment.next(comment)
-    this.ns.notify('comment', comment)
+  onComment(data: TopicData) {
+    this.comment.next(data)
+    this.ns.notify('comment', data)
   }
 
-  onReply(reply: Reply) {
-    this.reply.next(reply)
-    this.ns.notify('reply', reply)
+  onReply(data: TopicData) {
+    this.reply.next(data)
+    this.ns.notify('reply', data)
   }
 
   onLike(like: any) {

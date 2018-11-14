@@ -6,6 +6,7 @@ import {
   topicPostCase,
   topicUpdateCase,
 } from '../tools/create-reducer'
+import { append } from 'src/app/tools/helper-reducer'
 import {
   HomeTypes,
   TopicTypes,
@@ -32,14 +33,8 @@ const all = (state: PageState, action: Action): PageState => {
         return
       }
     
-      let ids = [...state.ids]
       const { topicID } = payload
-      const i = state.ids.indexOf(topicID)
-      if (i !== -1) {
-        ids.splice(i, 1)
-      }
-    
-      ids.unshift(topicID)
+      let ids = append(state.ids, topicID)
       return { ids }
     }
 
@@ -59,14 +54,21 @@ const all = (state: PageState, action: Action): PageState => {
       let { id, result } = payload
       id = id || result
       
-      let ids = [ ...state.ids ]
-      const i = ids.indexOf(id)
-      if (i !== -1) {
-        ids.splice(i, 1)
+      let ids = append(state.ids, id)
+
+      return { ids }
+    }
+
+    case SocketTypes.Reply:
+    case SocketTypes.Comment: {
+      if (!state) {
+        return state
       }
 
-      ids.unshift(id)
+      let data: Comment | Reply = payload.comment || payload.reply
+      const id = data.topicID
 
+      let ids = append(state.ids, id)
       return { ids }
     }
 
@@ -102,19 +104,23 @@ const awesome = (state: PageState, action: Action): PageState => {
         awesome = topics[id].awesome
       }
   
-      let ids = [ ...state.ids ]
-      const i = ids.indexOf(id)
-      if (awesome) {
-        if (i !== -1) {
-          ids.splice(i, 1)
-        }
+      let ids = append(state.ids, id, awesome)
+      return { ids }
+    }
 
-        ids.unshift(id)
-      } else {
-        if (i !== -1) {
-          ids.splice(i, 1)
-        }
+    case SocketTypes.Reply:
+    case SocketTypes.Comment: {
+      if (!state) {
+        return state
       }
+
+      const { result: id, entities: { topics } } = payload
+      const topic = topics[id]
+      if (!topic.good) {
+        return state
+      }
+
+      let ids = append(state.ids, id)
 
       return { ids }
     }

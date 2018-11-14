@@ -71,9 +71,9 @@ export class NotifyService {
     }
   }
 
-  onComment(comment: Comment) {
+  onComment(data: TopicData) {
     const { user } = this
-    const { avatar, nickname, title, rid, shared } = comment
+    const { avatar, nickname, title, rid, shared } = data.comment
     let body = ''
 
     const tag = shared ? '分享' : '提问'
@@ -87,9 +87,9 @@ export class NotifyService {
     return {avatar, body }
   }
 
-  onReply(reply: Reply) {
+  onReply(data: TopicData) {
     const { user: { id } } = this
-    const { avatar, nickname, receiverID, rid, shared, title } = reply
+    const { avatar, nickname, receiverID, rid, shared, title } = data.reply
     // 通知回复的人, 和帖子作者
     let body = ''
     const tag = shared ? '分享' : '提问'

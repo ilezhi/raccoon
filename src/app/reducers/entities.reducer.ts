@@ -108,6 +108,65 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
+    case SocketTypes.Comment: {
+      const { result: id, topics, comment } = payload
+      let topic = state[id]
+      if (topic) {
+        topic = { ...topic }
+        const { id, avatar, nickname, createdAt } = comment
+        if (topic.comments) {
+          topic.comments = topic.comments.concat(id)
+        }
+        topic.comtCount += 1
+        topic.lastAvatar = avatar
+        topic.lastNickname = nickname
+        topic.activeAt = moment(createdAt).unix()
+
+      } else {
+        topic = topics[id]
+      }
+
+      return {
+        ...state,
+        [id]: topic
+      }
+    }
+
+    case SocketTypes.Reply: {
+      const { result: id, topics, reply } = payload
+      let topic = state[id]
+      if (topic) {
+        topic = { ...topic }
+        const { avatar, nickname, createdAt } = reply
+        topic.comtCount += 1
+        topic.lastAvatar = avatar
+        topic.lastNickname = nickname
+        topic.activeAt = moment(createdAt).unix()
+      } else {
+        topic = topics[id]
+      }
+
+      return {
+        ...state,
+        [id]: topic
+      }
+    }
+
+    case TopicTypes.PostReply: {
+      const { topicID, avatar, nickname, createdAt } = payload
+      const topic = { ...state[topicID] }
+
+      topic.comtCount += 1
+      topic.lastAvatar = avatar
+      topic.lastNickname = nickname
+      topic.activeAt = moment(createdAt).unix()
+
+      return {
+        ...state,
+        [topicID]: topic
+      }
+    }
+
     case TopicTypes.PostComment: {
       const { topicID, id, avatar, nickname, createdAt } = payload
       const topic = { ...state[topicID] }
@@ -410,10 +469,34 @@ const comments = (state: KeyMap = {}, action) => {
       }
     }
 
+    case SocketTypes.Comment: {
+      let { comment } = payload
+      const id = comment.id
+      return {
+        ...state,
+        [id]: comment
+      }
+    }
+
     case TopicTypes.PostReply: {
       const { commentID, id } = payload
       const comt = { ...state[commentID] }
       comt.replies = (comt.replies || []).concat(id)
+
+      return {
+        ...state,
+        [commentID]: comt
+      }
+    }
+
+    case SocketTypes.Reply: {
+      const { commentID, id } = payload.reply
+      let comt = state[commentID]
+      if (!comt) {
+        return state
+      }
+      comt = { ...comt }
+      comt.replies = comt.replies.concat(id)
 
       return {
         ...state,
@@ -443,6 +526,16 @@ const replies = (state: KeyMap = {}, action) => {
       return {
         ...state,
         [id]: payload
+      }
+    }
+
+    case SocketTypes.Reply: {
+      const { reply } = payload
+      const id = reply.id
+
+      return {
+        ...state,
+        [id]: reply
       }
     }
 

@@ -173,12 +173,18 @@ export class TopicService {
     }
   }
 
-  dispatchComment(comment: Comment) {
-    this.store.dispatch(new TopicAction.PostComment(comment))
+  dispatchComment(data: TopicData) {
+    const { topic, comment } = data
+    let result: MySchema = normalize(topic, topicSchema)
+    result.comment = comment
+    this.store.dispatch(new SocketAction.Comment(result))
   }
 
-  dispatchReply(reply: Reply) {
-    this.store.dispatch(new TopicAction.PostReply(reply))
+  dispatchReply(data: TopicData) {
+    const { topic, reply } = data
+    let result: MySchema = normalize(topic, topicSchema)
+    result.reply = reply
+    this.store.dispatch(new SocketAction.Reply(result))
   }
 
   dispatchFavor(data: any) {

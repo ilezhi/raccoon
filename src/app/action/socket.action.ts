@@ -19,12 +19,12 @@ export class TrashTopic implements Action {
 
 export class Comment implements Action {
   readonly type = SocketTypes.Comment
-  constructor(public payload: Comment) {}
+  constructor(public payload: MySchema) {}
 }
 
 export class Reply implements Action {
   readonly type = SocketTypes.Reply
-  constructor(public payload: Reply) {}
+  constructor(public payload: MySchema) {}
 }
 
 export class Favor implements Action {

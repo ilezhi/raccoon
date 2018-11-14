@@ -12,8 +12,8 @@ declare interface Topic {
 }
 
 declare interface TopicData {
-  data: Topic
-  action?: string
+  topic: Topic
+  [key: string]: any
 }
 
 declare interface Tag {

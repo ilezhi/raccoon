@@ -8,7 +8,7 @@
     </nz-input-group>
   </h1>
   <ul class="tool">
-    <li>
+    <!-- <li>
       <nz-dropdown nzTrigger="click" nzPlacement="bottomLeft">
         <p nz-dropdown>
           <nz-badge [nzDot]="true">
@@ -30,15 +30,15 @@
           <li nz-menu-item>提问</li>
         </ul>
       </nz-dropdown>
-    </li>
+    </li> -->
     <li>
-      <nz-dropdown nzTrigger="click" nzPlacement="bottomLeft">
+      <nz-dropdown nzTrigger="click" nzPlacement="bottomRight">
         <p nz-dropdown>
-          <img src="https://avatars1.githubusercontent.com/u/11797281?s=40&v=4" alt="">
+          <img [src]="user?.avatar" alt="user?.nickname">
           <i class="anticon anticon-down"></i>
         </p>
         <ul nz-menu>
-          <li nz-menu-item (click)="login()">登录</li>
+          <li nz-menu-item (click)="logout()">退出登录</li>
         </ul>
       </nz-dropdown>
     </li>

@@ -1,24 +1,29 @@
-import { Component } from '@angular/core'
-import { Store, select } from '@ngrx/store'
+import { Component, OnDestroy } from '@angular/core'
+import { Subscription } from 'rxjs'
 
 import { UserService } from 'src/app/services/user.service'
-import { User } from 'src/app/models'
-import { getInfo } from 'src/app/reducers/user.reducer'
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
   user: User
-  constructor(
-    private store: Store<any>
-  ) {
-    store.pipe(
-      select(getInfo)
-    ).subscribe(user => {
+  sub: Subscription
+
+  constructor(private us: UserService) {
+    this.sub = this.us.user$.subscribe(user => {
       this.user = user
     })
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe()
+  }
+
+  // TODO: 退出登录
+  logout() {
+
   }
 }
