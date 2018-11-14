@@ -8,11 +8,12 @@ import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from 
 })
 export class TableComponent {
   @Input() data: Array<Topic>
+  @Input() user: User
 
   @Output() edit = new EventEmitter<number>()
-  @Output() setTop = new EventEmitter<any>()
-  @Output() setAwesome = new EventEmitter<any>()
-  @Output() trash = new EventEmitter<any>()
+  @Output() setTop = new EventEmitter<number>()
+  @Output() setAwesome = new EventEmitter<number>()
+  @Output() trash = new EventEmitter<number>()
 
   constructor() {}
 
@@ -20,15 +21,15 @@ export class TableComponent {
     this.edit.emit(id)
   }
 
-  onSetTop() {
-    this.setTop.emit()
+  onSetTop(id: number) {
+    this.setTop.emit(id)
   }
 
-  onSetAwesome() {
-    this.setAwesome.emit()
+  onSetAwesome(id: number) {
+    this.setAwesome.emit(id)
   }
 
-  onTrash() {
-    this.trash.emit()
+  onTrash(id: number) {
+    this.trash.emit(id)
   }
 }

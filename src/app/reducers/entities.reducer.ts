@@ -220,6 +220,68 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }      
     }
 
+    case TopicTypes.Top: {
+      const { top, id, activeAt } = payload
+      const topic = { ...state[id] }
+      topic.top = top
+      topic.activeAt = activeAt
+
+      return {
+        ...state,
+        [id]: topic
+      }
+    }
+
+    case TopicTypes.Awesome: {
+      const { awesome, id, activeAt } = payload
+      const topic = { ...state[id] }
+      topic.awesome = awesome
+      topic.activeAt = activeAt
+
+      return {
+        ...state,
+        [id]: topic
+      }
+    }
+
+    case SocketTypes.Awesome: {
+      const { result: id, entities: { topics } } = payload
+      let newTopic = topics[id]
+
+      let topic = state[id]
+      if (topic) {
+        topic = { ...topic }
+        topic.awesome = newTopic.awesome
+        topic.activeAt = newTopic.activeAt
+      } else {
+        topic = newTopic
+      }
+
+      return {
+        ...state,
+        [id]: topic
+      }
+    }
+
+    case SocketTypes.Top: {
+      const { result: id, entities: { topics } } = payload
+      let newTopic = topics[id]
+
+      let topic = state[id]
+      if (topic) {
+        topic = { ...topic }
+        topic.top = newTopic.top
+        topic.activeAt = newTopic.activeAt
+      } else {
+        topic = newTopic
+      }
+
+      return {
+        ...state,
+        [id]: topic
+      }
+    }
+
     default: {
       return state
     }
@@ -310,6 +372,16 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
       return {
         ...state,
         [id]: payload 
+      }
+    }
+
+    case SocketTypes.Top:
+    case SocketTypes.Awesome: {
+      const { tags } = payload.entities
+
+      return {
+        ...state,
+        ...tags
       }
     }
 

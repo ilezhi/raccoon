@@ -31,10 +31,12 @@
           </td>
           <td class="date">{{ topic.activeAt | ago }}</td>
           <td class="editable">
-            <button class="ripple" (click)="onEdit(topic.id)">编辑</button>
-            <button class="ripple" (click)="onSetTop()">置顶</button>
-            <button class="ripple" (click)="onSetAwesome()">精华</button>
-            <button class="ripple" nz-popconfirm nzTitle="确认删除吗?" (nzOnConfirm)="onTrash()">删除</button>
+            <button *ngIf="user.id === topic.authorID || user.isAdmin"  class="ripple" (click)="onEdit(topic.id)">编辑</button>
+            <ng-container *ngIf="user.isAdmin">
+              <button class="ripple" (click)="onSetTop(topic.id)">置顶</button>
+              <button class="ripple" (click)="onSetAwesome(topic.id)">精华</button>
+              <button class="ripple" nz-popconfirm nzTitle="确认删除吗?" (nzOnConfirm)="onTrash(topic.id)">删除</button>
+            </ng-container>
           </td>
         </tr>
       </tbody>

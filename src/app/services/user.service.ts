@@ -19,7 +19,7 @@ export class UserService {
     private store: Store<any>
   ) {}
 
-  get user$() {
+  get user$(): Observable<User> {
     return this.store.pipe(
       select(getInfo),
       map(user => {

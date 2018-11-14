@@ -49,5 +49,13 @@ export class LayoutComponent implements OnInit {
     this.wss.like$.subscribe(data => {
       this.ts.dispatchLike(data)
     })
+
+    this.wss.top$.subscribe(data => {
+      this.ts.dispatchTop(data)
+    })
+
+    this.wss.awesome$.subscribe(data => {
+      this.ts.dispatchAwesome(data)
+    })
   }
 }

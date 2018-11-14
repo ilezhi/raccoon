@@ -134,6 +134,19 @@ export class TopicService {
     )
   }
 
+  toggleTopicField(id: number, field: string) {
+    const url = `topic/${field}/${id}`
+
+    return this.http.put(url).pipe(
+      map((res: Res) => {
+        const Action = field === 'top' ? TopicAction.Top : TopicAction.Awesome
+        this.store.dispatch(new Action(res.data))
+        return true
+      }),
+      catchError(_ => of(false))
+    )
+  }
+
   detail(id: number): Observable<boolean> {
     const { store, http } = this
     const url = `topic/${id}`
@@ -174,6 +187,16 @@ export class TopicService {
 
   dispatchLike(data: any) {
     this.store.dispatch(new SocketAction.Like(data))
+  }
+
+  dispatchTop(topic: Topic) {
+    const result = normalize(topic, topicSchema)
+    this.store.dispatch(new SocketAction.Top(result))
+  }
+
+  dispatchAwesome(topic: Topic) {
+    const result = normalize(topic, topicSchema)
+    this.store.dispatch(new SocketAction.Awesome(result))
   }
 
   close() {

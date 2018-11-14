@@ -13,6 +13,8 @@ export class WSService {
   private reply   = new Subject<Reply>()
   private like    = new Subject<any>()
   private favor   = new Subject<any>()
+  private top     = new Subject<Topic>()
+  private awesome = new Subject<Topic>()
 
   private conn: any
   private user: User
@@ -37,6 +39,14 @@ export class WSService {
     return this.favor.asObservable()
   }
 
+  get top$(): Observable<Topic> {
+    return this.top.asObservable()
+  }
+
+  get awesome$(): Observable<Topic> {
+    return this.awesome.asObservable()
+  }
+
   constructor(
     private ns: NotifyService
   ) {}
@@ -46,10 +56,10 @@ export class WSService {
     this.ns.user = user
     const conn = this.conn = webSocket(`ws://172.18.2.231:9000/ws/${user.id}`)
     conn.subscribe((res: any) => {
-      const { data, type, action } = res
+      const { data, type } = res
 
       const handle = utils.toFirstUpperCase(type)
-      this[handle](data, action)
+      this[handle](data)
     })
   }
 
@@ -76,5 +86,15 @@ export class WSService {
   onFavor(favor: any) {
     this.favor.next(favor)
     this.ns.notify('favor', favor)
+  }
+
+  onTop(topic: Topic) {
+    this.top.next(topic)
+    this.ns.notify('top', topic)
+  }
+
+  onAwesome(topic: Topic) {
+    this.awesome.next(topic)
+    this.ns.notify('awesome', topic)
   }
 }

@@ -10,7 +10,10 @@ export enum TopicTypes {
 
   Comments = '[Detail page] comments',
   PostComment = '[Detail page] post comment',
-  PostReply = '[Detail page] post reply'
+  PostReply = '[Detail page] post reply',
+
+  Top = '[List page] top',
+  Awesome = '[List page] awesome',
 }
 
 export enum HomeTypes {
@@ -79,6 +82,9 @@ export enum SocketTypes {
   Comment = '[RT post] comment',
   Reply = '[RT post] reply',
 
-  Like = '[RT like] like',
+  Like = '[RT like] topic',
   Favor = '[RT favor] topic',
+
+  Top = '[RT top] top',
+  Awesome = '[RT awesome] topic',
 }

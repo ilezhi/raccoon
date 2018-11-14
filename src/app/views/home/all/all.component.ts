@@ -1,9 +1,10 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core'
-import { Observable } from 'rxjs'
+import { Router } from '@angular/router'
+import { Observable, ObservableLike } from 'rxjs'
 import { tap } from 'rxjs/operators'
 
 import { TopicService } from 'src/app/services/topic.service'
-import { Route, Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service'
 
 @Component({
   selector: 'app-all',
@@ -13,17 +14,21 @@ import { Route, Router } from '@angular/router';
 })
 export class AllComponent implements OnInit {
   topics$: Observable<Topic[]>
+  user$: Observable<User>
   loading: boolean
 
   constructor(
     private ts: TopicService,
-    private router: Router
+    private router: Router,
+    private us: UserService
   ) {
     this.topics$ = this.ts.all$.pipe(
       tap((topics: Topic[]) => {
         !topics && this.fetchTopics()
       })
     )
+
+    this.user$ = this.us.user$
   }
 
   ngOnInit() {
@@ -41,10 +46,14 @@ export class AllComponent implements OnInit {
     this.router.navigate(['', {outlets: {slide: `topic/edit/${id}`}}])
   }
 
-  onSetTop() {
+  onSetTop(id: number) {
+    this.ts.toggleTopicField(id, 'top')
+      .subscribe(_ => {})
   }
 
-  onSetAwesome() {
+  onSetAwesome(id: number) {
+    this.ts.toggleTopicField(id, 'awesome')
+      .subscribe(_ => {})
   }
 
   onTrash() {

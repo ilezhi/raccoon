@@ -41,3 +41,13 @@ export class Like implements Action {
   readonly type = TopicTypes.Like
   constructor(public payload: any) {}
 }
+
+export class Top implements Action {
+  readonly type = TopicTypes.Top
+  constructor(public payload: Topic) {}
+}
+
+export class Awesome implements Action {
+  readonly type = TopicTypes.Awesome
+  constructor(public payload: Topic) {}
+}

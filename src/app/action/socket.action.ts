@@ -36,3 +36,13 @@ export class Like implements Action {
   readonly type = SocketTypes.Like
   constructor(public payload: any) {}
 }
+
+export class Top implements Action {
+  readonly type = SocketTypes.Top
+  constructor(public payload: MySchema) {}
+}
+
+export class Awesome implements Action {
+  readonly type = SocketTypes.Awesome
+  constructor(public payload: MySchema) {}
+}

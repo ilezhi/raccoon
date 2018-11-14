@@ -130,4 +130,33 @@ export class NotifyService {
 
     return { avatar, body }
   }
+
+  onTop(topic: Topic) {
+    const { title, top, avatar } = topic
+    
+    if (!top) {
+      return { cancel: true }
+    }
+
+    const body = `管理员置顶了<<${title}>>`
+    return { avatar, body }
+  }
+
+  onAwesome(topic: Topic) {
+    const { user: { id } } = this
+    const { authorID, title, awesome, avatar } = topic
+
+    if (!awesome) {
+      return { cancel: true }
+    }
+
+    let body = ''
+    if (id === authorID) {
+      body = `管理员将您的帖子<<${title}>>设置为精华帖`
+    } else {
+      body = `管理员将<<${title}>>设置成精华帖`
+    }
+
+    return { avatar, body }
+  }
 }

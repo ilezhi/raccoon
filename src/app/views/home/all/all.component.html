@@ -1,7 +1,8 @@
 <app-table
   [data]="topics$ | async"
+  [user]="user$ | async"
   (edit)="onEdit($event)"
-  (setTop)="onSetTop()"
-  (setAwesome)="onSetAwesome()"
-  (trash)="onTrash()">
+  (setTop)="onSetTop($event)"
+  (setAwesome)="onSetAwesome($event)"
+  (trash)="onTrash($event)">
 </app-table>

@@ -48,6 +48,28 @@ const all = (state: PageState, action: Action): PageState => {
       return topicUpdateCase(state, payload)
     }
 
+    case TopicTypes.Top:
+    case SocketTypes.Top:
+    case SocketTypes.Awesome:
+    case TopicTypes.Awesome: {
+      if (!state) {
+        return state
+      }
+
+      let { id, result } = payload
+      id = id || result
+      
+      let ids = [ ...state.ids ]
+      const i = ids.indexOf(id)
+      if (i !== -1) {
+        ids.splice(i, 1)
+      }
+
+      ids.unshift(id)
+
+      return { ids }
+    }
+
     default: {
       return state
     }
@@ -65,6 +87,36 @@ const awesome = (state: PageState, action: Action): PageState => {
     case TopicTypes.Update: {
       const { good } = payload
       return good ? topicUpdateCase(state, payload) : state
+    }
+
+    case TopicTypes.Awesome:
+    case SocketTypes.Awesome: {
+      if (!state) {
+        return state
+      }
+
+      let { id, awesome } = payload
+      if (!id) {
+        const { result, entities: { topics } } = payload
+        id = result
+        awesome = topics[id].awesome
+      }
+  
+      let ids = [ ...state.ids ]
+      const i = ids.indexOf(id)
+      if (awesome) {
+        if (i !== -1) {
+          ids.splice(i, 1)
+        }
+
+        ids.unshift(id)
+      } else {
+        if (i !== -1) {
+          ids.splice(i, 1)
+        }
+      }
+
+      return { ids }
     }
 
     default: {
