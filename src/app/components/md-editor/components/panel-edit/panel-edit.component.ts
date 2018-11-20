@@ -14,7 +14,7 @@ export class PanelEditComponent implements OnInit, OnDestroy{
 
   @Input()
   set content(val) {
-    this.data = val
+    this.data = val || ''
   }
 
   @ViewChild('md')
@@ -48,7 +48,6 @@ export class PanelEditComponent implements OnInit, OnDestroy{
   insertText$(item) {
     const { $textarea, data } = this;
     const { selectionStart: start, selectionEnd: end } = $textarea.nativeElement;
-
     this.editorService.insertText({start, end}, item, data);
   }
 
@@ -84,9 +83,19 @@ export class PanelEditComponent implements OnInit, OnDestroy{
    */
   onPressEnter() {
     let { selectionStart: start, selectionEnd: end } = this.$textarea.nativeElement;
-    const lines = this.data.trim().split(/\n/g);
+    const lines = this.data.split(/\n/g);
+    console.log('lines', lines)
     let last = lines.pop();
     let data = '';
+
+    if (last === '') {
+      last = lines.pop()
+    }
+
+    if (/^\d\.\s{1}$/.test(last)) {
+      this.data = lines.concat('').join('\n')
+      return
+    }
 
     if (/^\d\.\s?[\s\S]*$/.test(last)) {
       // 有序列表
@@ -108,7 +117,7 @@ export class PanelEditComponent implements OnInit, OnDestroy{
         start += 3;
       }
     } else {
-      return;
+      return
     }
 
     end = start;
@@ -121,7 +130,8 @@ export class PanelEditComponent implements OnInit, OnDestroy{
       lines.push(data);
     }
 
-    this.data = lines.join('\n') + '\n';
+    this.data = lines.join('\n');
+
     const { renderer2, $textarea } = this;
     setTimeout(() => {
       // 获取焦点才能选中

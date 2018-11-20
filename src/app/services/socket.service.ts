@@ -54,7 +54,7 @@ export class WSService {
   connect(user) {
     this.user = user
     this.ns.user = user
-    const conn = this.conn = webSocket(`ws://172.18.2.231:9000/ws/${user.id}`)
+    const conn = this.conn = webSocket(`ws://127.0.0.1:9000/ws/${user.id}`)
     conn.subscribe((res: any) => {
       const { data, type } = res
 

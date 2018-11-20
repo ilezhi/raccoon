@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "dev": "ng serve --proxy-config proxy.config.json --host 172.18.2.231 --hmr",
+    "dev": "ng serve --proxy-config proxy.config.json --hmr",
     "hmr": "ng serve --proxy-config proxy.config.json --configuration hmr",
     "build": "ng build",
     "test": "ng test",
