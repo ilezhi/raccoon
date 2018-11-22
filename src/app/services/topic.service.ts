@@ -7,7 +7,7 @@ import { normalize } from 'normalizr'
 import { HttpService } from './http.service'
 import { topicsSchema, topicSchema, commentsSchema } from 'src/app/normalizr/schema'
 import { getFullTopic, getCommentsByTopicID } from '../reducers/entities.reducer'
-import { getAll, getAwesome } from 'src/app/reducers/home.reducer'
+import { getAll, getAwesome, getDept } from 'src/app/reducers/home.reducer'
 import { getMy } from 'src/app/reducers/my.reducer'
 import { getQuestion, getAnswer } from 'src/app/reducers/solved.reducer'
 import { getShared } from 'src/app/reducers/shared.reducer'
@@ -19,13 +19,16 @@ import * as SolvedAction from 'src/app/action/solved.action'
 import * as SharedAction from 'src/app/action/shared.action'
 import * as SocketAction from 'src/app/action/socket.action'
 
+import { UserService } from './user.service'
+
 @Injectable({
   providedIn: 'root'
 })
 export class TopicService {
   constructor(
     private store: Store<any>,
-    private http: HttpService
+    private http: HttpService,
+    private us: UserService
   ) {}
 
   private editor = new Subject<boolean>()
@@ -41,6 +44,10 @@ export class TopicService {
 
   get awesome$(): Observable<Topic[]> {
     return this.store.pipe(select(getAwesome))
+  }
+
+  get dept$(): Observable<Topic[]> {
+    return this.store.pipe(select(getDept))
   }
 
   get my$(): Observable<Topic[]> {
@@ -100,6 +107,10 @@ export class TopicService {
 
   getAwesome(lastID: number, size = 20): Observable<boolean> {
     return this.topics(HomeAction.Awesome, 'awesome', lastID, size)
+  }
+
+  getDept(lastID: number, size = 20): Observable<boolean> {
+    return this.topics(HomeAction.Dept, 'department', lastID, size)
   }
 
   getMy(lastID: number, size = 20): Observable<boolean> {
@@ -173,6 +184,7 @@ export class TopicService {
   dispatch(topic: Topic){
     const { store } = this
     const result: MySchema = normalize(topic, topicSchema)
+    result.user = this.us.user
     const action = topic.createdAt === topic.updatedAt ? 'create' : 'update'
     switch (action) {
       case 'update':

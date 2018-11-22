@@ -193,7 +193,7 @@ const awesome = (state: PageState, action: Action): PageState => {
         id = result
         awesome = topics[id].awesome
       }
-  
+
       let ids = append(state.ids, id, awesome)
       return { ids }
     }
@@ -231,6 +231,20 @@ const dept = (state: PageState, action: Action): PageState => {
  
     case TopicTypes.Post: {
       return topicPostCase(state, payload)
+    }
+
+    case SocketTypes.PostTopic: {
+      const { user: { deptID }, result: id, topics } = payload
+      const topic = topics[id]
+
+      if (topic.deptID !== deptID) {
+        return state
+      }
+
+      let ids = [...state.ids]
+      ids.unshift(id)
+
+      return { ids }
     }
 
     case TopicTypes.Update: {
@@ -277,6 +291,10 @@ export const awesomeState = (state) => {
   return state.home.awesome
 }
 
+export const deptState = (state) => {
+  return state.home.dept
+}
+
 export const getAll = createSelector(
   getTopics,
   allState,
@@ -287,6 +305,12 @@ export const getAll = createSelector(
 export const getAwesome = createSelector(
   getTopics,
   awesomeState,
+  utils.getPageTopics
+)
+
+export const getDept = createSelector(
+  getTopics,
+  deptState,
   utils.getPageTopics
 )
 

@@ -13,6 +13,7 @@ import * as utils from 'src/app/tools/util'
 })
 export class UserService {
   isLoggedIn = false
+  user: User
 
   constructor(
     private http: HttpService,
@@ -33,7 +34,7 @@ export class UserService {
         if (!user || !user.id) {
           return this.fetchLoginUser()
         }
-
+        this.user = user
         return of(user)
       })
     )
