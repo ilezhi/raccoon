@@ -11,6 +11,7 @@ import {
   TagTypes,
   SharedTypes,
   SocketTypes,
+  CollectTypes
 } from '../action/type'
 
 const topics = (state: KeyMap = {}, action: Action): KeyMap => {
@@ -23,6 +24,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
     case HomeTypes.Awesome:
     case HomeTypes.Top:
     case MyTypes.Topics:
+    case CollectTypes.Topics:
     case SolvedTypes.QTopics:
     case SolvedTypes.ATopics:
     case SharedTypes.Topics: {

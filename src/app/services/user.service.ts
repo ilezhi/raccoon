@@ -14,6 +14,7 @@ import * as utils from 'src/app/tools/util'
 export class UserService {
   isLoggedIn = false
   user: User
+  categories: Category[]
 
   constructor(
     private http: HttpService,
@@ -45,7 +46,12 @@ export class UserService {
   }
 
   get categories$() {
-    return this.store.pipe(select(getCategories))
+    return this.store.pipe(
+      select(getCategories),
+      tap((categories: Category[]) => {
+        this.categories = categories
+      })
+    )
   }
 
   category$(name: string) {

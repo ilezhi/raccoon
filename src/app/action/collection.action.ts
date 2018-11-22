@@ -2,7 +2,7 @@ import { Action } from "@ngrx/store"
 
 import { CollectTypes } from './type'
 
-export class CollectionTopicsAction implements Action {
+export class Topics implements Action {
   readonly type = CollectTypes.Topics
-  constructor(public payload: PageState) {}
+  constructor(public payload: MySchema) {}
 }

@@ -84,7 +84,7 @@ export class PanelEditComponent implements OnInit, OnDestroy{
   onPressEnter() {
     let { selectionStart: start, selectionEnd: end } = this.$textarea.nativeElement;
     const lines = this.data.split(/\n/g);
-    console.log('lines', lines)
+
     let last = lines.pop();
     let data = '';
 

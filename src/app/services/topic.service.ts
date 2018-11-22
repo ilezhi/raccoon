@@ -11,6 +11,7 @@ import { getAll, getAwesome, getDept } from 'src/app/reducers/home.reducer'
 import { getMy } from 'src/app/reducers/my.reducer'
 import { getQuestion, getAnswer } from 'src/app/reducers/solved.reducer'
 import { getShared } from 'src/app/reducers/shared.reducer'
+import { getTopicsByCollectionID } from 'src/app/reducers/collection.reducer'
 
 import * as TopicAction from 'src/app/action/topic.action'
 import * as HomeAction from 'src/app/action/home.action'
@@ -18,6 +19,7 @@ import * as MyAction from 'src/app/action/my.action'
 import * as SolvedAction from 'src/app/action/solved.action'
 import * as SharedAction from 'src/app/action/shared.action'
 import * as SocketAction from 'src/app/action/socket.action'
+import * as CollectionAction from 'src/app/action/collection.action'
 
 import { UserService } from './user.service'
 
@@ -74,7 +76,11 @@ export class TopicService {
     return this.store.pipe(select(getCommentsByTopicID(id)))
   }
 
-  topics(Action: any, type = 'all', lastID?: number, size = 2): Observable<any> {
+  collection$(id: number): Observable<Topic[]> {
+    return this.store.pipe(select(getTopicsByCollectionID(id)))
+  }
+
+  topics(Action: any, type = 'all', lastID?: number, size = 2, id?: number): Observable<any> {
     const url = `topics/${type}`
     const params = {
       lastID,
@@ -83,7 +89,8 @@ export class TopicService {
 
     return this.http.get(url, params).pipe(
       map((res: Res) => {
-        let result = normalize(res.data, topicsSchema)
+        let result: MySchema = normalize(res.data, topicsSchema)
+        id && (result.id = id)
         this.store.dispatch(new Action(result))
         return true
       }),
@@ -123,6 +130,11 @@ export class TopicService {
 
   getAnswer(lastID: number, size = 20): Observable<boolean> {
     return this.topics(SolvedAction.Answer, 'answer', lastID, size)
+  }
+
+  getByCollection(id: number, lastID: number, size = 20): Observable<boolean> {
+    const url = `favor/${id}`
+    return this.topics(CollectionAction.Topics, url, lastID, size, id)
   }
 
   getShared(lastID: number, size = 20): Observable<boolean> {

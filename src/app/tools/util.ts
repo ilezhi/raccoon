@@ -2,7 +2,7 @@ export const getPageTopics = (topics: KeyMap, state: PageState, top: PageState):
   if (!state) {
     return
   }
-  
+
   let ids = state.ids
 
   if (top) {
@@ -10,7 +10,6 @@ export const getPageTopics = (topics: KeyMap, state: PageState, top: PageState):
   }
 
   const data: any = ids.map(id => topics[id])    
-
   return data
 }
 
