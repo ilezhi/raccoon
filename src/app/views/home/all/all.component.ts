@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { Observable, ObservableLike } from 'rxjs'
+import { Observable, forkJoin } from 'rxjs'
 import { tap } from 'rxjs/operators'
 
 import { TopicService } from 'src/app/services/topic.service'
@@ -24,7 +24,9 @@ export class AllComponent implements OnInit {
   ) {
     this.topics$ = this.ts.all$.pipe(
       tap((topics: Topic[]) => {
-        !topics && this.fetchTopics()
+        if (!topics) {
+          this.fetchTopics()
+        }
       })
     )
 
@@ -35,11 +37,14 @@ export class AllComponent implements OnInit {
   }
 
   fetchTopics(lastID?: number, size = 20) {
+    const { ts } = this
     this.loading = true
-    this.ts.getAll(lastID, size)
-      .subscribe(_ => {
-        this.loading = false
-      })
+    forkJoin(
+      ts.getAll(lastID, size),
+      ts.getTop()
+    ).subscribe(_ => {
+      this.loading = false
+    })
   }
 
   onEdit(id: number) {

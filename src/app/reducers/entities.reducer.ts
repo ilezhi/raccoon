@@ -21,6 +21,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
     case HomeTypes.Dept:
     case HomeTypes.Team:
     case HomeTypes.Awesome:
+    case HomeTypes.Top:
     case MyTypes.Topics:
     case SolvedTypes.QTopics:
     case SolvedTypes.ATopics:
@@ -279,6 +280,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }      
     }
 
+    case SocketTypes.Top:
     case TopicTypes.Top: {
       const { top, id, activeAt } = payload
       const topic = { ...state[id] }
@@ -395,6 +397,7 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
     case HomeTypes.Dept:
     case HomeTypes.Team:
     case HomeTypes.Awesome:
+    case HomeTypes.Top:
     case TopicTypes.Detail:
     case TopicTypes.Post:
     case TopicTypes.Update:

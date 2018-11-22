@@ -1,9 +1,15 @@
-export const getPageTopics = (topics: KeyMap, state: PageState): Array<Topic> => {
+export const getPageTopics = (topics: KeyMap, state: PageState, top: PageState): Array<Topic> => {
   if (!state) {
     return
   }
   
-  const data: any = state.ids.map(id => topics[id])    
+  let ids = state.ids
+
+  if (top) {
+    ids = top.ids.concat(ids)
+  }
+
+  const data: any = ids.map(id => topics[id])    
 
   return data
 }

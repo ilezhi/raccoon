@@ -24,6 +24,8 @@ export enum HomeTypes {
   Dept = '[Dept page] topics',
 
   Team = '[Team page] topics',
+
+  Top = '[Top list] topics'
 }
 
 export enum MyTypes {

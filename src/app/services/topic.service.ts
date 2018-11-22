@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import { Observable, of, Subject, ObservableLike} from 'rxjs'
-import { catchError, map, last } from 'rxjs/operators'
+import { Observable, of, Subject } from 'rxjs'
+import { catchError, map } from 'rxjs/operators'
 import { Store, select } from '@ngrx/store'
 import { normalize } from 'normalizr'
 
@@ -81,6 +81,16 @@ export class TopicService {
         return true
       }),
       catchError(_ => of(false))
+    )
+  }
+
+  getTop(): Observable<boolean> {
+    return this.http.get('topics/top').pipe(
+      map((res: Res) => {
+        let result = normalize(res.data, topicsSchema)
+        this.store.dispatch(new HomeAction.Top(result))
+        return true
+      })
     )
   }
 

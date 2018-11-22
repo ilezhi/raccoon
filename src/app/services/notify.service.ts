@@ -133,7 +133,7 @@ export class NotifyService {
 
   onTop(topic: Topic) {
     const { title, top, avatar } = topic
-    
+
     if (!top) {
       return { cancel: true }
     }

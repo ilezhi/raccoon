@@ -21,3 +21,8 @@ export class Team implements Action {
   readonly type = HomeTypes.Team
   constructor(public payload: MySchema) {}
 }
+
+export class Top implements Action {
+  readonly type = HomeTypes.Top
+  constructor(public payload: MySchema) {}
+}

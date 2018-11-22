@@ -43,8 +43,43 @@ const all = (state: PageState, action: Action): PageState => {
       return topicUpdateCase(state, payload)
     }
 
-    case TopicTypes.Top:
-    case SocketTypes.Top:
+    case TopicTypes.Top: {
+      if (!state) {
+        return state
+      }
+
+      const { id, top } = payload
+      let ids = [...state.ids]
+      const i = ids.indexOf(id)
+
+      if (top) {
+        ids.splice(i, 1)
+      } else {
+        ids.unshift(id)
+      }
+
+      return { ids }
+    }
+
+    case SocketTypes.Top: {
+      if (!state) {
+        return state
+      }
+
+      const { result, topics } = payload
+      const topic = topics[result]
+      let ids = [...state.ids]
+
+      if (topic.top) {
+        const i = ids.indexOf(result)
+        ids.splice(i, 1)
+      } else {
+        ids.unshift(result)
+      }
+
+      return { ids }
+    }
+
     case SocketTypes.Awesome:
     case TopicTypes.Awesome: {
       if (!state) {
@@ -70,6 +105,61 @@ const all = (state: PageState, action: Action): PageState => {
 
       let ids = append(state.ids, id)
       return { ids }
+    }
+
+    default: {
+      return state
+    }
+  }
+}
+
+const top = (state: PageState, action: Action): PageState => {
+  const { type, payload } = action
+
+  switch(type) {
+    case HomeTypes.Top: {
+      return topicListCase(state, payload)
+    }
+
+    case TopicTypes.Top: {
+      if (!state) {
+        return
+      }
+
+      const { id, top } = payload
+      let ids = [...state.ids]
+ 
+      if (top) {
+        ids.unshift(id)
+      } else {
+        const i = ids.indexOf(id)
+        ids.splice(i, 1)
+      }
+
+      return { ids }
+    }
+
+    case SocketTypes.Top: {
+      if (!state) {
+        return state
+      }
+
+      const { result, topics } = payload
+      const topic = topics[result]
+      const ids = [...state.ids]
+
+      if (topic.top) {
+        ids.unshift(result)
+      } else {
+        const i = ids.indexOf(result)
+        ids.splice(i, 1)
+      }
+
+      return { ids }
+    }
+
+    case SocketTypes.Top: {
+
     }
 
     default: {
@@ -175,6 +265,10 @@ const team = (state: PageState, action: Action): PageState => {
   }
 }
 
+export const topState = (state) => {
+  return state.home.top
+}
+
 export const allState = (state) => {
   return state.home.all
 }
@@ -186,6 +280,7 @@ export const awesomeState = (state) => {
 export const getAll = createSelector(
   getTopics,
   allState,
+  topState,
   utils.getPageTopics
 )
 
@@ -199,6 +294,6 @@ export const getTotal = (state) => {
   return state.home.all.total
 }
 
-const reducer: ActionReducer<any, Action> = combineReducers({all, awesome, dept, team})
+const reducer: ActionReducer<any, Action> = combineReducers({all, awesome, dept, team, top})
 
 export default reducer

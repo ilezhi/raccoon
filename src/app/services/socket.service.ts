@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core'
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket'
-import { Observable, Subject } from 'rxjs'
+import { Observable, Subject, interval, of } from 'rxjs'
 
 import * as utils from 'src/app/tools/util'
 import { NotifyService } from './notify.service'
+import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -55,12 +56,34 @@ export class WSService {
     this.user = user
     this.ns.user = user
     const conn = this.conn = webSocket(`ws://127.0.0.1:9000/ws/${user.id}`)
-    conn.subscribe((res: any) => {
-      const { data, type } = res
+    conn.pipe(
+      catchError(err => {
+        this.connect(this.user)
+        return of('')
+      })
+    ).subscribe((res: any) => {
+      if (typeof res === 'string') {
+        return
+      }
+      const { data, type, tag } = res
+
+      if (tag === 'heartbeat') {
+        return
+      }
 
       const handle = utils.toFirstUpperCase(type)
       this[handle](data)
     })
+
+    // const heartbeat$ = conn.multiplex(
+    //   () => ({tag: 'heartbeat', text: 'ping'}),
+    //   () => ({tag: 'heartbeat'}),
+    //   (message: any) => message.tag === 'heartbeat'
+    // )
+
+    // heartbeat$.subscribe(message => {
+    //   console.log('aaabbb', message)
+    // })
   }
 
   onTopic(topic: Topic) {
