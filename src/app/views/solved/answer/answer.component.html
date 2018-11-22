@@ -1,1 +1,4 @@
-<app-table [data]="topics$ | async"></app-table>
+<app-table
+  [data]="topics$ | async"
+  [user]="user$ | async">
+</app-table>
