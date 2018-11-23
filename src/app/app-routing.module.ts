@@ -9,18 +9,18 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: './views/login/login.module#LoginModule'
+    loadChildren: () => import(/* webpackChunkName: "login" */ './views/login/login.module').then(module => module['LoginModule'], () => { throw({loadChunkError: true})})
   },
   {
     path: 'topic',
-    loadChildren: './views/topic/topic.module#TopicModule',
+    loadChildren: () => import(/* webpackChunkName: "topic" */ './views/topic/topic.module').then(module => module['TopicModule'], () => { throw({loadChunkError: true})}),
     outlet: 'slide',
     data: {
       preload: true
     }
   },
   {
-    path: '', loadChildren: './views/layout/layout.module#LayoutModule',
+    path: '', loadChildren: () => import(/* webpackChunkName: "home" */ './views/layout/layout.module').then(module => module['LayoutModule'], () => { throw({loadChunkError: true})}),
     canLoad: [AuthGuard]
   },
   {
