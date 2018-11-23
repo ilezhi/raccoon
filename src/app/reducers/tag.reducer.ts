@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store'
-import { TagTypes } from '../action/type'
+import { TagTypes, TopicTypes } from '../action/type'
 import { getTopics } from './entities.reducer'
 import * as utils from 'src/app/tools/util'
 
@@ -21,6 +21,53 @@ const tag = (state: DState = {}, action: Action): DState => {
         ...state,
         [id]: { ids: result }
       }
+    }
+
+    case TopicTypes.Post: {
+      if (!state) {
+        return state
+      }
+
+      const { result: id, entities: { topics } } = payload
+      const tids = topics[id].tags
+
+      let newState = JSON.parse(JSON.stringify(state))
+      tids.forEach(tid => {
+        let tag = newState[tid]
+
+        if (tag) {
+          tag.ids.unshift(id)
+        }
+      })
+
+      return newState
+    }
+
+    case TopicTypes.Update: {
+      if (!state) {
+        return state
+      }
+
+      const { result: id, entities: { topics }, oldTags } = payload
+      const tids = topics[id].tags
+      let newState = JSON.parse(JSON.stringify(state))
+
+      oldTags.forEach(t => {
+        let tag = newState[t.id]
+        if (tag) {
+          const i = tag.ids.indexOf(id)
+          tag.ids.splice(i, 1)
+        }
+      })
+
+      tids.forEach(tid => {
+        let tag = newState[tid]
+        if (tag) {
+          tag.ids.unshift(tid)
+        }
+      })
+
+      return newState
     }
 
     default: {

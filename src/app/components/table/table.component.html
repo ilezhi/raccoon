@@ -7,7 +7,7 @@
       <tbody>
         <tr *ngFor="let topic of data">
           <td class="user">
-            <img src="https://avatars1.githubusercontent.com/u/11797281?s=30&v=4" alt="stark" title="stark">
+            <img [src]="topic.avatar" [alt]="topic.nickname" [title]="topic.nickname">
           </td>
           <!-- <td class="mark">
             <span class="ripple">

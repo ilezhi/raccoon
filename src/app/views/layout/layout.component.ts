@@ -17,12 +17,12 @@ export class LayoutComponent implements OnInit {
     private us: UserService,
     private ts: TopicService
   ) {
-    // us.user$.subscribe((user:any) => {
-    //   if (user && user.id) {
-    //     this.wss.connect(user)
-    //     this.watch()
-    //   }
-    // })
+    us.user$.subscribe((user:any) => {
+      if (user && user.id) {
+        this.wss.connect(user)
+        this.watch()
+      }
+    })
   }
 
   ngOnInit() {

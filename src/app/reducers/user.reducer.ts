@@ -87,7 +87,6 @@ const tags = (state = [], action: Action) => {
       return unique
     }
 
-    
     case TopicTypes.Update: {
       const { oldTags, entities: { tags } } = payload
       let minus: number[] = []
@@ -112,9 +111,10 @@ const tags = (state = [], action: Action) => {
           tag.count -= 1
         }
 
-        if (plus.includes(tag.id + '')) {
+        const i = plus.indexOf(tag.id + '')
+        if (i !== -1) {
           tag.count += 1
-          plus.unshift()
+          plus.splice(i, 1)
         }
 
         arr.push(tag)

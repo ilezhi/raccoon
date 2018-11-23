@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Observable, of } from 'rxjs'
+import { Observable, of, EMPTY as empty } from 'rxjs'
 import { map, catchError, switchMap, tap } from 'rxjs/operators'
 import { Store, select } from '@ngrx/store'
 
@@ -26,12 +26,18 @@ export class UserService {
       select(getInfo),
       map(user => {
         if (!user.id) {
-          return utils.storage('user')
+          const info = utils.storage('user')
+          this.store.dispatch(new UserAction.Login(info))
+          return
         }
-        
+
         return user
       }),
       switchMap(user => {
+        if (!user) {
+          return of(null)
+        }
+
         if (!user.id) {
           return this.fetchLoginUser()
         }
