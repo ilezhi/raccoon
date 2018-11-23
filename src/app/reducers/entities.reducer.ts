@@ -25,6 +25,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
     case HomeTypes.Top:
     case MyTypes.Topics:
     case CollectTypes.Topics:
+    case TagTypes.Topics:
     case SolvedTypes.QTopics:
     case SolvedTypes.ATopics:
     case SharedTypes.Topics: {
@@ -400,6 +401,8 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
     case HomeTypes.Team:
     case HomeTypes.Awesome:
     case HomeTypes.Top:
+    case CollectTypes.Topics:
+    case TagTypes.Topics:
     case TopicTypes.Detail:
     case TopicTypes.Post:
     case TopicTypes.Update:

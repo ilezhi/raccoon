@@ -56,7 +56,7 @@
       </div>
     </li>
     <li class="dropdown" [class.show]="showTags">
-      <div class="item" *ngFor="let tag of tags">
+      <div class="item" *ngFor="let tag of tags" routerLinkActive="active">
         <!-- <i class="icon">J</i> -->
         <a [routerLink]="['/tag', tag.name]">{{ tag.name }}</a>
         <strong>{{ tag.count }}</strong>

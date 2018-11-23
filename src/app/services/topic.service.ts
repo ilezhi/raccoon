@@ -12,6 +12,7 @@ import { getMy } from 'src/app/reducers/my.reducer'
 import { getQuestion, getAnswer } from 'src/app/reducers/solved.reducer'
 import { getShared } from 'src/app/reducers/shared.reducer'
 import { getTopicsByCollectionID } from 'src/app/reducers/collection.reducer'
+import { getTopicsByTagID } from 'src/app/reducers/tag.reducer'
 
 import * as TopicAction from 'src/app/action/topic.action'
 import * as HomeAction from 'src/app/action/home.action'
@@ -20,6 +21,7 @@ import * as SolvedAction from 'src/app/action/solved.action'
 import * as SharedAction from 'src/app/action/shared.action'
 import * as SocketAction from 'src/app/action/socket.action'
 import * as CollectionAction from 'src/app/action/collection.action'
+import * as TagAction from 'src/app/action/tag.action'
 
 import { UserService } from './user.service'
 
@@ -80,6 +82,10 @@ export class TopicService {
     return this.store.pipe(select(getTopicsByCollectionID(id)))
   }
 
+  tag$(id: number): Observable<Topic[]> {
+    return this.store.pipe(select(getTopicsByTagID(id)))
+  }
+
   topics(Action: any, type = 'all', lastID?: number, size = 2, id?: number): Observable<any> {
     const url = `topics/${type}`
     const params = {
@@ -135,6 +141,11 @@ export class TopicService {
   getByCollection(id: number, lastID: number, size = 20): Observable<boolean> {
     const url = `favor/${id}`
     return this.topics(CollectionAction.Topics, url, lastID, size, id)
+  }
+
+  getByTag(id: number, lastID: number, size = 20): Observable<boolean> {
+    const url = `tag/${id}`
+    return this.topics(TagAction.Topics, url, lastID, size, id)
   }
 
   getShared(lastID: number, size = 20): Observable<boolean> {

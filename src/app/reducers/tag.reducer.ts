@@ -1,55 +1,26 @@
-import { TagTypes, TopicTypes } from '../action/type'
+import { createSelector } from '@ngrx/store'
+import { TagTypes } from '../action/type'
+import { getTopics } from './entities.reducer'
+import * as utils from 'src/app/tools/util'
 
 const tag = (state: DState = {}, action: Action): DState => {
   const { type, payload } = action
 
   switch(type) {
     case TagTypes.Topics: {
-      const { tagID, total, page, tids } = payload
-      let { ids, ...rest } = state[tagID]
-      let unique = new Set(ids.concat(tids))
-      ids = [...unique]
+      let { id, result } = payload
+      let tag = state[id]
+
+      if (tag) {
+        let ids = tag.ids
+        result = new Set(ids.concat(result))
+        result = [...result]
+      }
 
       return {
         ...state,
-        [tagID]: {
-          ...rest,
-          page,
-          total,
-          ids,
-        }
+        [id]: { ids: result }
       }
-    }
-
-    case TopicTypes.Post:
-    case TopicTypes.Update: {
-      const { tags, id } = payload
-      let st = JSON.parse(JSON.stringify(state))
-
-      tags.forEach(tid => {
-        let topics = st[tid]
-        if (topics) {
-          const { ids, ...rest } = topics
-          const i = ids.indexOf(id)
-
-          if (i === -1) {
-            rest.total += 1
-          } else {
-            ids.splice(i, 1)
-          }
-          
-          ids.unshift(id)
-        } else {
-          st[tid] = {
-            page: 1,
-            total: 1,
-            size: 50,
-            ids: [id]
-          }
-        }
-      })
-
-      return st
     }
 
     default: {
@@ -57,5 +28,15 @@ const tag = (state: DState = {}, action: Action): DState => {
     }
   }
 }
+
+const tagState = id => state => {
+  return state.tag[id]
+}
+
+export const getTopicsByTagID = id => createSelector(
+  getTopics,
+  tagState(id),
+  utils.getPageTopics
+)
 
 export default tag

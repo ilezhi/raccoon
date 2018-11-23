@@ -1,8 +1,9 @@
+import { createSelector } from '@ngrx/store'
+
 import {
   CollectTypes,
   TopicTypes
 } from '../action/type'
-import { createSelector } from '@ngrx/store'
 import { getTopics } from './entities.reducer'
 import * as utils from 'src/app/tools/util'
 

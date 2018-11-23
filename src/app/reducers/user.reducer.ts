@@ -160,4 +160,11 @@ export const getCategoryByName = (name: string) => createSelector(
   })
 )
 
+export const getTagByName = (name: string) => createSelector(
+  getTags,
+  tags => tags.find(c => {
+    return c.name.toLowerCase() === name.toLowerCase()
+  })
+)
+
 export default combineReducers({info, category, tags})

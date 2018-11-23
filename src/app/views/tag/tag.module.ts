@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core'
 import { StoreModule } from '@ngrx/store'
 
-import { TagRoutingModule } from './tag-routing.module'
-import { TagComponent } from './tag.component'
-
-import { SharedModule } from 'src/app/module/shared.module'
 import { tagReducer } from 'src/app/reducers'
+
+import { TagRoutingModule } from './tag-routing.module'
+import { SharedModule } from 'src/app/module/shared.module'
+
+import { TagComponent } from './tag.component'
+import { ListComponent } from './list/list.component'
 
 @NgModule({
   imports: [
@@ -13,6 +15,6 @@ import { tagReducer } from 'src/app/reducers'
     StoreModule.forFeature('tag', tagReducer),
     TagRoutingModule
   ],
-  declarations: [TagComponent]
+  declarations: [TagComponent, ListComponent]
 })
 export class TagModule { }

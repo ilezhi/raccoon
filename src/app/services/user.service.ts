@@ -5,7 +5,7 @@ import { Store, select } from '@ngrx/store'
 
 import { HttpService } from './http.service'
 import * as UserAction from 'src/app/action/user.action'
-import { getCategories, getCategoryByName, getTags, getInfo } from 'src/app/reducers/user.reducer'
+import { getCategories, getCategoryByName, getTags, getInfo, getTagByName } from 'src/app/reducers/user.reducer'
 import * as utils from 'src/app/tools/util'
 
 @Injectable({
@@ -25,14 +25,14 @@ export class UserService {
     return this.store.pipe(
       select(getInfo),
       map(user => {
-        if (!user) {
+        if (!user.id) {
           return utils.storage('user')
         }
-
+        
         return user
       }),
       switchMap(user => {
-        if (!user || !user.id) {
+        if (!user.id) {
           return this.fetchLoginUser()
         }
         this.user = user
@@ -56,6 +56,10 @@ export class UserService {
 
   category$(name: string) {
     return this.store.pipe(select(getCategoryByName(name)))
+  }
+
+  tag$(name: string) {
+    return this.store.pipe(select(getTagByName(name)))
   }
 
   login(userInfo: LoginForm): Observable<any> {

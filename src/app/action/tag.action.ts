@@ -6,3 +6,8 @@ export class Post implements Action {
   readonly type = TagTypes.Post
   constructor(public payload: Tag) {}
 }
+
+export class Topics implements Action {
+  readonly type = TagTypes.Topics
+  constructor(public payload: MySchema) {}
+}
