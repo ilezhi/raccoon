@@ -7,7 +7,7 @@
       <tbody>
         <tr *ngFor="let topic of data">
           <td class="user">
-            <img [src]="topic.avatar" [alt]="topic.nickname" [title]="topic.nickname">
+            <img class="avatar" [src]="topic.avatar" [alt]="topic.nickname" [title]="topic.nickname">
           </td>
           <!-- <td class="mark">
             <span class="ripple">
@@ -27,7 +27,7 @@
             </div>
           </td>
           <td class="comt">
-            <img *ngIf="topic.lastAvatar" [src]="topic.lastAvatar" [alt]="topic.lastNickname">
+            <img class="avatar" *ngIf="topic.lastAvatar" [src]="topic.lastAvatar" [alt]="topic.lastNickname">
           </td>
           <td class="date">{{ topic.activeAt | ago }}</td>
           <td class="editable">
