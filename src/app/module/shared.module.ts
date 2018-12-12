@@ -8,7 +8,8 @@ import { NgZorroAntdModule, NzMessageService } from 'ng-zorro-antd'
 
 // 自定义指令
 import { ToggleDirective } from '../directives/toggle.directive'
-import { LoadingDirective } from '../directives/loading.directive'
+// import { LoadingDirective } from '../directives/loading.directive'
+import { SentryDirective } from '../directives/sentry.directive'
 // 自定义组件
 import { BodyComponent }   from '../layout/body/body.component'
 import { FooterComponent } from '../layout/footer/footer.component'
@@ -29,7 +30,8 @@ const comp = [
   MainComponent,
   TableComponent,
   ToggleDirective,
-  LoadingDirective,
+  // LoadingDirective,
+  SentryDirective,
   TagComponent,
   Count,
   Ago

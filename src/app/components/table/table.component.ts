@@ -1,4 +1,15 @@
-import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core'
+import {
+  Component,
+  OnInit,
+  Input,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  AfterContentInit
+} from '@angular/core'
 
 @Component({
   selector: 'app-table',
@@ -7,13 +18,16 @@ import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from 
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent {
+
   @Input() data: Array<Topic>
   @Input() user: User
+  @Input() loading: boolean
 
   @Output() edit = new EventEmitter<number>()
   @Output() setTop = new EventEmitter<number>()
   @Output() setAwesome = new EventEmitter<number>()
   @Output() trash = new EventEmitter<number>()
+  @Output() load = new EventEmitter<void>()
 
   constructor() {}
 
@@ -31,5 +45,9 @@ export class TableComponent {
 
   onTrash(id: number) {
     this.trash.emit(id)
+  }
+
+  loadMore() {
+    this.load.emit()
   }
 }
