@@ -57,3 +57,10 @@ declare interface Reply {
 declare interface User {
   [key: string]: any
 }
+
+declare interface Department {
+  id: number
+  name: string
+  description: string
+  [key: string]: any
+}

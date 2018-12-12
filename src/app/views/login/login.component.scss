@@ -10,3 +10,11 @@ form {
 .login-form-button {
   width: 100%;
 }
+
+.department  ::ng-deep .ant-input-prefix {
+  z-index: 1;
+}
+
+.department  ::ng-deep .ant-select-selection__rendered {
+  margin-left: 31px;
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Observable, of, EMPTY as empty } from 'rxjs'
+import { Observable, of } from 'rxjs'
 import { map, catchError, switchMap, tap } from 'rxjs/operators'
 import { Store, select } from '@ngrx/store'
 
@@ -81,6 +81,13 @@ export class UserService {
     )
   }
 
+  signup(data: any): Observable<any> {
+    return this.http.post('signup', data).pipe(
+      map(_ => true),
+      catchError(_ => of(false))
+    )
+  }
+
   fetchInfo(): Observable<any> {
     const { http, store } = this
     return http.get('user/info').pipe(
@@ -111,6 +118,26 @@ export class UserService {
         return true
       }),
       catchError(_ => of(false))
+    )
+  }
+
+  fetchDepartments(): Observable<Department[]> {
+    return this.http.get('departments').pipe(
+      map((res: Res) => res.data),
+      catchError(_ => of([]))
+    )
+  }
+
+  isExistByEmail(email: string): Observable<any> {
+    return this.http.get('exist', { email }).pipe(
+      map((res: Res) => {
+        if (res.data) {
+          return {exist: true, error: true}
+        }
+
+        return null
+      }),
+      catchError(_ => of({error: true}))
     )
   }
 }

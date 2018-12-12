@@ -1,10 +1,10 @@
-<form nz-form [formGroup]="validateForm" (ngSubmit)="login()">
+<form nz-form [formGroup]="loginForm" (ngSubmit)="login()" *ngIf="mode === 0; else elseBlock">
   <nz-form-item>
     <nz-form-control>
       <nz-input-group nzPrefixIcon="anticon anticon-user">
         <input type="text" formControlName="email" nz-input placeholder="Email">
       </nz-input-group>
-      <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">请输入邮箱</nz-form-explain>
+      <nz-form-explain *ngIf="loginForm.get('email').dirty && loginForm.get('email').errors">请输入邮箱</nz-form-explain>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -12,14 +12,91 @@
       <nz-input-group nzPrefixIcon="anticon anticon-lock">
         <input type="password" formControlName="password" nz-input placeholder="Password">
       </nz-input-group>
-      <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">请输入密码</nz-form-explain>
+      <nz-form-explain *ngIf="loginForm.get('password').dirty && loginForm.get('password').errors">请输入密码</nz-form-explain>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-control>
       <button [nzLoading]="loading" nz-button class="login-form-button" nzType="primary">登录</button>
       <a class="login-form-forgot">忘记密码</a>
-      <a>注册</a>
+      <a href="javascript:;" (click)="onToggleSign()">注册</a>
     </nz-form-control>
   </nz-form-item>
 </form>
+<ng-template #elseBlock>
+  <form nz-form [formGroup]="signupForm" (ngSubmit)="signup()">
+    <nz-alert *ngIf="success" nzType="success" nzMessage="注册成功" nzShowIcon></nz-alert>
+    <nz-form-item>
+      <nz-form-control nzHasFeedback>
+        <nz-input-group nzPrefixIcon="anticon anticon-mail">
+          <input type="text" formControlName="email" nz-input placeholder="邮箱">
+        </nz-input-group>
+        <nz-form-explain *ngIf="signupForm.get('email').dirty && signupForm.get('email').errors">
+          <ng-container *ngIf="signupForm.get('email').hasError('required')">
+            请输入邮箱
+          </ng-container>
+          <ng-container *ngIf="signupForm.get('email').hasError('exist')">
+            邮箱已存在
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzHasFeedback>
+        <nz-input-group nzPrefixIcon="anticon anticon-lock">
+          <input type="password" formControlName="password" nz-input placeholder="密码">
+        </nz-input-group>
+        <nz-form-explain *ngIf="signupForm.get('password').dirty && signupForm.get('password').errors">密码长度需要在8~32个字符之间</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzHasFeedback>
+        <nz-input-group nzPrefixIcon="anticon anticon-lock">
+          <input type="password" formControlName="confirmPassword" nz-input placeholder="确认密码">
+        </nz-input-group>
+        <nz-form-explain *ngIf="signupForm.get('confirmPassword').dirty && signupForm.get('confirmPassword').errors">
+          <ng-container *ngIf="signupForm.get('confirmPassword').hasError('required')">
+            请确认密码!
+          </ng-container>
+          <ng-container *ngIf="signupForm.get('confirmPassword').hasError('confirm')">
+            两次密码输入不一致!
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzHasFeedback>
+        <nz-input-group nzPrefixIcon="anticon anticon-user">
+          <input type="text" formControlName="nickname" nz-input placeholder="昵称">
+        </nz-input-group>
+        <nz-form-explain *ngIf="signupForm.get('nickname').dirty && signupForm.get('nickname').errors">昵称长度需要在2~16个字符之间</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="department">
+      <nz-form-control nzHasFeedback>
+        <nz-input-group nzPrefixIcon="anticon anticon-usergroup-add">
+          <nz-select formControlName="deptID" (nzOpenChange)="onLoadDepts($event)" nzPlaceHolder="部门">
+            <nz-option *ngIf="!depts" nzDisabled nzCustomContent>
+              <i class="anticon anticon-loading anticon-spin"></i>Loading Data...
+            </nz-option>
+            <ng-container *ngIf="depts">
+              <nz-option
+                *ngFor="let dept of depts"
+                [nzValue]="dept.id"
+                [nzLabel]="dept.name">
+              </nz-option>
+            </ng-container>
+          </nz-select>
+        </nz-input-group>
+        <nz-form-explain *ngIf="signupForm.get('deptID').dirty && signupForm.get('deptID').errors">请选择一个部门</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button [nzLoading]="loading" nz-button class="login-form-button" nzType="primary">注册</button>
+        <a href="javascript:;" (click)="onToggleSign()">登录</a>
+        <a class="login-form-forgot" (click)="reset()">重置</a>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</ng-template>
