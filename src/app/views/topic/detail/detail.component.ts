@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { Subscription } from 'rxjs'
+import { Subscription, forkJoin } from 'rxjs'
 import { tap } from 'rxjs/operators'
 
 import { fade } from 'src/app/animations/fade'
 import { slideComt } from 'src/app/animations/slide'
 import { TopicService } from 'src/app/services/topic.service'
-import * as utils from 'src/app/tools/util'
+import { UserService } from 'src/app/services/user.service'
 
 @Component({
   selector: 'app-detail',
@@ -30,10 +30,12 @@ export class DetailComponent implements OnInit, OnDestroy {
   commentsLoading = false
 
   sub: Subscription
+  user: User
 
   constructor(
     private route: ActivatedRoute,
-    private ts: TopicService
+    private ts: TopicService,
+    private us: UserService
   ) {}
 
   ngOnDestroy() {
@@ -41,11 +43,10 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const { route, ts } = this
+    const { route, ts, us } = this
     const tid = +route.snapshot.paramMap.get('id')
   
     this.tid = tid
-
     this.sub = ts.topic$(tid).pipe(
       tap(topic => {
         if (!topic) {
@@ -67,6 +68,7 @@ export class DetailComponent implements OnInit, OnDestroy {
       this.comments = comts
     })
 
+    this.user = us.user
     this.sub.add(childSub)
   }
 

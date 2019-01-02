@@ -64,6 +64,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
         t.isFull = true
         t.lastNickname = ot.lastNickname
         t.lastAvatar = ot.lastAvatar
+        t.comments = ot.comments
 
         obj[key] = t
       }

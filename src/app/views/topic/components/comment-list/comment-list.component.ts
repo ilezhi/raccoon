@@ -7,6 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CommentListComponent implements OnInit {
   @Input() data: Array<Comment> = []
+  @Input() topic: Topic
+  @Input() user: User
 
   constructor() { }
 

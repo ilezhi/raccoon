@@ -1,6 +1,6 @@
 <section class="comment-list">
   <ng-template #comment let-data>
-    <app-comment-item *ngFor="let comt of data" [comment]="comt" class="comment-item">
+    <app-comment-item *ngFor="let comt of data" [comment]="comt" [topic]="topic" [user]="user" class="comment-item">
       <div *ngIf="comt.replies" class="reply">
         <ng-container *ngTemplateOutlet="comment; context:{ $implicit: comt.replies }"></ng-container>
       </div>

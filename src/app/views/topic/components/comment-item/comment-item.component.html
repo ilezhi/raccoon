@@ -26,9 +26,9 @@
       <i class="icon">reply</i>
       回复
     </button>
-    <button *ngIf="comment.replies" >
+    <button *ngIf="!topic.shared && user.id === topic.authorID && comment.replies" >
       <i class="icon">done</i>
-      采纳
+      设为答案
     </button>
   </aside>
   <ng-template #edit>

@@ -15,6 +15,8 @@ export class CommentItemComponent implements OnInit {
   $reply: ElementRef
 
   @Input() comment: Comment
+  @Input() topic: Topic
+  @Input() user: User
 
   constructor(
     private ts: TopicService
