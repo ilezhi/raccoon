@@ -301,16 +301,17 @@ export class TopicService {
 
   /**
    * 点赞
+   * @param id 帖子, 评论, 回复id
    * @param type 点赞类型, 文章, 评论, 回复
    */
-  like(topicID: number, params: any): Observable<boolean> {
+  like(id: number, params: any): Observable<boolean> {
     const { http, store } = this
-    const url = `like/${topicID}`
+    const url = `like/${id}`
 
     return http.post(url, params).pipe(
       map((res: Res) => {
         const isLike = res.data
-        const data = { topicID, type: params.type, isLike }
+        const data = { id, type: params.type, isLike }
         store.dispatch(new TopicAction.Like(data))
         return isLike
       }),

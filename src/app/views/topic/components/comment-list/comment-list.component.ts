@@ -15,4 +15,9 @@ export class CommentListComponent implements OnInit {
   ngOnInit() {
   }
 
+  trackByFn(_, item) {
+    const { receiverID, id } = item
+    const type = receiverID ? 'comt' : 'reply'
+    return id + type
+  }
 }

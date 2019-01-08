@@ -62,6 +62,10 @@ article {
     &:hover {
       opacity: 1;
     }
+
+    &.like {
+      color: #096dd9;
+    }
   }
 }
 

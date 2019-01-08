@@ -18,9 +18,10 @@
     </div>
   </div>
   <aside class="extra" *ngIf="!isReply; else edit">
-    <button>
+    <button [nzLoading]="liking" nz-button [class.like]="comment.isLike" (click)="onLike()">
+      {{ comment.likeCount ? comment.likeCount : '' }}
       <i class="icon">thumb_up</i>
-      赞
+      {{ comment.isLike ? '已赞' : '赞' }}
     </button>
     <button (click)="showReplyEditor()">
       <i class="icon">reply</i>

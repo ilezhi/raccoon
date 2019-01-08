@@ -10,6 +10,7 @@ import { TopicService } from 'src/app/services/topic.service'
 export class CommentItemComponent implements OnInit {
   isReply = false
   loading = false
+  liking = false
 
   @ViewChild('reply')
   $reply: ElementRef
@@ -57,6 +58,22 @@ export class CommentItemComponent implements OnInit {
         if (done) {
           this.cancel()
         }
+      })
+  }
+
+  onLike() {
+    const { comment: { id, receiverID }, topic: { title, shared, authorID }, ts } = this
+    const params = {
+      title,
+      shared,
+      type: receiverID ? 'reply' : 'comment',
+      authorID
+    }
+
+    this.liking = true
+    ts.like(id, params)
+      .subscribe(_ => {
+        this.liking = false
       })
   }
 }

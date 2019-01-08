@@ -236,7 +236,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
     }
 
     case TopicTypes.Like: {
-      const { topicID: id, type, isLike} = payload
+      const { id, type, isLike} = payload
       if (type !== 'topic') {
         return state
       }
@@ -475,6 +475,26 @@ const comments = (state: KeyMap = {}, action) => {
       return {
         ...state,
         [id]: payload
+      }
+    }
+
+    case TopicTypes.Like: {
+      const { id, type, isLike } = payload
+      if (type !== 'comment') {
+        return state
+      }
+
+      let comt = { ...state[id] }
+      comt.isLike = isLike
+      if (isLike) {
+        comt.likeCount += 1
+      } else {
+        comt.likeCount -= 1
+      }
+
+      return {
+        ...state,
+        [id]: comt
       }
     }
 
