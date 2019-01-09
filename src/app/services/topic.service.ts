@@ -339,13 +339,14 @@ export class TopicService {
    * 设置,取消评论为答案
    * @param cid 评论id
    * @param id 帖子id
+   * @param authorID 评论作者id
    */
-  CommentAsAnswer(cid: number, id: number): Observable<boolean> {
+  CommentAsAnswer(cid: number, id: number, authorID: number): Observable<boolean> {
     const url = `comment/answer/${cid}`
     const { http, store } = this
     return http.post(url, {id}).pipe(
       map((res: Res) => {
-        const payload = { topicID: id, ...res.data }
+        const payload = { topicID: id, commentAuthorID: authorID, ...res.data }
         store.dispatch(new TopicAction.CommentAsAnswer(payload))
         return true
       }),

@@ -55,6 +55,24 @@ const answer = (state: PageState, action: Action): PageState => {
       return topicUpdateCase(state, payload)
     }
 
+    case TopicTypes.CommentAsAnswer: {
+      if (!state) {
+        return
+      }
+
+      const { id, answerID, commentAuthorID, authorID } = payload
+      let ids = []
+      if (!answerID) {
+        ids = append(state.ids, id, false)
+      } else if(commentAuthorID === authorID) {
+        ids = append(state.ids, id)
+      } else {
+        return state
+      }
+
+      return { ids }
+    }
+
     default: {
       return state
     }

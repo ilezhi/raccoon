@@ -78,9 +78,10 @@ export class CommentItemComponent implements OnInit {
       })
   }
 
-  onAnswer(cid: number, id: number) {
+  onAnswer(cid: number) {
+    const { topic: { id }, comment: { authorID } } = this
     this.answering = true
-    this.ts.CommentAsAnswer(cid, id)
+    this.ts.CommentAsAnswer(cid, id, authorID)
       .subscribe(_ => {
         this.answering = false
       })

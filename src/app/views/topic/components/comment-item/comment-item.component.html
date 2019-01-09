@@ -27,7 +27,7 @@
       <i class="icon">reply</i>
       回复
     </button>
-    <button nz-button [nzLoading]="answering" *ngIf="!topic.shared && user.id === topic.authorID && comment.replies" (click)="onAnswer(comment.id, topic.id)">
+    <button nz-button [nzLoading]="answering" *ngIf="!topic.shared && user.id === topic.authorID && comment.replies" (click)="onAnswer(comment.id)">
       <i class="icon">done</i>
       {{ comment.id === topic.answerID ? '取消答案' : '设为答案' }}
     </button>
