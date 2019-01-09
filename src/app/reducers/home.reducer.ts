@@ -27,6 +27,7 @@ const all = (state: PageState, action: Action): PageState => {
       return topicPostCase(state, payload)
     }
 
+    case TopicTypes.CommentAsAnswer:
     case TopicTypes.PostReply:
     case TopicTypes.PostComment: {
       if (!state) {
@@ -215,6 +216,16 @@ const awesome = (state: PageState, action: Action): PageState => {
       return { ids }
     }
 
+    case TopicTypes.CommentAsAnswer: {
+      if (!state) {
+        return
+      }
+
+      const { id } = payload
+      let ids = append(state.ids, id)
+      return { ids }
+    }
+
     default: {
       return state
     }
@@ -249,6 +260,16 @@ const dept = (state: PageState, action: Action): PageState => {
 
     case TopicTypes.Update: {
       return topicUpdateCase(state, payload)
+    }
+
+    case TopicTypes.CommentAsAnswer: {
+      if (!state) {
+        return
+      }
+
+      const { id } = payload
+      let ids = append(state.ids, id)
+      return { ids }
     }
 
     default: {

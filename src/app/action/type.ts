@@ -11,6 +11,7 @@ export enum TopicTypes {
   Comments = '[Detail page] comments',
   PostComment = '[Detail page] post comment',
   PostReply = '[Detail page] post reply',
+  CommentAsAnswer = '[Detail page] answer',
 
   Top = '[List page] top',
   Awesome = '[List page] awesome',

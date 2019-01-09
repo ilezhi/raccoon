@@ -51,3 +51,8 @@ export class Awesome implements Action {
   readonly type = TopicTypes.Awesome
   constructor(public payload: Topic) {}
 }
+
+export class CommentAsAnswer implements Action {
+  readonly type = TopicTypes.CommentAsAnswer
+  constructor(public payload: any) {}
+}

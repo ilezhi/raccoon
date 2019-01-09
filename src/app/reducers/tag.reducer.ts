@@ -2,6 +2,7 @@ import { createSelector } from '@ngrx/store'
 import { TagTypes, TopicTypes } from '../action/type'
 import { getTopics } from './entities.reducer'
 import * as utils from 'src/app/tools/util'
+import { append } from 'src/app/tools/helper-reducer'
 
 const tag = (state: DState = {}, action: Action): DState => {
   const { type, payload } = action
@@ -68,6 +69,30 @@ const tag = (state: DState = {}, action: Action): DState => {
       })
 
       return newState
+    }
+
+    case TopicTypes.CommentAsAnswer: {
+      const { id } = payload
+
+      let ids = []
+      let tagID = 0
+      for (let p in state) {
+        ids = state[p].ids
+        if (ids.includes(id)) {
+          tagID = +p
+          ids = append(ids, id)
+          break
+        }
+      }
+
+      if (!tagID) {
+        return state
+      }
+
+      return {
+        ...state,
+        [tagID]: { ids }
+      }
     }
 
     default: {

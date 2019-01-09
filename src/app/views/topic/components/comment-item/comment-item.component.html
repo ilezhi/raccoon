@@ -18,7 +18,7 @@
     </div>
   </div>
   <aside class="extra" *ngIf="!isReply; else edit">
-    <button [nzLoading]="liking" nz-button [class.like]="comment.isLike" (click)="onLike()">
+    <button [nzLoading]="liking" nz-button [class.like]="comment.isLike" (click)="onLike(comment.id)">
       {{ comment.likeCount ? comment.likeCount : '' }}
       <i class="icon">thumb_up</i>
       {{ comment.isLike ? '已赞' : '赞' }}
@@ -27,9 +27,9 @@
       <i class="icon">reply</i>
       回复
     </button>
-    <button *ngIf="!topic.shared && user.id === topic.authorID && comment.replies" >
+    <button nz-button [nzLoading]="answering" *ngIf="!topic.shared && user.id === topic.authorID && comment.replies" (click)="onAnswer(comment.id, topic.id)">
       <i class="icon">done</i>
-      设为答案
+      {{ comment.id === topic.answerID ? '取消答案' : '设为答案' }}
     </button>
   </aside>
   <ng-template #edit>

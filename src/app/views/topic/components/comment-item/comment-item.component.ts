@@ -11,6 +11,7 @@ export class CommentItemComponent implements OnInit {
   isReply = false
   loading = false
   liking = false
+  answering = false
 
   @ViewChild('reply')
   $reply: ElementRef
@@ -61,8 +62,8 @@ export class CommentItemComponent implements OnInit {
       })
   }
 
-  onLike() {
-    const { comment: { id, receiverID }, topic: { title, shared, authorID }, ts } = this
+  onLike(id: number) {
+    const { comment: { receiverID }, topic: { title, shared, authorID }, ts } = this
     const params = {
       title,
       shared,
@@ -74,6 +75,14 @@ export class CommentItemComponent implements OnInit {
     ts.like(id, params)
       .subscribe(_ => {
         this.liking = false
+      })
+  }
+
+  onAnswer(cid: number, id: number) {
+    this.answering = true
+    this.ts.CommentAsAnswer(cid, id)
+      .subscribe(_ => {
+        this.answering = false
       })
   }
 }

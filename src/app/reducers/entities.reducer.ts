@@ -191,6 +191,18 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
+    case TopicTypes.CommentAsAnswer: {
+      const { id, answerID, activeAt } = payload
+      const topic = { ...state[id] }
+      topic.answerID = answerID
+      topic.activeAt = activeAt
+
+      return {
+        ...state,
+        [id]: topic
+      }
+    }
+
     case TopicTypes.Favor: {
       const { topicID: id, isFavor, categoryID } = payload
       let topic = {...state[id]}

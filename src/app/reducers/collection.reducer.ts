@@ -6,6 +6,7 @@ import {
 } from '../action/type'
 import { getTopics } from './entities.reducer'
 import * as utils from 'src/app/tools/util'
+import { append } from 'src/app/tools/helper-reducer'
 
 const collection = (state: DState = {}, action: Action): DState => {
   const { type, payload } = action
@@ -46,6 +47,30 @@ const collection = (state: DState = {}, action: Action): DState => {
       return {
         ...state,
         [categoryID]: { ids }
+      }
+    }
+
+    case TopicTypes.CommentAsAnswer: {
+      const { id } = payload
+
+      let ids = []
+      let cid = 0
+      for (let p in state) {
+        ids = state[p].ids
+        if (ids.includes(id)) {
+          cid = +p
+          ids = append(ids, id)
+          break
+        }
+      }
+
+      if (!cid) {
+        return state
+      }
+
+      return {
+        ...state,
+        [cid]: { ids }
       }
     }
 

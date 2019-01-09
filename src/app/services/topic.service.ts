@@ -334,4 +334,22 @@ export class TopicService {
       catchError(_ => of(false))
     )
   }
+
+  /**
+   * 设置,取消评论为答案
+   * @param cid 评论id
+   * @param id 帖子id
+   */
+  CommentAsAnswer(cid: number, id: number): Observable<boolean> {
+    const url = `comment/answer/${cid}`
+    const { http, store } = this
+    return http.post(url, {id}).pipe(
+      map((res: Res) => {
+        const payload = { topicID: id, ...res.data }
+        store.dispatch(new TopicAction.CommentAsAnswer(payload))
+        return true
+      }),
+      catchError(_ => of(false))
+    )
+  }
 }
