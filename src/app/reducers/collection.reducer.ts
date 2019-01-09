@@ -2,7 +2,8 @@ import { createSelector } from '@ngrx/store'
 
 import {
   CollectTypes,
-  TopicTypes
+  TopicTypes,
+  SocketTypes
 } from '../action/type'
 import { getTopics } from './entities.reducer'
 import * as utils from 'src/app/tools/util'
@@ -50,6 +51,7 @@ const collection = (state: DState = {}, action: Action): DState => {
       }
     }
 
+    case SocketTypes.Answer:
     case TopicTypes.CommentAsAnswer: {
       const { id } = payload
 

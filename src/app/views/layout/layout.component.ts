@@ -57,5 +57,9 @@ export class LayoutComponent implements OnInit {
     this.wss.awesome$.subscribe(data => {
       this.ts.dispatchAwesome(data)
     })
+
+    this.wss.answer$.subscribe(data => {
+      this.ts.dispatchAnswer(data)
+    })
   }
 }

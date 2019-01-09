@@ -159,4 +159,16 @@ export class NotifyService {
 
     return { avatar, body }
   }
+
+  onAnswer(data: TopicData) {
+    const { user: { id } } = this
+    const { topic: { answerID, title, avatar }, commentAuthorID, } = data
+    if (!answerID || commentAuthorID !== id) {
+      return { cancel: true }
+    }
+
+    let body = `您在<<${title}>>的回答被作者采纳`
+
+    return { avatar, body }
+  }
 }

@@ -16,6 +16,7 @@ export class WSService {
   private favor   = new Subject<any>()
   private top     = new Subject<Topic>()
   private awesome = new Subject<Topic>()
+  private answer  = new Subject<TopicData>()
 
   private conn: any
   private user: User
@@ -46,6 +47,10 @@ export class WSService {
 
   get awesome$(): Observable<Topic> {
     return this.awesome.asObservable()
+  }
+
+  get answer$(): Observable<TopicData> {
+    return this.answer.asObservable()
   }
 
   constructor(
@@ -119,5 +124,10 @@ export class WSService {
   onAwesome(topic: Topic) {
     this.awesome.next(topic)
     this.ns.notify('awesome', topic)
+  }
+
+  onAnswer(data: TopicData) {
+    this.answer.next(data)
+    this.ns.notify('answer', data)
   }
 }

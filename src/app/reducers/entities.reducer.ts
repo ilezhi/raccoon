@@ -190,7 +190,8 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
         [topicID]: topic
       }
     }
-
+    
+    case SocketTypes.Answer:
     case TopicTypes.CommentAsAnswer: {
       const { id, answerID, activeAt } = payload
       const topic = { ...state[id] }

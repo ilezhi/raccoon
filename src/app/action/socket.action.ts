@@ -46,3 +46,8 @@ export class Awesome implements Action {
   readonly type = SocketTypes.Awesome
   constructor(public payload: MySchema) {}
 }
+
+export class Answer implements Action {
+  readonly type = SocketTypes.Answer
+  constructor(public payload: Topic) {}
+}

@@ -90,4 +90,6 @@ export enum SocketTypes {
 
   Top = '[RT top] top',
   Awesome = '[RT awesome] topic',
+
+  Answer = '[RT answer] topic',
 }

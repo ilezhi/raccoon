@@ -250,6 +250,11 @@ export class TopicService {
     this.store.dispatch(new SocketAction.Awesome(result))
   }
 
+  dispatchAnswer(data: TopicData) {
+    const payload = { ...data.topic, topicID: data.topic.id, commentAuthorID: data.commentAuthorID }
+    this.store.dispatch(new SocketAction.Answer(payload))
+  }
+
   close() {
     this.editor.next(true)
   }
@@ -338,15 +343,15 @@ export class TopicService {
   /**
    * 设置,取消评论为答案
    * @param cid 评论id
-   * @param id 帖子id
+   * @param topicID 帖子id
    * @param authorID 评论作者id
    */
-  CommentAsAnswer(cid: number, id: number, authorID: number): Observable<boolean> {
+  CommentAsAnswer(cid: number, topicID: number, authorID: number): Observable<boolean> {
     const url = `comment/answer/${cid}`
     const { http, store } = this
-    return http.post(url, {id}).pipe(
+    return http.post(url, {topicID, authorID}).pipe(
       map((res: Res) => {
-        const payload = { topicID: id, commentAuthorID: authorID, ...res.data }
+        const payload = { topicID, commentAuthorID: authorID, ...res.data }
         store.dispatch(new TopicAction.CommentAsAnswer(payload))
         return true
       }),
