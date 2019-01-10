@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core'
 
-import { TopicService } from '../../../../services/topic.service'
+import { TopicService } from 'src/app/services/topic.service'
 
 @Component({
   selector: 'app-comment-item',

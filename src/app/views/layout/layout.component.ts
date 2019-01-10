@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core'
-import { normalize } from 'normalizr'
 
-import { WSService } from '../../services/socket.service'
-import { UserService } from '../../services/user.service'
-import { TopicService } from '../../services/topic.service'
+import { WSService } from 'src/app/services/socket.service'
+import { UserService } from 'src/app/services/user.service'
+import { TopicService } from 'src/app/services/topic.service'
 
 @Component({
   selector: 'app-layout',

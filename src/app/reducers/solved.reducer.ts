@@ -2,9 +2,7 @@
 import { combineReducers, createSelector } from '@ngrx/store'
 import {
   topicListCase,
-  topicPostCase,
   topicUpdateCase,
-  topicTrashCase,
 } from '../tools/create-reducer'
 import {
   SolvedTypes,

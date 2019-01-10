@@ -9,7 +9,6 @@ import collectionReducer from './collection.reducer'
 import sharedReducer from './shared.reducer'
 import draftReducer from './draft.reducer'
 import tagReducer from './tag.reducer'
-// import projectReducer from './project.reducer'
 import user from './user.reducer'
 
 export const appReducer: ActionReducerMap<any, any> = {

@@ -4,10 +4,10 @@ import { StoreModule } from '@ngrx/store'
 import { SolvedRoutingModule } from './solved-routing.module'
 import { SolvedComponent } from './solved.component'
 
-import { SharedModule } from '../../module/shared.module';
-import { QuestionComponent } from './question/question.component';
+import { SharedModule } from 'src/app/module/shared.module'
+import { QuestionComponent } from './question/question.component'
 import { AnswerComponent } from './answer/answer.component'
-import { solvedReducer } from '../../reducers'
+import { solvedReducer } from 'src/app/reducers'
 
 @NgModule({
   imports: [

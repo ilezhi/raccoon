@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild, OnDestroy, Input } from '@angular/core'
 import { Subscription } from 'rxjs'
 
-import { TagService } from '../../../../services/tag.service'
+import { TagService } from 'src/app/services/tag.service'
 
 @Component({
   selector: 'app-selected-tag',

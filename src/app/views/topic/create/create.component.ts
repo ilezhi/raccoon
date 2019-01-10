@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd'
 
 import { SelectedTagComponent } from '../components/selected-tag/selected-tag.component'
-import { TopicService } from '../../../services/topic.service'
+import { TopicService } from 'src/app/services/topic.service'
 
 @Component({
   selector: 'app-create',

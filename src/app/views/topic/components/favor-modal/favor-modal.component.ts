@@ -9,8 +9,8 @@ import {
 import { Subscription } from 'rxjs'
 import { NzMessageService } from 'ng-zorro-antd'
 
-import { UserService } from '../../../../services/user.service'
-import { TopicService } from '../../../../services/topic.service'
+import { UserService } from 'src/app/services/user.service'
+import { TopicService } from 'src/app/services/topic.service'
 
 @Component({
   selector: 'app-favor-modal',

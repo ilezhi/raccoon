@@ -8,7 +8,6 @@ import {
 import {
   MyTypes,
   TopicTypes,
-  SocketTypes
 } from '../action/type'
 import { getTopics } from './entities.reducer'
 import * as utils from '../tools/util'

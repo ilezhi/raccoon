@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store'
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-tag',
@@ -8,7 +7,7 @@ import { Store, select } from '@ngrx/store'
 })
 export class TagComponent implements OnInit {
 
-  constructor(private store: Store<any>) { }
+  constructor() { }
 
   ngOnInit() {
   }

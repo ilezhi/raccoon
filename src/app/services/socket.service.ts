@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket'
-import { Observable, Subject, interval, of } from 'rxjs'
+import { webSocket } from 'rxjs/webSocket'
+import { Observable, Subject, of } from 'rxjs'
 
 import * as utils from '../tools/util'
 import { NotifyService } from './notify.service'

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 
-import { MdEditorModule } from '../../components/md-editor/md-editor.module'
+import { MdEditorModule } from 'src/app/components/md-editor/md-editor.module'
 
-import { SharedModule } from '../../module/shared.module'
+import { SharedModule } from 'src/app/module/shared.module'
 import { TopicRoutingModule } from './topic-routing.module'
 
 import { SelectedTagComponent } from './components/selected-tag/selected-tag.component'
@@ -13,7 +13,7 @@ import { CommentItemComponent } from './components/comment-item/comment-item.com
 import { TopicComponent } from './topic.component'
 import { CreateComponent } from './create/create.component'
 import { DetailComponent } from './detail/detail.component'
-import { FavorModalComponent } from './components/favor-modal/favor-modal.component';
+import { FavorModalComponent } from './components/favor-modal/favor-modal.component'
 import { EditComponent } from './edit/edit.component'
 
 @NgModule({
