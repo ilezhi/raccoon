@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 
-import * as utils from 'src/app/tools/util'
+import * as utils from '../tools/util'
 
 @Injectable({
   providedIn: 'root'

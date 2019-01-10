@@ -10,7 +10,7 @@ import {
   SharedTypes,
   TopicTypes
 } from '../action/type'
-import * as utils from 'src/app/tools/util'
+import * as utils from '../tools/util'
 
 const shared = (state: PageState, action: Action): PageState => {
   const { type, payload } = action

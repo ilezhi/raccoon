@@ -19,8 +19,8 @@ import { MainComponent } from '../layout/main/main.component'
 import { TableComponent } from '../components/table/table.component'
 import { TagComponent } from '../components/tag/tag.component'
 
-import { Count } from 'src/app/pipes/count.pipe'
-import { Ago } from 'src/app/pipes/moment.pipe'
+import { Count } from '../pipes/count.pipe'
+import { Ago } from '../pipes/moment.pipe'
 
 const comp = [
   HeaderComponent,

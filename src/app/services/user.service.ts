@@ -4,9 +4,9 @@ import { map, catchError, switchMap, tap } from 'rxjs/operators'
 import { Store, select } from '@ngrx/store'
 
 import { HttpService } from './http.service'
-import * as UserAction from 'src/app/action/user.action'
-import { getCategories, getCategoryByName, getTags, getInfo, getTagByName } from 'src/app/reducers/user.reducer'
-import * as utils from 'src/app/tools/util'
+import * as UserAction from '../action/user.action'
+import { getCategories, getCategoryByName, getTags, getInfo, getTagByName } from '../reducers/user.reducer'
+import * as utils from '../tools/util'
 
 @Injectable({
   providedIn: 'root'

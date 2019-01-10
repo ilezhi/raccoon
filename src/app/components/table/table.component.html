@@ -1,51 +1,46 @@
 <div class="wrapper">
-  <div *ngIf="!data?.length; else zero">
-    暂无数据
-  </div>
-  <ng-template #zero>
-    <table>
-      <tbody>
-        <tr *ngFor="let topic of data">
-          <td class="user">
-            <img class="avatar" [src]="topic.avatar" [alt]="topic.nickname" [title]="topic.nickname">
-          </td>
-          <!-- <td class="mark">
-            <span class="ripple">
-              <i class="icon">star_border</i>
-            </span>
-          </td> -->
-          <td class="scan">
-            <span>{{ topic.comtCount }}</span> / <span>{{ topic.view }}</span>
-          </td>
-          <td class="tag">
-            <app-topic-tag [topic]="topic"></app-topic-tag>
-          </td>
-          <td class="title">
-            <div class="text-ellipsis" [routerLink]="['', {outlets: {slide: ['topic', topic.id]}}]">
-              <strong>{{ topic.title }}</strong>
-              <span>- {{ topic.content.substring(0, 140) }}</span>
-            </div>
-          </td>
-          <td class="comt">
-            <img class="avatar" *ngIf="topic.lastAvatar" [src]="topic.lastAvatar" [alt]="topic.lastNickname">
-          </td>
-          <td class="date">{{ topic.activeAt | ago }}</td>
-          <td class="editable">
-            <button *ngIf="user.id === topic.authorID || user.isAdmin"  class="ripple" (click)="onEdit(topic.id)">编辑</button>
-            <ng-container *ngIf="user.isAdmin">
-              <button class="ripple" (click)="onSetTop(topic.id)">置顶</button>
-              <button class="ripple" (click)="onSetAwesome(topic.id)">精华</button>
-              <button class="ripple" nz-popconfirm nzTitle="确认删除吗?" (nzOnConfirm)="onTrash(topic.id)">删除</button>
-            </ng-container>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <footer sentry class="sentry" (load)="loadMore()">
-      <nz-spin *ngIf="loading; else elseBlock"></nz-spin>
-      <ng-template #elseBlock>
-        已经到底了
-      </ng-template>
-    </footer>
-  </ng-template>
+  <table>
+    <tbody>
+      <tr *ngFor="let topic of data">
+        <td class="user">
+          <img class="avatar" [src]="topic.avatar" [alt]="topic.nickname" [title]="topic.nickname">
+        </td>
+        <!-- <td class="mark">
+          <span class="ripple">
+            <i class="icon">star_border</i>
+          </span>
+        </td> -->
+        <td class="scan">
+          <span>{{ topic.comtCount }}</span> / <span>{{ topic.view }}</span>
+        </td>
+        <td class="tag">
+          <app-topic-tag [topic]="topic"></app-topic-tag>
+        </td>
+        <td class="title">
+          <div class="text-ellipsis" [routerLink]="['', {outlets: {slide: ['topic', topic.id]}}]">
+            <strong>{{ topic.title }}</strong>
+            <span>- {{ topic.content.substring(0, 140) }}</span>
+          </div>
+        </td>
+        <td class="comt">
+          <img class="avatar" *ngIf="topic.lastAvatar" [src]="topic.lastAvatar" [alt]="topic.lastNickname">
+        </td>
+        <td class="date">{{ topic.activeAt | ago }}</td>
+        <td class="editable">
+          <button *ngIf="user.id === topic.authorID || user.isAdmin"  class="ripple" (click)="onEdit(topic.id)">编辑</button>
+          <ng-container *ngIf="user.isAdmin">
+            <button class="ripple" (click)="onSetTop(topic.id)">置顶</button>
+            <button class="ripple" (click)="onSetAwesome(topic.id)">精华</button>
+            <button class="ripple" nz-popconfirm nzTitle="确认删除吗?" (nzOnConfirm)="onTrash(topic.id)">删除</button>
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <footer sentry class="sentry" (load)="loadMore()">
+    <nz-spin *ngIf="loading; else elseBlock"></nz-spin>
+    <ng-template #elseBlock>
+      已经到底了
+    </ng-template>
+  </footer>
 </div>

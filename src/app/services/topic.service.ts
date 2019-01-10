@@ -42,31 +42,33 @@ export class TopicService {
     return this.editor.asObservable()
   }
 
-  get all$(): Observable<Topic[]> {
+  // all$ = this.store.pipe(select(getAll))
+
+  get all$(): Observable<PageState> {
     return this.store.pipe(select(getAll))
   }
 
-  get awesome$(): Observable<Topic[]> {
+  get awesome$(): Observable<PageState> {
     return this.store.pipe(select(getAwesome))
   }
 
-  get dept$(): Observable<Topic[]> {
+  get dept$(): Observable<PageState> {
     return this.store.pipe(select(getDept))
   }
 
-  get my$(): Observable<Topic[]> {
+  get my$(): Observable<PageState> {
     return this.store.pipe(select(getMy))
   }
 
-  get question$(): Observable<Topic[]> {
+  get question$(): Observable<PageState> {
     return this.store.pipe(select(getQuestion))
   }
 
-  get answer$(): Observable<Topic[]> {
+  get answer$(): Observable<PageState> {
     return this.store.pipe(select(getAnswer))
   }
 
-  get shared$(): Observable<Topic[]> {
+  get shared$(): Observable<PageState> {
     return this.store.pipe(select(getShared))
   }
 
@@ -78,15 +80,15 @@ export class TopicService {
     return this.store.pipe(select(getCommentsByTopicID(id)))
   }
 
-  collection$(id: number): Observable<Topic[]> {
+  collection$(id: number): Observable<PageState> {
     return this.store.pipe(select(getTopicsByCollectionID(id)))
   }
 
-  tag$(id: number): Observable<Topic[]> {
+  tag$(id: number): Observable<PageState> {
     return this.store.pipe(select(getTopicsByTagID(id)))
   }
 
-  topics(Action: any, type = 'all', lastID?: number, size = 2, id?: number): Observable<any> {
+  topics(Action: any, type = 'all', lastID?: number, size = 20, id?: number): Observable<any> {
     const url = `topics/${type}`
     const params = {
       lastID,
@@ -97,6 +99,7 @@ export class TopicService {
       map((res: Res) => {
         let result: MySchema = normalize(res.data, topicsSchema)
         id && (result.id = id)
+        result.done = result.result.length < size
         this.store.dispatch(new Action(result))
         return true
       }),

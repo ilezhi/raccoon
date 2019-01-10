@@ -5,7 +5,7 @@ import { tap } from 'rxjs/operators'
 import { NzMessageService } from 'ng-zorro-antd'
 
 import { SelectedTagComponent } from '../components/selected-tag/selected-tag.component'
-import { TopicService } from 'src/app/services/topic.service'
+import { TopicService } from '../../../services/topic.service'
 
 @Component({
   selector: 'app-edit',

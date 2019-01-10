@@ -1,66 +1,37 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core'
+import { Component, ChangeDetectorRef } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable, forkJoin } from 'rxjs'
-import { tap } from 'rxjs/operators'
 
 import { TopicService } from 'src/app/services/topic.service'
 import { UserService } from 'src/app/services/user.service'
+import { TopicList } from 'src/app/tools/common'
+
 
 @Component({
   selector: 'app-all',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './all.component.html',
   styleUrls: ['./all.component.scss']
 })
-export class AllComponent implements OnInit {
-  topics$: Observable<Topic[]>
-  user$: Observable<User>
-  loading: boolean
-
+export class AllComponent extends TopicList {
   constructor(
-    private ts: TopicService,
-    private router: Router,
-    private us: UserService
+    ts: TopicService,
+    router: Router,
+    us: UserService,
+    changeDetectorRef: ChangeDetectorRef
   ) {
-    this.topics$ = this.ts.all$.pipe(
-      tap((topics: Topic[]) => {
-        if (!topics) {
-          this.fetchTopics()
-        }
-      })
-    )
-
-    this.user$ = this.us.user$
-  }
-
-  ngOnInit() {
+    super(ts, router, us, changeDetectorRef, ts.all$)
   }
 
   fetchTopics(lastID?: number, size = 20) {
     const { ts } = this
     this.loading = true
-    forkJoin(
+    let ob$: Observable<any> = !lastID ? forkJoin(
       ts.getAll(lastID, size),
       ts.getTop()
-    ).subscribe(_ => {
+    ) : ts.getAll(lastID, size)
+
+    ob$.subscribe(_ => {
       this.loading = false
     })
-  }
-
-  onEdit(id: number) {
-    this.router.navigate(['', {outlets: {slide: `topic/edit/${id}`}}])
-  }
-
-  onSetTop(id: number) {
-    this.ts.toggleTopicField(id, 'top')
-      .subscribe(_ => {})
-  }
-
-  onSetAwesome(id: number) {
-    this.ts.toggleTopicField(id, 'awesome')
-      .subscribe(_ => {})
-  }
-
-  onTrash() {
   }
 }

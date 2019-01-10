@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Route, Router, CanLoad } from '@angular/router'
 
-import { UserService } from 'src/app/services/user.service'
-import * as utils from 'src/app/tools/util'
+import { UserService } from '../services/user.service'
+import * as utils from '../tools/util'
 
 @Injectable({
   providedIn: 'root'

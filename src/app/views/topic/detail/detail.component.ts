@@ -3,10 +3,10 @@ import { ActivatedRoute } from '@angular/router'
 import { Subscription, forkJoin } from 'rxjs'
 import { tap } from 'rxjs/operators'
 
-import { fade } from 'src/app/animations/fade'
-import { slideComt } from 'src/app/animations/slide'
-import { TopicService } from 'src/app/services/topic.service'
-import { UserService } from 'src/app/services/user.service'
+import { fade } from '../../../animations/fade'
+import { slideComt } from '../../../animations/slide'
+import { TopicService } from '../../../services/topic.service'
+import { UserService } from '../../../services/user.service'
 
 @Component({
   selector: 'app-detail',

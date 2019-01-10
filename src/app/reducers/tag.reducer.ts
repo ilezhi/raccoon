@@ -1,8 +1,8 @@
 import { createSelector } from '@ngrx/store'
 import { TagTypes, TopicTypes } from '../action/type'
 import { getTopics } from './entities.reducer'
-import * as utils from 'src/app/tools/util'
-import { append } from 'src/app/tools/helper-reducer'
+import * as utils from '../tools/util'
+import { append } from '../tools/helper-reducer'
 
 const tag = (state: DState = {}, action: Action): DState => {
   const { type, payload } = action

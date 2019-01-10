@@ -11,8 +11,8 @@ import {
   TopicTypes
 } from '../action/type'
 import { getTopics } from './entities.reducer'
-import * as utils from 'src/app/tools/util'
-import { append } from 'src/app/tools/helper-reducer'
+import * as utils from '../tools/util'
+import { append } from '../tools/helper-reducer'
 
 const question = (state: PageState, action: Action): PageState => {
   const { type, payload } = action

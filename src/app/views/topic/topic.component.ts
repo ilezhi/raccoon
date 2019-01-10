@@ -2,8 +2,8 @@ import { Component, OnDestroy } from '@angular/core'
 import { Router } from '@angular/router'
 import { Subscription } from 'rxjs'
 
-import { slide } from 'src/app/animations/slide'
-import { TopicService } from 'src/app/services/topic.service'
+import { slide } from '../../animations/slide'
+import { TopicService } from '../../services/topic.service'
 
 @Component({
   selector: 'app-topic',

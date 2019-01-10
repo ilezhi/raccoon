@@ -13,8 +13,8 @@ import { map, catchError, retry, tap } from 'rxjs/operators'
 import { NzMessageService } from 'ng-zorro-antd'
 
 import { Router } from '@angular/router'
-import { API_HOST } from 'src/app/config/global.config'
-import * as utils from 'src/app/tools/util'
+import { API_HOST } from './global.config'
+import * as utils from '../tools/util'
 
 // 请求, 响应拦截器
 @Injectable()

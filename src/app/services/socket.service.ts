@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket'
 import { Observable, Subject, interval, of } from 'rxjs'
 
-import * as utils from 'src/app/tools/util'
+import * as utils from '../tools/util'
 import { NotifyService } from './notify.service'
 import { catchError } from 'rxjs/operators';
 @Injectable({

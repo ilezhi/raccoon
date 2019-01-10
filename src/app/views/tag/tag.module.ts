@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core'
 import { StoreModule } from '@ngrx/store'
 
-import { tagReducer } from 'src/app/reducers'
+import { tagReducer } from '../../reducers'
 
 import { TagRoutingModule } from './tag-routing.module'
-import { SharedModule } from 'src/app/module/shared.module'
+import { SharedModule } from '../../module/shared.module'
 
 import { TagComponent } from './tag.component'
 import { ListComponent } from './list/list.component'

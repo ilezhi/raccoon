@@ -1,4 +1,4 @@
-export const getPageTopics = (topics: KeyMap, state: PageState, top: PageState): Array<Topic> => {
+export const getPageTopics = (topics: KeyMap, state: PageState, top: PageState): PageState => {
   if (!state) {
     return
   }
@@ -10,7 +10,10 @@ export const getPageTopics = (topics: KeyMap, state: PageState, top: PageState):
   }
 
   const data: any = ids.map(id => topics[id])    
-  return data
+  return {
+    ...state,
+    data
+  }
 }
 
 export const getNodeCount = (nodes: Array<any>, children: string, count: number = 0): number => {

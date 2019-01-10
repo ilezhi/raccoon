@@ -2,14 +2,14 @@ import {
   TopicTypes,
 } from '../action/type'
 
-export const topicListCase = (state: PageState = {ids: []}, payload: any): PageState => {
+export const topicListCase = (state: PageState = {ids: [], done: false}, payload: any): PageState => {
   let { ids } = state
-  const { result: tids } = payload
+  const { result: tids, done } = payload
 
   let unique = new Set(ids.concat(tids))
   ids = [...unique]
 
-  return { ids }
+  return { done, ids }
 }
 
 export const topicPostCase = (state: PageState, payload: any): PageState => {
@@ -22,7 +22,10 @@ export const topicPostCase = (state: PageState, payload: any): PageState => {
 
   ids.unshift(id)
 
-  return { ids }
+  return {
+    ...state,
+    ids
+  }
 }
 
 export const topicUpdateCase = (state: PageState, payload: any): PageState =>{
@@ -40,7 +43,10 @@ export const topicUpdateCase = (state: PageState, payload: any): PageState =>{
 
   ids.unshift(id)
 
-  return { ids }
+  return {
+    ...state,
+    ids
+  }
 }
 
 export const topicTrashCase = (state: PageState, payload: any): PageState => {
@@ -56,5 +62,8 @@ export const topicTrashCase = (state: PageState, payload: any): PageState => {
     ids.splice(i, 1)
   }
 
-  return { ids }
+  return {
+    ...state,
+    ids
+  }
 }

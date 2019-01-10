@@ -6,15 +6,15 @@ import {
   SocketTypes
 } from '../action/type'
 import { getTopics } from './entities.reducer'
-import * as utils from 'src/app/tools/util'
-import { append } from 'src/app/tools/helper-reducer'
+import * as utils from '../tools/util'
+import { append } from '../tools/helper-reducer'
 
 const collection = (state: DState = {}, action: Action): DState => {
   const { type, payload } = action
 
   switch(type) {
     case CollectTypes.Topics: {
-      let { id, result } = payload
+      let { id, result, done } = payload
       let collection = state[id]
       
       if (collection) {
@@ -25,7 +25,7 @@ const collection = (state: DState = {}, action: Action): DState => {
 
       return {
         ...state,
-        [id]: { ids: result }
+        [id]: { ids: result, done }
       }
     }
 

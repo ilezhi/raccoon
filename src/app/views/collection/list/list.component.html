@@ -1,5 +1,12 @@
 <app-main>
   <app-table
-    [data]="topics$ | async"
-    [user]="user$ | async"></app-table>
+    [data]="topics"
+    [user]="user$ | async"
+    [loading]="loading"
+    (edit)="onEdit($event)"
+    (setTop)="onSetTop($event)"
+    (setAwesome)="onSetAwesome($event)"
+    (load)="onLoadMore($event)"
+    (trash)="onTrash($event)">
+  </app-table>
 </app-main>

@@ -1,34 +1,23 @@
-import { Component, OnInit } from '@angular/core'
-import { Observable } from 'rxjs'
-import { tap } from 'rxjs/operators'
+import { Component, ChangeDetectorRef } from '@angular/core'
+import { Router } from '@angular/router'
 
 import { TopicService } from 'src/app/services/topic.service'
 import { UserService } from 'src/app/services/user.service'
+import { TopicList } from 'src/app/tools/common'
 
 @Component({
   selector: 'app-shared',
   templateUrl: './shared.component.html',
   styleUrls: ['./shared.component.scss']
 })
-export class SharedComponent implements OnInit {
-  topics$: Observable<Topic[]>
-  user$: Observable<User>
-  loading: boolean
-
+export class SharedComponent extends TopicList {
   constructor(
-    private ts: TopicService,
-    private us: UserService
+    ts: TopicService,
+    router: Router,
+    us: UserService,
+    changeDetectorRef: ChangeDetectorRef
   ) {
-    this.topics$ = this.ts.shared$.pipe(
-      tap((topics: Topic[]) => {
-        !topics && this.fetchTopics()
-      })
-    )
-
-    this.user$ = this.us.user$
-  }
-
-  ngOnInit() {
+    super(ts, router, us, changeDetectorRef, ts.shared$)
   }
 
   fetchTopics(lastID?: number, size = 20) {

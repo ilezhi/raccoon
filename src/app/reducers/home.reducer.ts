@@ -1,12 +1,12 @@
 import { combineReducers, ActionReducer, createSelector } from '@ngrx/store'
 
-import * as utils from 'src/app/tools/util'
+import * as utils from '../tools/util'
 import {
   topicListCase,
   topicPostCase,
   topicUpdateCase,
 } from '../tools/create-reducer'
-import { append } from 'src/app/tools/helper-reducer'
+import { append } from '../tools/helper-reducer'
 import {
   HomeTypes,
   TopicTypes,
@@ -37,7 +37,10 @@ const all = (state: PageState, action: Action): PageState => {
 
       const { topicID } = payload
       let ids = append(state.ids, topicID)
-      return { ids }
+      return {
+        ...state,
+        ids
+      }
     }
 
     case SocketTypes.UpdateTopic:
@@ -60,7 +63,10 @@ const all = (state: PageState, action: Action): PageState => {
         ids.unshift(id)
       }
 
-      return { ids }
+      return {
+        ...state,
+        ids
+      }
     }
 
     case SocketTypes.Top: {
@@ -79,7 +85,10 @@ const all = (state: PageState, action: Action): PageState => {
         ids.unshift(result)
       }
 
-      return { ids }
+      return {
+        ...state,
+        ids
+      }
     }
 
     case SocketTypes.Awesome:
@@ -93,7 +102,10 @@ const all = (state: PageState, action: Action): PageState => {
       
       let ids = append(state.ids, id)
 
-      return { ids }
+      return {
+        ...state,
+        ids
+      }
     }
 
     case SocketTypes.Reply:
@@ -106,7 +118,10 @@ const all = (state: PageState, action: Action): PageState => {
       const id = data.topicID
 
       let ids = append(state.ids, id)
-      return { ids }
+      return {
+        ...state,
+        ids
+      }
     }
 
     default: {
@@ -138,7 +153,10 @@ const top = (state: PageState, action: Action): PageState => {
         ids.splice(i, 1)
       }
 
-      return { ids }
+      return {
+        ...state,
+        ids
+      }
     }
 
     case SocketTypes.Top: {
@@ -157,7 +175,10 @@ const top = (state: PageState, action: Action): PageState => {
         ids.splice(i, 1)
       }
 
-      return { ids }
+      return {
+        ...state,
+        ids
+      }
     }
 
     case SocketTypes.Top: {
@@ -197,7 +218,10 @@ const awesome = (state: PageState, action: Action): PageState => {
       }
 
       let ids = append(state.ids, id, awesome)
-      return { ids }
+      return {
+        ...state,
+        ids
+      }
     }
 
     case SocketTypes.Reply:
@@ -214,7 +238,10 @@ const awesome = (state: PageState, action: Action): PageState => {
 
       let ids = append(state.ids, id)
 
-      return { ids }
+      return {
+        ...state,
+        ids
+      }
     }
 
     case SocketTypes.Answer:
@@ -225,7 +252,10 @@ const awesome = (state: PageState, action: Action): PageState => {
 
       const { id } = payload
       let ids = append(state.ids, id)
-      return { ids }
+      return {
+        ...state,
+        ids
+      }
     }
 
     default: {
@@ -257,7 +287,10 @@ const dept = (state: PageState, action: Action): PageState => {
       let ids = [...state.ids]
       ids.unshift(id)
 
-      return { ids }
+      return {
+        ...state,
+        ids
+      }
     }
 
     case TopicTypes.Update: {
@@ -272,7 +305,10 @@ const dept = (state: PageState, action: Action): PageState => {
 
       const { id } = payload
       let ids = append(state.ids, id)
-      return { ids }
+      return {
+        ...state,
+        ids
+      }
     }
 
     default: {

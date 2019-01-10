@@ -4,8 +4,8 @@ import { catchError, map } from 'rxjs/operators'
 import { Store, select } from '@ngrx/store'
 
 import { HttpService } from './http.service'
-import * as TagAction from 'src/app/action/tag.action'
-import { getTagList } from 'src/app/reducers/entities.reducer'
+import * as TagAction from '../action/tag.action'
+import { getTagList } from '../reducers/entities.reducer'
 
 @Injectable({
   providedIn: 'root'

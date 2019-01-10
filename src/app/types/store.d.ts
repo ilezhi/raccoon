@@ -1,5 +1,7 @@
 declare interface PageState {
   ids: number[]
+  done?: boolean
+  data?: Topic[]
   [key: string]: any
 }
 
