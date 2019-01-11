@@ -7,7 +7,7 @@
   </div>
   <ul class="dashboard">
     <li>
-      <div class="item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <div class="item" [class.active]="url | linkActive:'home'">
         <i class="icon">question_answer</i>
         <a routerLink="/all">全部</a>
       </div>
@@ -19,7 +19,7 @@
       </div>
     </li>
     <li>
-      <div class="item" routerLinkActive="active">
+      <div class="item" [class.active]="url | linkActive:'solved'">
         <i class="icon">done</i>
         <a routerLink="/solved/question">已解决</a>
       </div>

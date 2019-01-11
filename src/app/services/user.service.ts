@@ -5,6 +5,7 @@ import { Store, select } from '@ngrx/store'
 
 import { HttpService } from './http.service'
 import * as UserAction from '../action/user.action'
+import { getUrl } from 'src/app/reducers'
 import { getCategories, getCategoryByName, getTags, getInfo, getTagByName } from '../reducers/user.reducer'
 import * as utils from '../tools/util'
 
@@ -47,11 +48,11 @@ export class UserService {
     )
   }
 
-  get tags$() {
+  get tags$(): Observable<Tag[]> {
     return this.store.pipe(select(getTags))
   }
 
-  get categories$() {
+  get categories$(): Observable<Category[]> {
     return this.store.pipe(
       select(getCategories),
       tap((categories: Category[]) => {
@@ -60,15 +61,19 @@ export class UserService {
     )
   }
 
-  category$(name: string) {
+  get url$(): Observable<string> {
+    return this.store.pipe(select(getUrl))
+  }
+
+  category$(name: string): Observable<Category> {
     return this.store.pipe(select(getCategoryByName(name)))
   }
 
-  tag$(name: string) {
+  tag$(name: string): Observable<Tag> {
     return this.store.pipe(select(getTagByName(name)))
   }
 
-  login(userInfo: LoginForm): Observable<any> {
+  login(userInfo: LoginForm): Observable<boolean> {
     const { http, store } = this
     return http.post('signin', userInfo).pipe(
       map((res: Res) => {
@@ -81,14 +86,14 @@ export class UserService {
     )
   }
 
-  signup(data: any): Observable<any> {
+  signup(data: any): Observable<boolean> {
     return this.http.post('signup', data).pipe(
       map(_ => true),
       catchError(_ => of(false))
     )
   }
 
-  fetchInfo(): Observable<any> {
+  fetchInfo(): Observable<boolean> {
     const { http, store } = this
     return http.get('user/info').pipe(
       map((res: Res) => {

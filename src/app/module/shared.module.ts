@@ -21,6 +21,7 @@ import { TagComponent } from '../components/tag/tag.component'
 
 import { Count } from '../pipes/count.pipe'
 import { Ago } from '../pipes/moment.pipe'
+import { LinkActive } from '../pipes/router-active.pipe'
 
 const comp = [
   HeaderComponent,
@@ -34,7 +35,8 @@ const comp = [
   SentryDirective,
   TagComponent,
   Count,
-  Ago
+  Ago,
+  LinkActive
 ]
 
 @NgModule({

@@ -1,9 +1,9 @@
 <app-main>
   <ul nz-menu nzMode="horizontal">
-    <li nz-menu-item>
+    <li nz-menu-item [nzSelected]="url === '/solved/question'">
       <a routerLink="/solved/question">提问</a>
     </li>
-    <li nz-menu-item>
+    <li nz-menu-item [nzSelected]="url === '/solved/answer'">
       <a routerLink="/solved/answer">回答</a>
     </li>
   </ul>

@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core'
-import { Observable, Subscription } from 'rxjs'
+import { Subscription } from 'rxjs'
 
-import { UserService } from '../../services/user.service'
+import { UserService } from 'src/app/services/user.service'
 
 @Component({
   selector: 'app-aside',
@@ -14,6 +14,7 @@ export class AsideComponent implements OnDestroy {
   categories: Array<Category>
   cCount: number
   tCount: number
+  url: string
 
   private sub: Subscription
 
@@ -32,7 +33,13 @@ export class AsideComponent implements OnDestroy {
         this.cCount = categories.length
       })
 
+    const childSub2 = us.url$
+      .subscribe((url: string) => {
+        this.url = url
+      })
+
     this.sub.add(childSub)
+    this.sub.add(childSub2)
   }
 
   ngOnDestroy() {

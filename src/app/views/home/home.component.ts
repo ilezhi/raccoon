@@ -1,25 +1,23 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core'
-import { Store, select } from '@ngrx/store'
-
-import { getUrl } from '../../reducers'
+import { Component, OnDestroy } from '@angular/core'
+import { UserService } from 'src/app/services/user.service'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-home',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnDestroy {
   url: string
+  sub: Subscription
 
-  constructor(store: Store<any>) {
-    store.pipe(
-      select(getUrl)
-    ).subscribe(url => {
+  constructor(private us: UserService) {
+    this.sub = us.url$.subscribe((url: string) => {
       this.url = url
     })
   }
 
-  ngOnInit() {
+  ngOnDestroy() {
+    this.sub.unsubscribe()
   }
 }
