@@ -1,8 +1,8 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core'
 
 @Pipe({name: 'layoutTip'})
 export class LayoutTip implements PipeTransform {
   transform(value: number) {
-    return value ? '双栏' : '单栏';
+    return value ? '双栏' : '单栏'
   }
 }

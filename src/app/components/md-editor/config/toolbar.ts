@@ -104,11 +104,11 @@ export const toolbar: Toolbar = {
     subfix: '',
     text: '|column1|column2|column3|\n|-|-|-|\n|content1|content2|content3|\n'
   }
-};
+}
 
 export const eventHandle = {
   'undo': 'prev',
   'redo': 'next',
   'trash': 'trash',
   'save': 'save'
-};
+}

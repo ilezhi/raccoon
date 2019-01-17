@@ -15,8 +15,8 @@ import { append } from '../tools/helper-reducer'
 
 const my = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
-  
-  switch(type) {
+
+  switch (type) {
     case MyTypes.Topics: {
       return topicListCase(state, payload)
     }

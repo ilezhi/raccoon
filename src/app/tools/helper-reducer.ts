@@ -6,7 +6,9 @@ export const append = (source: number[], id: number, mode = true): number[] => {
     ids.splice(i, 1)
   }
 
-  mode && ids.unshift(id)
+  if (mode) {
+    ids.unshift(id)
+  }
 
   return ids
 }

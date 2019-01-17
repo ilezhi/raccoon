@@ -42,8 +42,6 @@ export class TopicService {
     return this.editor.asObservable()
   }
 
-  // all$ = this.store.pipe(select(getAll))
-
   get all$(): Observable<PageState> {
     return this.store.pipe(select(getAll))
   }
@@ -98,7 +96,9 @@ export class TopicService {
     return this.http.get(url, params).pipe(
       map((res: Res) => {
         let result: MySchema = normalize(res.data, topicsSchema)
-        id && (result.id = id)
+        if (id) {
+          result.id = id
+        }
         result.done = result.result.length < size
         this.store.dispatch(new Action(result))
         return true
@@ -207,7 +207,7 @@ export class TopicService {
     )
   }
 
-  dispatch(topic: Topic){
+  dispatch(topic: Topic) {
     const { store } = this
     const result: MySchema = normalize(topic, topicSchema)
     result.user = this.us.user

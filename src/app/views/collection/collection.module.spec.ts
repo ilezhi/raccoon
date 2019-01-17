@@ -1,13 +1,13 @@
-import { CollectionModule } from './collection.module';
+import { CollectionModule } from './collection.module'
 
 describe('CollectionModule', () => {
-  let collectionModule: CollectionModule;
+  let collectionModule: CollectionModule
 
   beforeEach(() => {
-    collectionModule = new CollectionModule();
-  });
+    collectionModule = new CollectionModule()
+  })
 
   it('should create an instance', () => {
-    expect(collectionModule).toBeTruthy();
-  });
-});
+    expect(collectionModule).toBeTruthy()
+  })
+})

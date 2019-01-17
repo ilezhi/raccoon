@@ -1,4 +1,4 @@
-import { NgModule }     from '@angular/core';
+import { NgModule }     from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule }  from '@angular/forms'
 import { RouterModule } from '@angular/router'
@@ -8,7 +8,6 @@ import { NgZorroAntdModule, NzMessageService } from 'ng-zorro-antd'
 
 // 自定义指令
 import { ToggleDirective } from '../directives/toggle.directive'
-// import { LoadingDirective } from '../directives/loading.directive'
 import { SentryDirective } from '../directives/sentry.directive'
 // 自定义组件
 import { BodyComponent }   from '../layout/body/body.component'
@@ -31,7 +30,6 @@ const comp = [
   MainComponent,
   TableComponent,
   ToggleDirective,
-  // LoadingDirective,
   SentryDirective,
   TagComponent,
   Count,
@@ -60,5 +58,5 @@ const comp = [
   ]
 })
 export class SharedModule {
-  name = '共享模块';
+  name = '共享模块'
 }

@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service'
   styleUrls: ['./aside.component.scss']
 })
 export class AsideComponent implements OnDestroy {
-  showTags = 0;
+  showTags = 0
   tags: Array<Tag>
   categories: Array<Category>
   cCount: number
@@ -47,6 +47,6 @@ export class AsideComponent implements OnDestroy {
   }
 
   onToggleTags() {
-    this.showTags ^= 1;
+    this.showTags ^= 1
   }
 }

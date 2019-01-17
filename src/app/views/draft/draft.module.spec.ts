@@ -1,13 +1,13 @@
-import { DraftModule } from './draft.module';
+import { DraftModule } from './draft.module'
 
 describe('DraftModule', () => {
-  let draftModule: DraftModule;
+  let draftModule: DraftModule
 
   beforeEach(() => {
-    draftModule = new DraftModule();
-  });
+    draftModule = new DraftModule()
+  })
 
   it('should create an instance', () => {
-    expect(draftModule).toBeTruthy();
-  });
-});
+    expect(draftModule).toBeTruthy()
+  })
+})

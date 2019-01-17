@@ -14,8 +14,8 @@ import * as utils from '../tools/util'
 
 const shared = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
-  
-  switch(type) {
+
+  switch (type) {
     case SharedTypes.Topics: {
       return topicListCase(state, payload)
     }

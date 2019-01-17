@@ -5,7 +5,7 @@ import { UserTypes, TopicTypes } from '../action/type'
 const info = (state = {}, action: Action) => {
   const { type, payload } = action
 
-  switch(type) {
+  switch (type) {
     case UserTypes.Login: {
       return payload
     }
@@ -18,8 +18,8 @@ const info = (state = {}, action: Action) => {
 
 const category = (state = [], action: Action) => {
   const { type, payload } = action
-  
-  switch(type) {
+
+  switch (type) {
     case UserTypes.Info: {
       return [...payload.categories]
     }
@@ -55,7 +55,7 @@ const category = (state = [], action: Action) => {
 const tags = (state = [], action: Action) => {
   const { type, payload } = action
 
-  switch(type) {
+  switch (type) {
     case UserTypes.Info: {
       return [ ...payload.tags ]
     }

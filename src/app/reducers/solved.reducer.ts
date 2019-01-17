@@ -14,8 +14,8 @@ import { append } from '../tools/helper-reducer'
 
 const question = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
-  
-  switch(type) {
+
+  switch (type) {
     case SolvedTypes.QTopics: {
       return topicListCase(state, payload)
     }
@@ -37,14 +37,14 @@ const question = (state: PageState, action: Action): PageState => {
 
     default: {
       return state
-    }    
+    }
   }
 }
 
 const answer = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
-  switch(type) {
+  switch (type) {
     case SolvedTypes.ATopics: {
       return topicListCase(state, payload)
     }
@@ -62,7 +62,7 @@ const answer = (state: PageState, action: Action): PageState => {
       let ids = []
       if (!answerID) {
         ids = append(state.ids, id, false)
-      } else if(commentAuthorID === authorID) {
+      } else if (commentAuthorID === authorID) {
         ids = append(state.ids, id)
       } else {
         return state

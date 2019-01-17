@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '', component: SharedComponent
   }
-];
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

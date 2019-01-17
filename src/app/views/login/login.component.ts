@@ -58,6 +58,9 @@ export class LoginComponent implements OnInit {
   login(): void {
     const form = this.loginForm
     for (const i in form.controls) {
+      if (!form.controls.hasOwnProperty(i)) {
+        continue
+      }
       form.controls[i].markAsDirty()
       form.controls[i].updateValueAndValidity()
     }
@@ -80,11 +83,14 @@ export class LoginComponent implements OnInit {
     this.success = false
     const form = this.signupForm
     for (const i in form.controls) {
+      if (!form.controls.hasOwnProperty(i)) {
+        continue
+      }
       const c = form.controls[i]
       if (!c.valid) {
         c.markAsDirty()
         c.updateValueAndValidity()
-      } 
+      }
     }
 
     if (!form.valid) {

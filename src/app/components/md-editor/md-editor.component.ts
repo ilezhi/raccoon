@@ -3,7 +3,7 @@ import { debounceTime } from 'rxjs/operators'
 
 import { EditorService } from './services/editor.service'
 import { slidePanel } from './animations/slide-panel'
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-md-editor',
@@ -19,7 +19,7 @@ export class MdEditorComponent implements OnInit, OnDestroy {
   isParse = true // 是否解析markdown语法
   thin = false
   sub: Subscription
-  
+
   _content: string
 
   @Input()
@@ -71,7 +71,7 @@ export class MdEditorComponent implements OnInit, OnDestroy {
     // 订阅预览切换
     const s2 = editorService.layout$
       .subscribe(toggleLayout$.bind(this))
-      
+
     // 订阅数据变化, 记录历史版本
     const s3 = editorService.data$
       .pipe(

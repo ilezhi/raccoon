@@ -1,13 +1,13 @@
-import { TopicModule } from './topic.module';
+import { TopicModule } from './topic.module'
 
 describe('TopicModule', () => {
-  let topicModule: TopicModule;
+  let topicModule: TopicModule
 
   beforeEach(() => {
-    topicModule = new TopicModule();
-  });
+    topicModule = new TopicModule()
+  })
 
   it('should create an instance', () => {
-    expect(topicModule).toBeTruthy();
-  });
-});
+    expect(topicModule).toBeTruthy()
+  })
+})

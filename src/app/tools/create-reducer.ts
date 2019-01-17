@@ -28,7 +28,7 @@ export const topicPostCase = (state: PageState, payload: any): PageState => {
   }
 }
 
-export const topicUpdateCase = (state: PageState, payload: any): PageState =>{
+export const topicUpdateCase = (state: PageState, payload: any): PageState => {
   if (!state) {
     return state
   }

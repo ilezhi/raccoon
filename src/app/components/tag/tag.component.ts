@@ -12,7 +12,7 @@ export class TagComponent {
     let status: string
 
     if (!topic) {
-      status = 'q&a' 
+      status = 'q&a'
     } else if (topic.top) {
       status = 'top'
     } else if (topic.awesome) {

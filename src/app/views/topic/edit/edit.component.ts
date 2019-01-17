@@ -33,7 +33,7 @@ export class EditComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const { route, ts} = this
     const tid = +route.snapshot.paramMap.get('id')
-  
+
     this.tid = tid
 
     this.sub = ts.topic$(tid).pipe(
@@ -105,7 +105,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
   notify(code) {
     let msg = ''
-    switch(code) {
+    switch (code) {
       case 1:
         msg = '标题不能为空'
         break

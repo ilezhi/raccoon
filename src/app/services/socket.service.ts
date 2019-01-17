@@ -4,7 +4,7 @@ import { Observable, Subject, of } from 'rxjs'
 
 import * as utils from '../tools/util'
 import { NotifyService } from './notify.service'
-import { catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
 })

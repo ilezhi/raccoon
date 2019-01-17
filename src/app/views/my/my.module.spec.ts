@@ -1,13 +1,13 @@
-import { MyModule } from './my.module';
+import { MyModule } from './my.module'
 
 describe('MyModule', () => {
-  let myModule: MyModule;
+  let myModule: MyModule
 
   beforeEach(() => {
-    myModule = new MyModule();
-  });
+    myModule = new MyModule()
+  })
 
   it('should create an instance', () => {
-    expect(myModule).toBeTruthy();
-  });
-});
+    expect(myModule).toBeTruthy()
+  })
+})

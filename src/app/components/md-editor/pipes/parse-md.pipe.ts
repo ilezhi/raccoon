@@ -13,7 +13,7 @@ const option = {
   linkify: false,        // 自动识别url
   typographer: true,
   quotes: '“”‘’',
-};
+}
 const MD = markdown(option)
             .use(emoji)
             .use(ins)
@@ -33,13 +33,13 @@ MD.renderer.rules.fence = function (tokens, idx) {
 
   return '<div class="highlight"><pre class="' + lan + '">'
     + prettyHTML + '</pre></div>'
-};
+}
 
 @Pipe({name: 'parseMD'})
 export class ParseMD implements PipeTransform {
   transform(value: string, isParse: boolean = true) {
     if (!value) {
-      return value;
+      return value
     }
 
     if (!isParse) {

@@ -12,11 +12,11 @@ import { append } from '../tools/helper-reducer'
 const collection = (state: DState = {}, action: Action): DState => {
   const { type, payload } = action
 
-  switch(type) {
+  switch (type) {
     case CollectTypes.Topics: {
       let { id, result, done } = payload
       let collection = state[id]
-      
+
       if (collection) {
         let ids = collection.ids
         result = new Set(ids.concat(result))
@@ -58,6 +58,10 @@ const collection = (state: DState = {}, action: Action): DState => {
       let ids = []
       let cid = 0
       for (let p in state) {
+        if (!state.hasOwnProperty(p)) {
+          continue
+        }
+
         ids = state[p].ids
         if (ids.includes(id)) {
           cid = +p

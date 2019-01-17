@@ -7,7 +7,7 @@ import { append } from '../tools/helper-reducer'
 const tag = (state: DState = {}, action: Action): DState => {
   const { type, payload } = action
 
-  switch(type) {
+  switch (type) {
     case TagTypes.Topics: {
       let { id, result } = payload
       let tag = state[id]
@@ -77,6 +77,9 @@ const tag = (state: DState = {}, action: Action): DState => {
       let ids = []
       let tagID = 0
       for (let p in state) {
+        if (!state.hasOwnProperty(p)) {
+          continue
+        }
         ids = state[p].ids
         if (ids.includes(id)) {
           tagID = +p

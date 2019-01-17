@@ -17,7 +17,7 @@ import {
 const topics = (state: KeyMap = {}, action: Action): KeyMap => {
   const { type, payload } = action
 
-  switch(type) {
+  switch (type) {
     case HomeTypes.All:
     case HomeTypes.Dept:
     case HomeTypes.Team:
@@ -34,6 +34,9 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       const obj = {}
 
       for (const id in topics) {
+        if (!topics.hasOwnProperty(id)) {
+          continue
+        }
         const topic = state[id]
         if (!topic || !topic.isFull) {
           obj[id] = topics[id]
@@ -59,6 +62,9 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       const { topics } = payload.entities
       const obj = {}
       for (const key in topics) {
+        if (!topics.hasOwnProperty(key)) {
+          continue
+        }
         let t = topics[key]
         const ot = state[key]
         t.isFull = true
@@ -80,6 +86,9 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       const { topics } = payload.entities
       const obj = {}
       for (const key in topics) {
+        if (!topics.hasOwnProperty(key)) {
+          continue
+        }
         let t = topics[key]
         const ot = { ...state[key] }
 
@@ -98,13 +107,13 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
     }
 
     case TopicTypes.Comments: {
-      const { result, entities: { comments } } = payload
+      const { result, entities: { comments: comts } } = payload
       if (!result.length) {
         return state
       }
 
       const cid = result[0]
-      const topicID = comments[cid].topicID
+      const topicID = comts[cid].topicID
       let topic = { ...state[topicID] }
       topic.comments = result
       return {
@@ -190,7 +199,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
         [topicID]: topic
       }
     }
-    
+
     case SocketTypes.Answer:
     case TopicTypes.CommentAsAnswer: {
       const { id, answerID, activeAt } = payload
@@ -294,7 +303,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       return {
         ...state,
         [id]: topic
-      }      
+      }
     }
 
     case SocketTypes.Top:
@@ -369,7 +378,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
 const draft = (state: KeyMap = {}, action: Action): KeyMap => {
   const { type, payload } = action
 
-  switch(type) {
+  switch (type) {
     case DraftTypes.Topics: {
       const { entities } = payload
       return {
@@ -409,7 +418,7 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
     return state
   }
 
-  switch(type) {
+  switch (type) {
     case HomeTypes.All:
     case HomeTypes.Dept:
     case HomeTypes.Team:
@@ -422,7 +431,7 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
     case TopicTypes.Update:
     case SocketTypes.PostTopic: {
       const { tags } = payload.entities
-      
+
       if (!tags) {
         return state
       }
@@ -452,7 +461,7 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
 
       return {
         ...state,
-        [id]: payload 
+        [id]: payload
       }
     }
 
@@ -474,7 +483,7 @@ const tags = (state: KeyMap = {}, action: Action): KeyMap => {
 
 const comments = (state: KeyMap = {}, action) => {
   const { type, payload } = action
-  switch(type) {
+  switch (type) {
     case TopicTypes.Comments: {
       const { comments } = payload.entities
       return {
@@ -554,7 +563,7 @@ const comments = (state: KeyMap = {}, action) => {
 
 const replies = (state: KeyMap = {}, action) => {
   const { type, payload } = action
-  switch(type) {
+  switch (type) {
     case TopicTypes.Comments: {
       const { replies } = payload.entities
       return {

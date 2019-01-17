@@ -18,5 +18,5 @@ import { SharedModule } from './shared.module'
   providers: [httpInterceptorProviders]
 })
 export class CoreModule {
-  name = '核心模块';
+  name = '核心模块'
 }

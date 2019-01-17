@@ -9,25 +9,28 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import(/* webpackChunkName: "login" */ './views/login/login.module').then(module => module['LoginModule'], () => { throw({loadChunkError: true})})
+    loadChildren: () => import(/* webpackChunkName: "login" */ './views/login/login.module')
+      .then(module => module['LoginModule'], () => { throw({loadChunkError: true})})
   },
   {
     path: 'topic',
-    loadChildren: () => import(/* webpackChunkName: "topic" */ './views/topic/topic.module').then(module => module['TopicModule'], () => { throw({loadChunkError: true})}),
+    loadChildren: () => import(/* webpackChunkName: "topic" */ './views/topic/topic.module')
+      .then(module => module['TopicModule'], () => { throw({loadChunkError: true})}),
     outlet: 'slide',
     data: {
       preload: true
     }
   },
   {
-    path: '', loadChildren: () => import(/* webpackChunkName: "home" */ './views/layout/layout.module').then(module => module['LayoutModule'], () => { throw({loadChunkError: true})}),
+    path: '', loadChildren: () => import(/* webpackChunkName: "home" */ './views/layout/layout.module')
+      .then(module => module['LayoutModule'], () => { throw({loadChunkError: true})}),
     canLoad: [AuthGuard]
   },
   {
     path: '**',
     redirectTo: '/all'
   }
-];
+]
 
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],

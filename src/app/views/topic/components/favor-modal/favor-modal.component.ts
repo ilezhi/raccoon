@@ -79,7 +79,7 @@ export class FavorModalComponent implements OnInit, OnDestroy {
     }
 
     const isExist = categories.some(c => {
-      return c.name.toLowerCase() === category.toLowerCase()                  
+      return c.name.toLowerCase() === category.toLowerCase()
     })
 
     if (isExist) {

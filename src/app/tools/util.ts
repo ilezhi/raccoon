@@ -9,7 +9,7 @@ export const getPageTopics = (topics: KeyMap, state: PageState, top: PageState):
     ids = top.ids.concat(ids)
   }
 
-  const data: any = ids.map(id => topics[id])    
+  const data: any = ids.map(id => topics[id])
   return {
     ...state,
     data
@@ -27,7 +27,7 @@ export const getNodeCount = (nodes: Array<any>, children: string, count: number 
   }
   for (let i = 0; i < len; i++) {
     const data = nodes[i][children]
-    
+
     if (data) {
       count += getNodeCount(data, children, count)
     }
@@ -60,4 +60,4 @@ export const clearStorage = (key: string): void => {
 export const toFirstUpperCase = (str: string): string => {
   str = 'on' + str.replace(/^\S/, s => s.toUpperCase())
   return str
-}  
+}

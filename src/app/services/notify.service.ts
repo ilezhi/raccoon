@@ -14,7 +14,7 @@ export class NotifyService {
   constructor() {
     this.init()
   }
-  
+
   async init() {
     let granted = (Notification as any).permission
     if (granted === 'default') {
@@ -37,7 +37,7 @@ export class NotifyService {
 
     const { title } = this
 
-    new Notification(title, {
+    return new Notification(title, {
       tag: tag,
       icon: avatar,
       body: body
@@ -81,7 +81,7 @@ export class NotifyService {
     if (user.id !== rid) {
       return
     }
-  
+
     body = `${nickname}回复了您的${tag}<<${title}>>`
 
     return {avatar, body }
@@ -93,7 +93,7 @@ export class NotifyService {
     // 通知回复的人, 和帖子作者
     let body = ''
     const tag = shared ? '分享' : '提问'
-    if (id == receiverID) {
+    if (id === receiverID) {
       body = `${nickname}在<<${title}>>回复了您`
     } else if (id === rid ) {
       body = `您的${tag}<<${title}>>中有新的回复`

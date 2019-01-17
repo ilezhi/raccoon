@@ -45,7 +45,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const { route, ts, us } = this
     const tid = +route.snapshot.paramMap.get('id')
-  
+
     this.tid = tid
     this.sub = ts.topic$(tid).pipe(
       tap(topic => {
@@ -122,7 +122,9 @@ export class DetailComponent implements OnInit, OnDestroy {
 
     ts.postComment(tid, params)
       .subscribe(done => {
-        done && this.toggleComtEditor()
+        if (done) {
+          this.toggleComtEditor()
+        }
       })
   }
 

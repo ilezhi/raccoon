@@ -16,8 +16,8 @@ const initState = {
 
 const draft = (state: PageState = {...initState, ids: []}, action: Action): PageState => {
   const { type, payload } = action
-  
-  switch(type) {
+
+  switch (type) {
     case DraftTypes.Topics: {
       return topicListCase(state, payload)
     }

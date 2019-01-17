@@ -50,8 +50,9 @@ export class SelectedTagComponent implements OnDestroy {
    */
   onSelect(tag: Tag) {
     const item = this.isTagExist(tag.id, this.tags)
-
-    !item && this.tags.push(tag)
+    if (!item) {
+      this.tags.push(tag)
+    }
   }
 
   /**
@@ -95,7 +96,7 @@ export class SelectedTagComponent implements OnDestroy {
 
   /**
    * 本地是否存在tag
-   * @param key 
+   * @param key
    */
   isTagExist(key: number | string, source: Tag[]) {
     if (!source.length) {

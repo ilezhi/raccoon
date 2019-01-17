@@ -37,7 +37,7 @@
       </tr>
     </tbody>
   </table>
-  <footer sentry class="sentry" (load)="loadMore()">
+  <footer appSentry class="sentry" (load)="loadMore()">
     <nz-spin *ngIf="loading; else elseBlock"></nz-spin>
     <ng-template #elseBlock>
       已经到底了

@@ -25,6 +25,6 @@ export class DeptComponent extends TopicList {
     this.ts.getDept(lastID, size)
       .subscribe(_ => {
         this.loading = false
-      }) 
+      })
   }
 }

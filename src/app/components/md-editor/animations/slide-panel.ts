@@ -4,7 +4,7 @@ import {
   style,
   animate,
   transition
-} from '@angular/animations';
+} from '@angular/animations'
 
 export const slidePanel = [
   trigger('statePreview', [
@@ -31,4 +31,4 @@ export const slidePanel = [
     })),
     transition('* <=> *', animate('300ms ease-in'))
   ])
-];
+]

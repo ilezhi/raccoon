@@ -97,7 +97,7 @@ export class UserService {
     const { http, store } = this
     return http.get('user/info').pipe(
       map((res: Res) => {
-        store.dispatch(new UserAction.Info(res.data))     
+        store.dispatch(new UserAction.Info(res.data))
         return true
       }),
       catchError(_ => of(false))

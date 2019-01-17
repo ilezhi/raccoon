@@ -72,7 +72,7 @@ export class CreateComponent implements OnInit {
 
   notify(code) {
     let msg = ''
-    switch(code) {
+    switch (code) {
       case 1:
         msg = '标题不能为空'
         break

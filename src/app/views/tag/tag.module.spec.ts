@@ -1,13 +1,13 @@
-import { TagModule } from './tag.module';
+import { TagModule } from './tag.module'
 
 describe('TagModule', () => {
-  let tagModule: TagModule;
+  let tagModule: TagModule
 
   beforeEach(() => {
-    tagModule = new TagModule();
-  });
+    tagModule = new TagModule()
+  })
 
   it('should create an instance', () => {
-    expect(tagModule).toBeTruthy();
-  });
-});
+    expect(tagModule).toBeTruthy()
+  })
+})

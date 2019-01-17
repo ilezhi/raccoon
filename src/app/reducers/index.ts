@@ -51,7 +51,7 @@ export const getPageState = createSelector(
   (state, data) => {
     let pageState: PageState
     let { page, action } = data
-    
+
     if (!page) {
       return
     }
@@ -64,7 +64,7 @@ export const getPageState = createSelector(
       type = page[1]
       pageState = pageState[type]
     }
-    
+
     return {
       ...pageState,
       type,

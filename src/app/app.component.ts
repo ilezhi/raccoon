@@ -1,9 +1,5 @@
 import { Component } from '@angular/core'
-import { Store } from '@ngrx/store'
-
-import { getState } from './reducers'
 import { Router, NavigationStart, NavigationEnd } from '@angular/router'
-
 import NProgress from 'nprogress'
 
 NProgress.configure({ showSpinner: false })
@@ -14,14 +10,7 @@ NProgress.configure({ showSpinner: false })
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  private name = 'app'
-
-  constructor(store: Store<any>, private router: Router) {
-    store.select(getState)
-      .subscribe(data => {
-        console.log('app', data)
-      })
-
+  constructor(private router: Router) {
     this.router.events.subscribe(ev => {
       if (ev instanceof NavigationStart) {
         NProgress.start()

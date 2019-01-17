@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core'
 
 
-import { EditorService } from '../../services/editor.service';
-import { throttleTime } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { EditorService } from '../../services/editor.service'
+import { throttleTime } from 'rxjs/operators'
+import { Subscription } from 'rxjs'
 
 
 
@@ -13,9 +13,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./panel-view.component.scss']
 })
 export class PanelViewComponent implements OnInit, OnDestroy {
-  data: string;
+  data: string
   sub: Subscription
-  @Input() isParse: boolean;
+  @Input() isParse: boolean
   @Input()
   set content(val) {
     this.data = val
@@ -26,12 +26,12 @@ export class PanelViewComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const { editorService, parseMarkdownToHTML$ } = this;
+    const { editorService, parseMarkdownToHTML$ } = this
     this.sub = editorService.data$
       .pipe(
         throttleTime(50)
       )
-      .subscribe(parseMarkdownToHTML$.bind(this));
+      .subscribe(parseMarkdownToHTML$.bind(this))
   }
 
   ngOnDestroy() {
@@ -40,6 +40,6 @@ export class PanelViewComponent implements OnInit, OnDestroy {
 
   // 编辑区内容改变
   parseMarkdownToHTML$(data: any) {
-    this.data = data.value;
+    this.data = data.value
   }
 }

@@ -1,12 +1,12 @@
-import { Directive, ElementRef, Input, OnInit, HostListener, OnChanges } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, HostListener, OnChanges } from '@angular/core'
 
 @Directive({
-  selector: '[toggle]'
+  selector: '[appToggle]'
 })
 export class ToggleDirective implements OnInit, OnChanges {
   private $dropdown: HTMLElement
 
-  @Input() toggle: number
+  @Input() appToggle: number
 
   constructor(private $el: ElementRef) {}
 

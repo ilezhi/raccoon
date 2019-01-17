@@ -20,7 +20,9 @@ export class TopicComponent implements OnDestroy {
     topicService: TopicService
   ) {
     this.sub = topicService.editor$.subscribe(close => {
-      close && this.onClose()
+      if (close) {
+        this.onClose()
+      }
     })
   }
 

@@ -1,7 +1,7 @@
 import { Directive, ElementRef, EventEmitter, AfterViewInit, OnDestroy,  Output } from '@angular/core'
 
 @Directive({
-  selector: '[sentry]'
+  selector: '[appSentry]'
 })
 export class SentryDirective implements AfterViewInit, OnDestroy {
   private observer: IntersectionObserver

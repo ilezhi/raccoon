@@ -1,6 +1,6 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { toolbar, eventHandle } from '../../config/toolbar';
-import { EditorService }  from '../../services/editor.service';
+import { Component, Output, EventEmitter, Input } from '@angular/core'
+import { toolbar, eventHandle } from '../../config/toolbar'
+import { EditorService }  from '../../services/editor.service'
 
 @Component({
   selector: 'app-toolbar-left',
@@ -10,10 +10,10 @@ import { EditorService }  from '../../services/editor.service';
 export class ToolbarLeftComponent {
   @Input() simple: boolean
 
-  @Output() prev = new EventEmitter();
-  @Output() next = new EventEmitter();
-  @Output() trash = new EventEmitter();
-  @Output() save = new EventEmitter();
+  @Output() prev = new EventEmitter()
+  @Output() next = new EventEmitter()
+  @Output() trash = new EventEmitter()
+  @Output() save = new EventEmitter()
 
   constructor(
     private editorService: EditorService
@@ -21,12 +21,12 @@ export class ToolbarLeftComponent {
 
   onClick(type: string) {
     if (toolbar.hasOwnProperty(type)) {
-      const item: ToolbarItem = toolbar[type];
-      this.editorService.toolbarItemClick(item);
+      const item: ToolbarItem = toolbar[type]
+      this.editorService.toolbarItemClick(item)
     }
 
     if (eventHandle.hasOwnProperty(type)) {
-      this[eventHandle[type]].emit();
+      this[eventHandle[type]].emit()
     }
   }
 }

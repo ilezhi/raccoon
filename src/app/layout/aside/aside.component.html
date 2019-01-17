@@ -24,7 +24,7 @@
         <a routerLink="/solved/question">已解决</a>
       </div>
     </li>
-    <li [toggle]="cCount">
+    <li [appToggle]="cCount">
       <div class="item" routerLinkActive="active">
         <label class="arrow" *ngIf="cCount">
           <i class="anticon anticon-caret-right"></i>
@@ -46,7 +46,7 @@
         <a routerLink="/shared">分享</a>
       </div>
     </li>
-    <li [toggle]="tCount">
+    <li [appToggle]="tCount">
       <div class="item">
         <label class="arrow" *ngIf="tCount">
           <i class="anticon anticon-caret-right"></i>

@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { EditorService } from '../../services/editor.service';
+import { Component, Input } from '@angular/core'
+import { EditorService } from '../../services/editor.service'
 
 @Component({
   selector: 'app-toolbar-right',
@@ -32,36 +32,36 @@ export class ToolbarRightComponent {
    * 网页全屏
    */
   onToggleFullscreen() {
-    const fullscreen = !this.fullscreen;
-    this.fullscreen = fullscreen;
-    this.editorService.toggleFullscreen(fullscreen);
+    const fullscreen = !this.fullscreen
+    this.fullscreen = fullscreen
+    this.editorService.toggleFullscreen(fullscreen)
   }
 
   /**
    * F11效果全屏
    */
   onFullscreen() {
-    const $panel = document.querySelector('.md-editor .panel');
-    $panel.webkitRequestFullscreen();
+    const $panel: any = document.querySelector('.md-editor .panel')
+    $panel.webkitRequestFullscreen()
   }
 
   onTogglePreview() {
-    let { preview, panel } = this;
-    preview ^= 1;
-    this.preview = preview;
-    this.editorService.toggleLayout({panel, preview});
+    let { preview, panel } = this
+    preview ^= 1
+    this.preview = preview
+    this.editorService.toggleLayout({panel, preview})
   }
 
   onTogglePanel() {
-    let { preview, panel } = this;
-    panel ^= 1;
+    let { preview, panel } = this
+    panel ^= 1
 
     if (panel === 0 && preview === 0) {
-      preview = 1;
+      preview = 1
     }
 
-    this.panel = panel;
-    this.preview = preview;
-    this.editorService.toggleLayout({panel, preview});
+    this.panel = panel
+    this.preview = preview
+    this.editorService.toggleLayout({panel, preview})
   }
 }

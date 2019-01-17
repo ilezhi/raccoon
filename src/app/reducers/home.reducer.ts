@@ -17,7 +17,7 @@ import { getTopics } from './entities.reducer'
 const all = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
-  switch(type) {
+  switch (type) {
     case HomeTypes.All: {
       return topicListCase(state, payload)
     }
@@ -99,7 +99,7 @@ const all = (state: PageState, action: Action): PageState => {
 
       let { id, result } = payload
       id = id || result
-      
+
       let ids = append(state.ids, id)
 
       return {
@@ -133,7 +133,7 @@ const all = (state: PageState, action: Action): PageState => {
 const top = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
-  switch(type) {
+  switch (type) {
     case HomeTypes.Top: {
       return topicListCase(state, payload)
     }
@@ -145,7 +145,7 @@ const top = (state: PageState, action: Action): PageState => {
 
       const { id, top } = payload
       let ids = [...state.ids]
- 
+
       if (top) {
         ids.unshift(id)
       } else {
@@ -181,10 +181,6 @@ const top = (state: PageState, action: Action): PageState => {
       }
     }
 
-    case SocketTypes.Top: {
-
-    }
-
     default: {
       return state
     }
@@ -194,7 +190,7 @@ const top = (state: PageState, action: Action): PageState => {
 const awesome = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
-  switch(type) {
+  switch (type) {
     case HomeTypes.Awesome: {
       return topicListCase(state, payload)
     }
@@ -267,11 +263,11 @@ const awesome = (state: PageState, action: Action): PageState => {
 const dept = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
-  switch(type) {
+  switch (type) {
     case HomeTypes.Dept: {
       return topicListCase(state, payload)
     }
- 
+
     case TopicTypes.Post: {
       return topicPostCase(state, payload)
     }
@@ -320,7 +316,7 @@ const dept = (state: PageState, action: Action): PageState => {
 const team = (state: PageState, action: Action): PageState => {
   const { type, payload } = action
 
-  switch(type) {
+  switch (type) {
     case HomeTypes.Team: {
       return topicListCase(state, payload)
     }

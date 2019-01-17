@@ -12,7 +12,7 @@ export class LinkActive implements PipeTransform {
     if (!urls) {
       return false
     }
-    
+
     return urls.includes(val)
   }
 }
