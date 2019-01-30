@@ -60,10 +60,12 @@ export class WSService {
   connect(user) {
     this.user = user
     this.ns.user = user
-    const conn = this.conn = webSocket(`ws://127.0.0.1:9000/ws/${user.id}`)
+    const protocol = window.location.protocol.replace('http', 'ws')
+    const host = window.location.host
+    const conn = this.conn = webSocket(`${protocol}//${host}/ws/${user.id}`)
     conn.pipe(
       catchError(err => {
-        this.connect(this.user)
+        console.log('ws connection failed')
         return of('')
       })
     ).subscribe((res: any) => {

@@ -547,6 +547,7 @@ const comments = (state: KeyMap = {}, action) => {
         return state
       }
       comt = { ...comt }
+      comt.replies = comt.replies || []
       comt.replies = comt.replies.concat(id)
 
       return {

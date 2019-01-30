@@ -5,14 +5,20 @@ import { Directive, ElementRef, EventEmitter, AfterViewInit, OnDestroy,  Output 
 })
 export class SentryDirective implements AfterViewInit, OnDestroy {
   private observer: IntersectionObserver
+  private exist = true
 
   @Output() load = new EventEmitter<void>()
 
   constructor(private el: ElementRef) {}
 
   ngAfterViewInit() {
-    this.observer = new IntersectionObserver(this.sentry.bind(this))
-    this.observer.observe(this.el.nativeElement)
+    try {
+      this.observer = new IntersectionObserver(this.sentry.bind(this))
+      this.observer.observe(this.el.nativeElement)
+    } catch (err) {
+      console.error('您的浏览器还不支持 IntersectionObserver')
+      this.exist = false
+    }
   }
 
   sentry(obj: IntersectionObserverEntry[]) {
@@ -22,6 +28,8 @@ export class SentryDirective implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.observer.disconnect()
+    if (this.exist) {
+      this.observer.disconnect()
+    }
   }
 }
