@@ -27,5 +27,20 @@
     &:hover {
       background: #eee;
     }
+
+    &.save {
+      border: 1px solid #d9d9d9;
+      box-shadow: 0 2px 0 rgba(0,0,0,.045);
+      width: 50px;
+      background-color: #1890ff;
+      border-color: #1890ff;
+      color: #fff;
+      line-height: 1;
+
+      &:hover {
+        background-color: #40a9ff;
+        border-color: #40a9ff;
+      }
+    }
   }
 }
