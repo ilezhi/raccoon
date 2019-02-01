@@ -306,7 +306,6 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
-    case SocketTypes.Top:
     case TopicTypes.Top: {
       const { top, id, activeAt } = payload
       const topic = { ...state[id] }
@@ -331,6 +330,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       }
     }
 
+    case SocketTypes.Top:
     case SocketTypes.Awesome: {
       const { result: id, entities: { topics } } = payload
       let newTopic = topics[id]
@@ -338,6 +338,7 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
       let topic = state[id]
       if (topic) {
         topic = { ...topic }
+        topic.top = newTopic.top
         topic.awesome = newTopic.awesome
         topic.activeAt = newTopic.activeAt
       } else {

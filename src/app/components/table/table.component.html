@@ -1,7 +1,7 @@
 <div class="wrapper">
   <table>
     <tbody>
-      <tr *ngFor="let topic of data">
+      <tr *ngFor="let topic of data; trackBy: trackByFn">
         <td class="user">
           <img class="avatar" [src]="topic.avatar" [alt]="topic.nickname" [title]="topic.nickname">
         </td>

@@ -74,7 +74,7 @@ const all = (state: PageState, action: Action): PageState => {
         return state
       }
 
-      const { result, topics } = payload
+      const { result, entities: { topics } } = payload
       const topic = topics[result]
       let ids = [...state.ids]
 
@@ -164,7 +164,7 @@ const top = (state: PageState, action: Action): PageState => {
         return state
       }
 
-      const { result, topics } = payload
+      const { result, entities: { topics } } = payload
       const topic = topics[result]
       const ids = [...state.ids]
 
@@ -273,7 +273,7 @@ const dept = (state: PageState, action: Action): PageState => {
     }
 
     case SocketTypes.PostTopic: {
-      const { user: { deptID }, result: id, topics } = payload
+      const { user: { deptID }, result: id, entities: { topics } } = payload
       const topic = topics[id]
 
       if (topic.deptID !== deptID) {

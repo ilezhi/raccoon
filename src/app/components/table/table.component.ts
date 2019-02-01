@@ -45,4 +45,8 @@ export class TableComponent {
   loadMore() {
     this.load.emit()
   }
+
+  trackByFn(_, topic: Topic) {
+    return topic.id
+  }
 }
