@@ -72,6 +72,8 @@ export enum TagTypes {
 export enum UserTypes {
   Login = '[Login page] login',
 
+  Logout = '[Logout all] logout ',
+
   Info = '[Home page] info',
 
   PostCategory = '[Detail page] post category',

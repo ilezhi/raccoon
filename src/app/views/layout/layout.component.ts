@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 
 import { WSService } from 'src/app/services/socket.service'
 import { UserService } from 'src/app/services/user.service'
@@ -9,7 +9,7 @@ import { TopicService } from 'src/app/services/topic.service'
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements OnInit, OnDestroy {
 
   constructor(
     private wss: WSService,
@@ -26,6 +26,10 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit() {
     this.us.fetchInfo().subscribe()
+  }
+
+  ngOnDestroy() {
+    this.wss.dispose()
   }
 
   watch() {

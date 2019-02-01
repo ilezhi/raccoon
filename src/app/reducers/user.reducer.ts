@@ -10,6 +10,10 @@ const info = (state = {}, action: Action) => {
       return payload
     }
 
+    case UserTypes.Logout: {
+      return {}
+    }
+
     default: {
       return state
     }

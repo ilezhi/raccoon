@@ -7,6 +7,11 @@ export class Login implements Action {
   constructor(public payload: any) {}
 }
 
+export class Logout implements Action {
+  readonly type = UserTypes.Logout
+  constructor() {}
+}
+
 export class Info implements Action {
   readonly type = UserTypes.Info
   constructor(public payload: any) {}

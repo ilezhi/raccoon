@@ -9,19 +9,20 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http'
 import { Observable, throwError } from 'rxjs'
-import { map, catchError, retry, tap } from 'rxjs/operators'
+import { catchError, tap } from 'rxjs/operators'
 import { NzMessageService } from 'ng-zorro-antd'
 
 import { Router } from '@angular/router'
 import { API_HOST } from './global.config'
-import * as utils from '../tools/util'
+import { UserService } from 'src/app/services/user.service'
 
 // 请求, 响应拦截器
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
   constructor(
     private message: NzMessageService,
-    private router: Router
+    private router: Router,
+    private us: UserService
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -52,7 +53,7 @@ export class RequestInterceptor implements HttpInterceptor {
             msg = error.message
 
             if ((error as any).code === 401) {
-              utils.clearStorage('user')
+              this.us.logout()
               this.router.navigate(['/login'])
             }
           }

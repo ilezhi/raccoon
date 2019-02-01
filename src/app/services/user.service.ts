@@ -86,6 +86,11 @@ export class UserService {
     )
   }
 
+  logout(): void {
+    this.store.dispatch(new UserAction.Logout())
+    utils.clearStorage('user')
+  }
+
   signup(data: any): Observable<boolean> {
     return this.http.post('signup', data).pipe(
       map(_ => true),

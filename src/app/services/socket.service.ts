@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core'
 import { webSocket } from 'rxjs/webSocket'
-import { Observable, Subject, of } from 'rxjs'
+import { Observable, Subject, of, interval, timer, Subscription } from 'rxjs'
+import { catchError } from 'rxjs/operators'
 
 import * as utils from '../tools/util'
 import { NotifyService } from './notify.service'
-import { catchError } from 'rxjs/operators'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,6 +21,9 @@ export class WSService {
 
   private conn: any
   private user: User
+  private count = 0
+
+  private subConn: Subscription
 
   get topic$(): Observable<Topic> {
     return this.topic.asObservable()
@@ -57,23 +61,24 @@ export class WSService {
     private ns: NotifyService
   ) {}
 
-  connect(user) {
+  connect(user: User) {
     this.user = user
     this.ns.user = user
     const protocol = window.location.protocol.replace('http', 'ws')
     const host = window.location.host
     const conn = this.conn = webSocket(`${protocol}//${host}/ws/${user.id}`)
-    conn.pipe(
+
+    this.subConn = conn.pipe(
       catchError(err => {
-        console.log('ws connection failed')
-        return of('')
+        console.log('ws connection failed.')
+        this.connectionRetry()
+        return of('error')
       })
     ).subscribe((res: any) => {
-      if (typeof res === 'string') {
+      if (res === 'error') {
         return
       }
       const { data, type, tag } = res
-
       if (tag === 'heartbeat') {
         return
       }
@@ -81,16 +86,48 @@ export class WSService {
       const handle = utils.toFirstUpperCase(type)
       this[handle](data)
     })
+  
+    const sub2 = this.conn.multiplex(
+      () => ({tag: 'heartbeat', text: 'ping'}),
+      () => ({tag: 'heartbeat'}),
+      (message: any) => message.tag === 'heartbeat'
+    ).subscribe(_ => {
+      if (this.count != 0) {
+        this.count = 0
+      }
+    })
 
-    // const heartbeat$ = conn.multiplex(
-    //   () => ({tag: 'heartbeat', text: 'ping'}),
-    //   () => ({tag: 'heartbeat'}),
-    //   (message: any) => message.tag === 'heartbeat'
-    // )
+    this.subConn.add(sub2)
+    this.heartbeatStart()
+  }
 
-    // heartbeat$.subscribe(message => {
-    //   console.log('aaabbb', message)
-    // })
+  // 断线重连
+  connectionRetry(maxRetryCount = 3, duration = 10000) {
+    this.subConn.unsubscribe()
+    const n = this.count
+    if (n > maxRetryCount) {
+      return
+    }
+
+    const t = n * n * duration
+    this.count = n + 1
+    timer(t).subscribe(_ => {
+      this.connect(this.user)
+    })
+  }
+
+  // 心跳检测, 用于保持连接
+  heartbeatStart(duration = 30000) {
+    const sub = interval(duration)
+      .subscribe(_ => {
+        this.conn.next('ping')
+      })
+
+    this.subConn.add(sub)
+  }
+
+  dispose() {
+    this.subConn.unsubscribe()
   }
 
   onTopic(topic: Topic) {
