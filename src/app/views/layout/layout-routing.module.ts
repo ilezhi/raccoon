@@ -28,7 +28,8 @@ const routes: Routes = [
           .then(module => module['CollectionModule'], () => { throw({loadChunkError: true})})
       },
       {
-        path: 'project', loadChildren: '../project/project.module#ProjectModule'
+        path: 'project',
+        loadChildren: '../project/project.module#ProjectModule'
       },
       {
         path: 'shared',
@@ -41,7 +42,8 @@ const routes: Routes = [
           .then(module => module['TagModule'], () => { throw({loadChunkError: true})})
       },
       {
-        path: 'draft', loadChildren: '../draft/draft.module#DraftModule'
+        path: 'draft',
+        loadChildren: '../draft/draft.module#DraftModule'
       }
     ]
   }

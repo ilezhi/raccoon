@@ -26,7 +26,7 @@ export class UserService {
     return this.store.pipe(
       select(getInfo),
       map(user => {
-        if (!user.id) {
+        if (!user || !user.id) {
           const info = utils.storage('user')
           this.store.dispatch(new UserAction.Login(info))
           return

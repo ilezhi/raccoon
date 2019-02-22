@@ -249,7 +249,8 @@ export class TopicService {
   }
 
   dispatchAwesome(topic: Topic) {
-    const result = normalize(topic, topicSchema)
+    const result: MySchema = normalize(topic, topicSchema)
+    result.top = topic.top
     this.store.dispatch(new SocketAction.Awesome(result))
   }
 

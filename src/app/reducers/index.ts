@@ -1,4 +1,4 @@
-import { ActionReducerMap, createSelector } from '@ngrx/store'
+import { ActionReducerMap, createSelector, MetaReducer } from '@ngrx/store'
 import { routerReducer } from '@ngrx/router-store'
 
 import entities, { getTopics } from './entities.reducer'
@@ -11,7 +11,8 @@ import draftReducer from './draft.reducer'
 import tagReducer from './tag.reducer'
 import user from './user.reducer'
 
-export const appReducer: ActionReducerMap<any, any> = {
+
+export const appReducer: ActionReducerMap<any> = {
   entities,
   user,
   router: routerReducer
@@ -24,8 +25,7 @@ export {
   collectionReducer,
   sharedReducer,
   draftReducer,
-  tagReducer,
-  // projectReducer,
+  tagReducer
 }
 
 export const getState = (state) => {

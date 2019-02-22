@@ -1,4 +1,4 @@
-import { combineReducers, createSelector } from '@ngrx/store'
+import { combineReducers, ActionReducer, createSelector } from '@ngrx/store'
 
 import * as moment from 'moment'
 
@@ -16,7 +16,6 @@ import {
 
 const topics = (state: KeyMap = {}, action: Action): KeyMap => {
   const { type, payload } = action
-
   switch (type) {
     case HomeTypes.All:
     case HomeTypes.Dept:
@@ -67,6 +66,9 @@ const topics = (state: KeyMap = {}, action: Action): KeyMap => {
         }
         let t = topics[key]
         const ot = state[key]
+        if (!ot) {
+          continue
+        }
         t.isFull = true
         t.lastNickname = ot.lastNickname
         t.lastAvatar = ot.lastAvatar
@@ -599,7 +601,8 @@ const replies = (state: KeyMap = {}, action) => {
 }
 
 export const getTopics = (state) => {
-  return state.entities.topics
+  const { entities = {} } = state
+  return entities.topics
 }
 
 export const getComments = (state) => {
@@ -660,4 +663,6 @@ export const getCommentsByTopicID = id => createSelector(
   }
 )
 
-export default combineReducers({topics, draft, tags, comments, replies})
+const reducer: ActionReducer<any, Action> = combineReducers({topics, draft, tags, comments, replies})
+
+export default reducer

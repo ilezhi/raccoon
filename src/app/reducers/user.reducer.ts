@@ -146,15 +146,18 @@ const tags = (state = [], action: Action) => {
 }
 
 export const getInfo = state => {
-  return state.user.info
+  const { user = {} } = state
+  return user.info
 }
 
 export const getTags = (state) => {
-  return state.user.tags
+  const { user = {} } = state
+  return user.tags || []
 }
 
 export const getCategories = state => {
-  return state.user.category
+  const { user = {} } = state
+  return user.category || []
 }
 
 export const getCategoryByName = (name: string) => createSelector(

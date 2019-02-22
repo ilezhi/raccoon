@@ -13,9 +13,11 @@ import { appReducer } from './reducers'
   ],
   imports: [
     CoreModule,
-    StoreModule.forRoot(appReducer),
-    StoreRouterConnectingModule.forRoot(),
     AppRoutingModule,
+    StoreModule.forRoot(appReducer, {
+      initialState: {}
+    }),
+    StoreRouterConnectingModule.forRoot(),
   ],
   bootstrap: [AppComponent]
 })

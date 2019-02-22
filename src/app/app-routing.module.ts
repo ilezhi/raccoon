@@ -22,7 +22,8 @@ const routes: Routes = [
     }
   },
   {
-    path: '', loadChildren: () => import(/* webpackChunkName: "home" */ './views/layout/layout.module')
+    path: '',
+    loadChildren: () => import(/* webpackChunkName: "home" */ './views/layout/layout.module')
       .then(module => module['LayoutModule'], () => { throw({loadChunkError: true})}),
     canLoad: [AuthGuard]
   },

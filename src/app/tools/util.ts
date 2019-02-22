@@ -1,5 +1,5 @@
 export const getPageTopics = (topics: KeyMap, state: PageState, top: PageState): PageState => {
-  if (!state) {
+  if (!state || !topics) {
     return
   }
 

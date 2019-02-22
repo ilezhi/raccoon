@@ -6,7 +6,8 @@
     "start": "ng serve",
     "dev": "ng serve --proxy-config proxy.config.json --hmr",
     "hmr": "ng serve --proxy-config proxy.config.json --configuration hmr",
-    "build": "ng build --output-hashing=all",
+    "build": "ng build --optimization --output-hashing=all",
+    "nginx": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

@@ -35,7 +35,11 @@ const all = (state: PageState, action: Action): PageState => {
         return
       }
 
-      const { topicID } = payload
+      const { topicID, top } = payload
+      if (top) {
+        return state
+      }
+
       let ids = append(state.ids, topicID)
       return {
         ...state,
@@ -97,7 +101,11 @@ const all = (state: PageState, action: Action): PageState => {
         return state
       }
 
-      let { id, result } = payload
+      let { id, result, top } = payload
+      if (top) {
+        return state
+      }
+
       id = id || result
 
       let ids = append(state.ids, id)
@@ -116,6 +124,9 @@ const all = (state: PageState, action: Action): PageState => {
 
       let data: Comment | Reply = payload.comment || payload.reply
       const id = data.topicID
+      if (data.top) {
+        return state
+      }
 
       let ids = append(state.ids, id)
       return {
@@ -158,6 +169,46 @@ const top = (state: PageState, action: Action): PageState => {
         ids
       }
     }
+
+    case SocketTypes.Answer:
+    case TopicTypes.CommentAsAnswer:
+    case TopicTypes.PostComment:
+    case TopicTypes.PostReply: {
+      if (!state) {
+        return
+      }
+
+      const { topicID, top } = payload
+      if (!top) {
+        return state
+      }
+
+      let ids = append(state.ids, topicID)
+      return {
+        ...state,
+        ids
+      }
+    }
+
+    case SocketTypes.Reply:
+    case SocketTypes.Comment: {
+      if (!state) {
+        return state
+      }
+
+      let data: Comment | Reply = payload.comment || payload.reply
+      const id = data.topicID
+      if (!data.top) {
+        return state
+      }
+
+      let ids = append(state.ids, id)
+      return {
+        ...state,
+        ids
+      }
+    }
+
 
     case SocketTypes.Top: {
       if (!state) {
